@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1 onclick="goHome()" class="back-home">Моделі кольорів</h1>
+    </header>
+
+    <main>
+      <div class="layout">
+        <div class="back-button-container left-left-panel">
+          <button class="button back-button" onclick="goHome()">
+            ⬅ Головне меню
+          </button>
+        </div>
+
+        <div class="left-panel">
+          <div class="settings-container">
+            <h2>Оберни та з'єднай</h2>
+
+            <!-- Вибір рівня -->
+            <h3>Рівень гри</h3>
+            <div class="card-options" id="difficulty-options">
+              <div class="option-card" data-value="easy">Легкий</div>
+              <div class="option-card" data-value="medium">Середній</div>
+              <div class="option-card" data-value="hard">Складний</div>
+            </div>
+
+            <!-- Вибір теми -->
+            <h3>Вибір картинки (тема)</h3>
+            <div class="card-options" id="theme-options">
+              <div class="image-card" data-value="hamster_1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster_1.png?alt=media&token=fc174733-e0e2-44ba-8c47-8a076715c203" alt="Hamster 1" />
+              </div>
+              <div class="image-card" data-value="hamster_2">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster_2.png?alt=media&token=bdf3d6f7-0b99-4eaf-82e1-95de72f57666" alt="Hamster 2" />
+              </div>
+              <div class="image-card" data-value="hamster_3">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster_3.png?alt=media&token=9830a39d-d60c-4753-9fc7-a8307447f75b" alt="Hamster 3" />
+              </div>
+              <div class="image-card" data-value="hamster_4">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster_4.png?alt=media&token=af5570a8-3c24-4a14-9c11-21f897f47991" alt="Hamster 4" />
+              </div>
+              <div class="image-card" data-value="hamster_5">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster_5.png?alt=media&token=ae3368e9-cad8-4fed-839d-2eb0d4f11840" alt="Hamster 5" />
+              </div>
+            </div>
+
+            <button onclick="GoToGame()" class="start-game-btn">
+              Почати гру
+            </button>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <!-- Інструкція -->
+          <div
+            class="card instruction-card"
+            onclick="this.classList.toggle('flipped')"
+          >
+            <div class="card-front">ℹ Інструкція</div>
+            <div class="card-back">
+              <p>
+                Знайдіть пари карток, де
+                <strong>колір на одній</strong> відповідає
+                <strong>текстовому значенню кольору</strong> на іншій.
+                <br /><br />
+                Наприклад: червоний фон може відповідати значенню
+                <code>rgb(255, 0, 0)</code>, <code>hsl(0, 100%, 50%)</code> або
+                <code>#ff0000</code> — залежно від обраної моделі кольору.
+                <br /><br />
+                1. Виберіть рівень складності та модель кольору (RGB, HSL
+                тощо).<br />
+                2. Натисніть кнопку <strong>"Почати гру"</strong>.<br />
+                3. Переверніть дві картки. Якщо вони співпадають — вони
+                залишаться відкритими.
+                <br /><br />
+                Знайдіть усі пари, щоб виграти!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script src="js/goHome.js"></script>
+  <script src="js/main.js"></script>
+</html>

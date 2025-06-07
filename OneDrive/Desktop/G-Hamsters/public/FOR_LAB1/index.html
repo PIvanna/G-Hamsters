@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <header>
+       
+        <h1 onclick="goHome()" class="back-home">Векторна графіка. Canvas</h1>
+    </header>
+ 
+    <main>
+            <div class="back-button-container">
+    <button class="button back-button" onclick="goHome()"> ⬅ Головне меню </button>
+</div>
+       <div class="work-area">
+        <div id="tests-container-header">
+            Завдання
+        </div>
+        <div class="tests-container" id="tests-container">
+            <div class="task-game">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhouse.png?alt=media&token=222ea538-215f-4d63-ab54-438713e608c7" alt="House" class="task-game-img">
+            
+                <div class="task-game-content">
+                    <div class="task-game-header">
+                        <div class="task-game-info">
+                            <h3 class="task-game-title">Будиночок</h3>
+                            <div class="task-game-stars">
+                                <span class="star">★</span>
+                                <span class="star inactive">★</span>
+                                <span class="star inactive">★</span>
+                            </div>
+                        </div>
+                        <button class="button" onclick="startTest('test1')">Почати</button>
+                    </div>
+                </div>
+            </div>
+            
+            
+           
+ <div class="task-game">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhouse_pro.png?alt=media&token=d24c4c92-9533-40d7-9888-b00cf69ccdfa" alt="House" class="task-game-img">
+            
+                <div class="task-game-content">
+                    <div class="task-game-header">
+                        <div class="task-game-info">
+                            <h3 class="task-game-title">Будиночок Pro</h3>
+                            <div class="task-game-stars">
+                                <span class="star">★</span>
+                                <span class="star ">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <button class="button" onclick="startTest('test2')">Почати</button>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+            <div class="task-game">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fboat.png?alt=media&token=ed3b375e-9caa-440c-8927-2776704a7338" alt="House" class="task-game-img">
+            
+                <div class="task-game-content">
+                    <div class="task-game-header">
+                        <div class="task-game-info">
+                            <h3 class="task-game-title">Кораблик</h3>
+                            <div class="task-game-stars">
+                                <span class="star">★</span>
+                                <span class="star ">★</span>
+                                <span class="star inactive">★</span>
+                            </div>
+                        </div>
+                        <button class="button" onclick="startTest('test3')">Почати</button>
+                    </div>
+                </div>
+            </div>
+           
+           
+        </div>
+       </div>
+
+       <div class="hamster-run-container">
+       <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fhamster.gif?alt=media&token=c0bf9137-e13c-4105-a281-157a52d9f095" alt="hamster" id="hamster-gif">
+       </div>
+
+    </main>
+
+
+</body>
+<script src="js/main.js"></script>
+<script src="js/goHome.js"></script>
+
+</html>

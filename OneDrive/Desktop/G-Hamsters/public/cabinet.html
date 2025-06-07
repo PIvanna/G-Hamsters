@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G-Hamsters</title>
+    <link rel="stylesheet" href="./styles/cabinet.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div class="segment-wraper">
+      <div class="page-wrapper">
+        <div class="header-title">
+          <h3>Особистий кабінет</h3>
+        </div>
+
+        <div class="content-area">
+          <div class="profile-container">
+
+            <section class="info-section">
+              <h2>Мій профіль</h2>
+              <form>
+                <div class="form-group">
+                  <label for="name">Ім'я</label>
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value="Name"
+                      oninput="checkUserName(this)"
+                    />
+                    <button type="button" class="edit-btn" id="edit-name-btn">
+                      Редагувати
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="surname">Прізвище</label>
+                  <div class="input-wrapper">
+                    <input
+                      type="text"
+                      id="surname"
+                      name="surname"
+                      value="Surname"
+                      oninput="checkUserSurname(this)"
+                    />
+                    <button
+                      type="button"
+                      class="edit-btn"
+                      id="edit-surname-btn"
+                    >
+                      Редагувати
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Номер телефону</label>
+                  <div class="input-wrapper">
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value="+380123456789"
+                      oninput="checkPhoneNumber(this)"
+                    />
+                    <button type="button" class="edit-btn" id="edit-phone-btn">
+                      Редагувати
+                    </button>
+                  </div>
+                </div>
+
+                <p id="error-text"></p>
+
+                <button type="button" class="change-password-btn">
+                  Змінити пароль
+                </button>
+              </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="change-password-modal" class="modal">
+      <div class="modal-content">
+        <h2>Зміна пароля</h2>
+        <label for="current-password">Поточний пароль</label>
+        <input
+          type="password"
+          id="current-password"
+          placeholder="Введіть поточний пароль"
+        />
+
+        <label for="new-password">Новий пароль</label>
+        <input
+          type="password"
+          id="new-password"
+          placeholder="Введіть новий пароль"
+          oninput="checkPassword(this)"
+        />
+        <p id="error_text_main"></p>
+        <div class="modal-buttons">
+          <button id="confirm-password-change">Змінити</button>
+          <button id="cancel-password-change">Відмінити</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="segment-wraper">
+      <div class="learning-pace-card">
+        <h2 class="card-title">
+          <span class="emoji">🚀</span> Ваш Темп Навчання
+        </h2>
+        <p class="card-subtitle">
+          Виберіть темп навчання, який підходить саме вам.
+        </p>
+        <div class="pace-options">
+          <div class="pace-option" data-temp="slow">
+            <span class="emoji">🐌</span>
+            <span class="pace-option-text">Розмірений</span>
+          </div>
+          <div class="pace-option selected" data-temp="normal">
+            <span class="emoji">🐕</span>
+            <span class="pace-option-text">Нормальний</span>
+          </div>
+          <div class="pace-option" data-temp="fast">
+            <span class="emoji">🐆</span>
+            <span class="pace-option-text">Прискорений</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="segment-wraper">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <span class="icon-bar bar1"></span>
+            <span class="icon-bar bar2"></span>
+            <span class="icon-bar bar3"></span>
+          </div>
+          <h1 class="card-title">Моя Успішність</h1>
+        </div>
+
+        <div class="main-content">
+          <div class="top-section">
+            <div class="progress-circle-container">
+              <svg class="progress-ring" viewBox="0 0 100 100">
+                <circle
+                  class="progress-ring__track"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                ></circle>
+                <circle
+                  class="progress-ring__progress"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  id="progressCircle"
+                ></circle>
+              </svg>
+              <div class="progress-text">0%</div>
+            </div>
+          </div>
+
+          <div class="bottom-section">
+            <div class="chart-container bar-chart-container">
+              <h2 class="chart-title">Прогрес за модулями</h2>
+              <div class="bar-chart-area">
+                <div class="bar-chart-y-axis">
+                  <span>0</span><span>20</span><span>60</span><span>100</span>
+                </div>
+                <div class="bars-wrapper">
+                  <div class="bar-chart-grid-lines">
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                  </div>
+                  <div
+                    class="bar"
+                    style="height: 65%; background-color: #4a90e2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="height: 80%; background-color: #50e3c2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="height: 58%; background-color: #f5a623"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="height: 20%; background-color: #d0021b"
+                  ></div>
+                  <!-- П’ятий модуль -->
+                  <div
+                    class="bar"
+                    style="height: 72%; background-color: #9013fe"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="chart-container line-chart-container">
+              <h2 class="chart-title">Активність за тиждень</h2>
+              <div class="line-chart-area">
+                <div class="line-chart-y-axis">
+                  <span style="font-size: 22px;">0</span>
+                  <span style="font-size: 22px;">5</span>
+                  <span style="font-size: 22px;">10</span>
+                  <span style="font-size: 22px;">15</span>
+                  <span style="font-size: 22px;">20</span>
+                  <span style="font-size: 22px;">25</span>
+                </div>
+
+                <div class="line-chart-svg-wrapper">
+                  <div class="line-chart-grid-lines">
+                    <div class="grid-line"></div>
+                    <div class="grid-line"></div>
+                  </div>
+                  <svg
+                    class="line-chart-svg"
+                    viewBox="0 0 100 50"
+                    preserveAspectRatio="none"
+                  >
+                    <!-- Data points (x,y): (0,45), (20,35), (40,40), (60,20), (80,30), (100,25)
+                                     Y is inverted: 0 is top, 50 is bottom. So 45 means 50-45 = 5 from top.
+                                     Points are (x, 50-value)
+                                     (0, 50-5=45), (20, 50-15=35), (40, 50-30=20), (60, 50-15=35), (80, 50-25=25), (100,50-30=20)
+                                     Adjusted values to match image:
+                                     Val: 5, 10, 28, 15, 25 -> Y: 45, 40, 22, 35, 25
+                                     Points for polyline and circles:
+                                     P1: x=5,  y=45 (val 5)
+                                     P2: x=25, y=40 (val 10)
+                                     P3: x=50, y=22 (val 28)
+                                     P4: x=75, y=35 (val 15)
+                                     P5: x=95, y=25 (val 25)
+                                -->
+
+                    <polyline
+                      class="line"
+                      points="5,45 25,40 50,22 75,35 95,25"
+                    />
+                    <circle class="point" cx="5" cy="45" r="2.5" />
+                    <circle class="point" cx="25" cy="40" r="2.5" />
+                    <circle class="point" cx="50" cy="22" r="2.5" />
+                    <circle class="point" cx="75" cy="35" r="2.5" />
+                    <circle class="point" cx="95" cy="25" r="2.5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="segment-wraper">
+  <div class="leaderboard-card">
+    <header class="card-header">
+      <span class="header-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"
+          />
+        </svg>
+      </span>
+      <h1>Рейтинги Гравців</h1>
+    </header>
+
+    <div class="tabs-container">
+      <button class="tab-button active">Загальний</button>
+      <button class="tab-button inactive">Модуль 1</button>
+      <button class="tab-button inactive">Модуль 2</button>
+      <button class="tab-button inactive">Модуль 3</button>
+      <button class="tab-button inactive">Модуль 4</button>
+      <button class="tab-button inactive">Модуль 5</button>
+    </div>
+
+    <table class="leaderboard-table">
+      <thead>
+        <tr>
+          <th class="rank-col">#</th>
+          <th class="player-col">Гравець (нік/ім'я)</th>
+          <th class="score-col">Рахунок/Прогрес</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank-col">1</td>
+          <td class="player-col">Superstar</td>
+          <td class="score-col">1564</td>
+        </tr>
+        <tr class="highlighted">
+          <td class="rank-col">2</td>
+          <td class="player-col">Username</td>
+          <td class="score-col">1420</td>
+        </tr>
+        <tr>
+          <td class="rank-col">3</td>
+          <td class="player-col">Player123</td>
+          <td class="score-col">1350</td>
+        </tr>
+        <tr>
+          <td class="rank-col">4</td>
+          <td class="player-col">CoolDude</td>
+          <td class="score-col">1328</td>
+        </tr>
+        <tr>
+          <td class="rank-col">5</td>
+          <td class="player-col">Anna</td>
+          <td class="score-col">1205</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  </body>
+  <script type="module" src="./js/cabinet.js"></script>
+  <script>
+    // const progressCircle = document.getElementById("progressCircle");
+    // const radius = progressCircle.r.baseVal.value;
+    // const circumference = 2 * Math.PI * radius;
+    // const percentage = 75;
+
+    // progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+
+    // function setProgress(percent) {
+    //   const offset = circumference - (percent / 100) * circumference;
+    //   progressCircle.style.strokeDashoffset = offset;
+    // }
+
+    // setProgress(percentage);
+  </script>
+  <script src="./js/components.js"></script>
+</html>

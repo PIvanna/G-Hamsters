@@ -1,0 +1,342 @@
+:root {
+  --primary-bg: #0a192f; /* Дуже темний синій */
+  --secondary-bg: #172a45; /* Темніший синій для панелей */
+  --accent-color: #64ffda; /* Бірюзовий/М'ятний */
+  --text-color: #ccd6f6; /* Світло-блакитний/сірий для тексту */
+  --text-secondary-color: #8892b0; /* Більш сірий текст */
+  --grid-color: rgba(100, 255, 218, 0.1); /* Прозора сітка */
+  --highlight-color: #ff69b4; /* Рожевий для акцентів на фігурі, як на прикладі */
+  --input-bg: #0e223a;
+  --border-color: #233554;
+
+  /* Scrollbar Variables for Dark Theme */
+  --scrollbar-track-bg: var(--primary-bg);
+  --scrollbar-thumb-bg: var(--text-secondary-color);
+  --scrollbar-thumb-hover-bg: var(--accent-color);
+    --rotation-center-marker-color: yellow;
+}
+
+html.light-theme { /* Змінено селектор з body.light-theme на html.light-theme */
+  --primary-bg: #f4f6f8; /* Very light grey */
+  --secondary-bg: #ffffff; /* White */
+  --accent-color: #007bff; /* Standard Blue */
+  --text-color: #212529; /* Dark grey, almost black */
+  --text-secondary-color: #6c757d; /* Grey for less important text */
+  --grid-color: rgba(0, 0, 0, 0.15); /* Light black grid lines */
+  --highlight-color: #e83e8c; /* Bootstrap pink/rose for path waypoints */
+  --input-bg: #e9ecef; /* Light grey for input backgrounds */
+  --border-color: #ced4da; /* Lighter grey for borders */
+
+  /* Scrollbar Variables for Light Theme */
+  --scrollbar-track-bg: #e9ecef;
+  --scrollbar-thumb-bg: #adb5bd;
+  --scrollbar-thumb-hover-bg: #007bff;
+
+   --rotation-center-marker-color: orange;
+}
+
+
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex; 
+  justify-content: center;
+}
+
+#app-container {
+  width: 100%;
+  max-width: 1200px; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: var(--accent-color);
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+#top-controls {
+  background-color: var(--secondary-bg);
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around; 
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-group span {
+  color: var(--text-secondary-color);
+  font-size: 0.9em;
+}
+
+#main-content {
+  display: flex;
+  gap: 20px;
+}
+
+#controls {
+  background-color: var(--secondary-bg);
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
+  width: 300px;
+  border: 1px solid var(--border-color);
+  max-height: calc(700px + 40px); 
+  overflow-y: auto; 
+}
+
+#controls div { /* General styling for control sections */
+  display: flex;
+  flex-direction: column; 
+  gap: 5px;
+}
+
+#controls div > div { /* For rows of inputs like X1, Y1 */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+#controls div > div input {
+  flex: 1; 
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-secondary-color);
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 100%; 
+  padding: 8px 10px;
+  margin-bottom: 0; 
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+input[type="number"].inline-input {
+  width: 60px; 
+}
+
+.control-button {
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--primary-bg); 
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.control-button:hover:not(:disabled) {
+  background-color: hsl(160, 100%, 65%); 
+}
+
+/* Light Theme Button Styles */
+html.light-theme .control-button { /* Змінено селектор */
+  background-color: var(--accent-color); 
+  color: #ffffff; 
+}
+html.light-theme .control-button:hover:not(:disabled) { /* Змінено селектор */
+  background-color: #0056b3; 
+}
+
+
+.control-button:disabled {
+    background-color: var(--text-secondary-color) !important;
+    color: var(--primary-bg) !important; 
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+
+.icon-button {
+  font-size: 1.5em; 
+  padding: 8px 12px;
+  text-transform: none; 
+}
+.file-icon {
+}
+
+canvas#mainCanvas {
+  border: 1px solid var(--border-color);
+  width: 700px;
+  height: 700px;
+}
+
+#messages {
+  margin-top: 10px;
+  font-size: 0.9em;
+  padding: 10px;
+  background-color: var(--input-bg); 
+  border: 1px solid var(--border-color); 
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#matrix-display-container {
+  margin-top: 15px;
+  color: var(--text-secondary-color);
+}
+#matrix-display {
+  margin-top: 5px;
+  font-family: monospace;
+  white-space: pre;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 4px;
+  overflow-x: auto; 
+}
+
+hr.separator {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 15px 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-bg);
+}
+
+#align-square-btn {
+    font-size: 0.8em; 
+    padding: 8px 10px; 
+    text-transform: none; 
+}
+
+#path-controls p { 
+    color: var(--text-secondary-color);
+    font-size: 0.9em;
+}
+
+/* Shape Selector Styles */
+#shape-selector {
+    display: grid !important;
+    /* Aim for 6-7 icons. If #controls is ~300px wide, and #shape-selector has 5px padding,
+       content area is ~290px.
+       For 7 icons: (290px - 6*3px_gap) / 7_icons = ~38.8px per button.
+       For 8 icons: (290px - 7*3px_gap) / 8_icons = ~33.6px per button.
+       Let's use minmax(34px, 1fr) for flexibility.
+    */
+    grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+    gap: 3px; /* Smaller gap between icons */
+    padding: 5px; /* Padding for the shape-selector container itself */
+    background-color: var(--input-bg); /* Background for the whole selector panel */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    /* Max height for approx 3 rows of ~34-38px buttons:
+       3 * ~36px (avg button height) + 2 * 3px (gaps) + 2 * 5px (container padding) = 108 + 6 + 10 = ~124px
+    */
+    max-height: 125px;
+    margin-top: 5px; /* Space below "Shapes" heading */
+}
+
+.shape-btn {
+    background-color: transparent; /* Button itself is transparent */
+    border: 1px solid transparent; /* Transparent border, becomes visible on hover/active */
+    padding: 4px; /* Padding INSIDE the button, around the SVG icon */
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, border-color 0.2s;
+    aspect-ratio: 1 / 1; /* CRITICAL to keep buttons square */
+}
+
+.shape-btn svg {
+    width: 100%; /* SVG will fill the space defined by button size minus padding */
+    height: 100%;
+    /* stroke-width in SVGs (e.g., "2") is relative to their 24x24 viewBox.
+       If SVG rendered at ~26px (34px button - 2*4px padding), stroke is (2 * 26/24) = ~2.1px, which is good.
+    */
+    stroke: var(--text-color); /* Default icon stroke color (light for dark theme) */
+    fill: none; /* Default for outline icons; filled icons in SVG string will override */
+    transition: stroke 0.2s;
+}
+
+.shape-btn:hover {
+    background-color: var(--secondary-bg); /* Darker background on hover */
+    border-color: var(--border-color); /* Make border visible */
+}
+.shape-btn:hover svg {
+    stroke: var(--accent-color); /* Accent color for icon stroke on hover */
+}
+
+.shape-btn.active {
+    background-color: var(--secondary-bg); /* Same as hover */
+    border-color: var(--accent-color); /* Accent color for border when active */
+    /* box-shadow: 0 0 3px var(--accent-color); Removed for cleaner look, border is enough */
+}
+.shape-btn.active svg {
+    stroke: var(--accent-color); /* Accent color for icon stroke when active */
+}
+
+/* Slimmer scrollbar for shape selector (ensure this is present) */
+#shape-selector::-webkit-scrollbar {
+  width: 5px;
+}
+#shape-selector::-webkit-scrollbar-track {
+  background: var(--input-bg); /* Match selector background */
+}
+#shape-selector::-webkit-scrollbar-thumb {
+  background: var(--text-secondary-color);
+  border-radius: 2px;
+}
+#shape-selector::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+
+#controls div input[type="checkbox"] {
+  width: auto; /* Override the 100% width for checkboxes */
+  margin-right: 8px;
+}
+#controls div label[for="enable-affine-scaling-cb"] {
+  display: inline; /* Allow label to be next to checkbox */
+  margin-bottom: 0; /* Remove bottom margin if label is block */
+}

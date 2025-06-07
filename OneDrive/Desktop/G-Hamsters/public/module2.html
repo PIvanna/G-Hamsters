@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/module.css" />
+    <style>
+      .ai-prompt-container {
+        border: 1px dashed #ccc;
+        padding: 10px;
+        margin: 15px 0;
+        background-color: #f9f9f9;
+      }
+      .ai-prompt-container img {
+        display: block;
+        margin: 0 auto 10px auto;
+        max-width: 80%;
+        border: 1px solid #eee;
+      }
+      .ai-prompt-caption {
+        font-style: italic;
+        font-size: 0.9em;
+        color: #555;
+        text-align: center;
+      }
+      .placeholder-text {
+        font-weight: bold;
+        color: #d9534f;
+        text-align: center;
+        margin-top: 5px;
+      }
+      .formula {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f0f0f0;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: inline-block;
+        margin: 5px 0;
+      }
+      .formula-block {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 4px;
+        display: block;
+        margin: 10px 0;
+        white-space: pre;
+        overflow-x: auto;
+      }
+
+      img{
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <div class="module-wraper">
+      <h3>
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2Fcurve.png?alt=media&token=dff286fe-7d52-430f-bc8e-62deb458d343"
+        
+        alt="Криві Безьє" class="module-icon" /> 
+         Модуль 2:<br /><span>Крива Безьє</span>
+      </h3>
+
+      <section class="module-section">
+        <p class="module-text">
+          <strong>Мета модуля:</strong> Ознайомити слухачів з поняттям кривих
+          Безьє, їх математичними основами, властивостями, способами побудови та
+          практичним застосуванням у векторній графіці та комп'ютерному дизайні.
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>1. Вступ до Кривих у Комп'ютерній Графіці</h4>
+        <p class="module-text">
+          У комп'ютерній графіці для зображення плавних ліній та складних форм
+          використовуються математичні криві. Це дозволяє досягти:
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Гнучкості та наглядності:</strong> Інтуїтивне керування
+            формою.
+          </li>
+          <li class="module-text">
+            <strong>Математичної простоти:</strong> Ефективні алгоритми для
+            обчислень.
+          </li>
+          <li class="module-text">
+            <strong>Універсальності:</strong> Широкий спектр застосувань,
+            ефективне використання пам'яті.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Основні задачі при роботі з кривими:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Апроксимація:</strong> Заміна складної кривої на простішу,
+            близьку за формою. Це спрощує обчислення, інтегрування,
+            диференціювання.
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%B0%D0%BF%D1%80%D0%BE%D0%BA%D1%81%D0%B8%D0%BC%D0%B0%D1%86%D1%96%D1%8F.png?alt=media&token=38823d39-663b-423d-a9e0-a8e3251f2c91" alt="Апроксимація функції" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Інтерполяція:</strong> Побудова кривої, що точно проходить
+            через заданий набір точок. Можуть бути додаткові вимоги до
+            гладкості.
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2FLinearInterpolation.svg.png?alt=media&token=0f70f9a8-c62c-42e1-b356-0ff3782fcb7e" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Згладжування:</strong> Відновлення гладкої функції, що
+            проходить поблизу заданих точок із допустимим відхиленням (часто для
+            "зашумлених" даних).
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%B7%D0%B3%D0%BB%D0%B0%D0%B4%D0%B6%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F.png?alt=media&token=c3d49274-9ca7-4c0d-a430-f1541c9d0465" alt="Згладжування кривої" />
+            </div>
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Сплайни:</strong><br />
+          Один з поширених методів побудови кривих та поверхонь складної форми.
+        </p>
+        <ul>
+          <li class="module-text">
+            Це гладка крива, що будується з дуг і проходить через кілька
+            <strong>контрольних точок</strong>, які керують її формою.
+          </li>
+          <li class="module-text">
+            Математично, сплайн – це функція, область визначення якої розбита на
+            сегменти, і на кожному сегменті функція є поліномом.
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>2. Криві Безьє: Історія та Застосування</h4>
+        <p class="module-text">
+          <strong>Криві Безьє</strong> – це один з найважливіших типів сплайнів
+          та фундаментальний інструмент векторної графіки.
+        </p>
+        <p class="module-text"><strong>Історична довідка:</strong></p>
+        <ul>
+          <li class="module-text">
+            <strong>1959 р.:</strong> Поль де Кастельє (компанія "Сітроен")
+            вперше використав схожі криві, але дослідження були комерційною
+            таємницею.
+          </li>
+          <li class="module-text">
+            <strong>1960-ті рр.:</strong> П'єр Безьє (компанія "Рено") розробив
+            та популяризував метод для комп'ютерного проектування кузовів
+            автомобілів.
+          </li>
+          <li class="module-text">
+            Згодом стали ключовим інструментом CAD-систем та програм
+            комп'ютерної графіки.
+          </li>
+        </ul>
+        <div class="ai-prompt-container">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%B7%D1%96%D1%82%D1%80%D0%BE%D0%B5%D0%BD.png?alt=media&token=7b8ae3cc-84b4-4810-9cc6-db7a9899e605"
+            alt="Історія кривих Безьє - проектування авто"
+          />
+        </div>
+        <p class="module-text">
+          <strong>Сфери застосування кривих Безьє:</strong>
+        </p>
+        <ul>
+          <li class="module-text">Керування рухом об'єктів (анімація).</li>
+          <li class="module-text">Створення анімаційних рисунків.</li>
+          <li class="module-text">
+            Опис художніх шрифтів (TrueType, PostScript).
+          </li>
+          <li class="module-text">
+            Передача виділених об'єктів (контури, маски).
+          </li>
+          <li class="module-text">
+            Інтерактивний дизайн форми різноманітних об'єктів.
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>3. Принцип Побудови та Термінологія Кривих Безьє</h4>
+        <p class="module-text">
+          П'єр Безьє розробив метод, що створює природне сприйняття кривої для
+          користувача.
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Характеристична ламана (опорний багатокутник):</strong>
+            Крива Безьє визначається набором контрольних точок, які утворюють
+            відкритий багатокутник (ламану лінію). Ця ламана задає загальну
+            форму кривої.
+          </li>
+          <li class="module-text">
+            <strong>Контрольні точки:</strong>
+            <ul>
+              <li class="module-text">
+                <strong>Опорні точки (вузлові):</strong> Перша та остання точки
+                характеристичної ламаної. Крива Безьє
+                <strong>завжди</strong> проходить через ці точки.
+              </li>
+              <li class="module-text">
+                <strong>Керуючі точки (напрямні):</strong> Проміжні точки
+                характеристичної ламаної. Крива, як правило,
+                <strong>не проходить</strong> через них, але вони визначають її
+                вигин та напрямок дотичних у опорних точках.
+              </li>
+            </ul>
+          </li>
+          <li class="module-text">
+            <strong>Аналогія:</strong> Характеристичну ламану можна уявити як
+            "металеву конструкцію", до якої крива Безьє "притягується як
+            магнітна стрічка". Сила притягування до кожної точки визначає форму.
+          </li>
+        </ul>
+        <div class="ai-prompt-container">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2FBezier_curve.svg?alt=media&token=95430cb0-7a02-4574-bd22-ff80ec68616d"
+            alt="Кубічна крива Безьє з контрольними точками"
+          />
+        </div>
+        <p class="module-text">
+          Змінюючи положення контрольних точок, користувач інтерактивно змінює
+          форму кривої Безьє.
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>4. Способи Побудови Кривої Безьє</h4>
+        <p class="module-text">
+          Існує три основні способи математичного опису та побудови кривих
+          Безьє:
+        </p>
+        <ol>
+          <li class="module-text">Параметричний</li>
+          <li class="module-text">Рекурсивний (Алгоритм де Кастельє)</li>
+          <li class="module-text">Матричний</li>
+        </ol>
+
+        <h5>
+          4.1. Параметричний вигляд (з використанням поліномів Бернштейна)
+        </h5>
+        <p class="module-text">
+          Крива Безьє степеня <code>n</code> визначається
+          <code>n+1</code> контрольною точкою P<sub>0</sub>, P<sub>1</sub>, ...,
+          P<sub>n</sub>.<br />
+          Кожна точка на кривій B(t) для параметра <code>t</code> (де
+          <code>t</code> змінюється від 0 до 1) обчислюється як:
+        </p>
+        <p class="formula">
+          B(t) = Σ<sub>i=0..n</sub> [b<sub>i,n</sub>(t) * P<sub>i</sub>]
+        </p>
+        <p class="module-text">
+          де b<sub>i,n</sub>(t) – це поліноми Бернштейна:
+        </p>
+        <p class="formula">
+          b<sub>i,n</sub>(t) = C(n,i) * t<sup>i</sup> * (1-t)<sup>n-i</sup>
+        </p>
+        <p class="module-text">
+          C(n,i) – біноміальний коефіцієнт (n! / (i! * (n-i)!)).
+        </p>
+        <p class="module-text"><strong>Приклади:</strong></p>
+        <ul>
+          <li class="module-text">
+            <strong
+              >n=1 (Лінійна крива, 2 точки P<sub>0</sub>,
+              P<sub>1</sub>):</strong
+            >
+            <span class="formula"
+              >B(t) = (1-t)P<sub>0</sub> + tP<sub>1</sub></span
+            >
+            (відрізок прямої)
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%BA%D1%80%D0%B8%D0%B2%D0%B0%201%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D1%83.png?alt=media&token=e245d3df-3882-409e-b399-8bb9d9fb4d53" alt="Лінійна крива Безьє" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong
+              >n=2 (Квадратична крива, 3 точки P<sub>0</sub>, P<sub>1</sub>,
+              P<sub>2</sub>):</strong
+            >
+            <span class="formula"
+              >B(t) = (1-t)<sup>2</sup>P<sub>0</sub> + 2t(1-t)P<sub>1</sub> +
+              t<sup>2</sup>P<sub>2</sub></span
+            >
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2Fbezier3-e.svg?alt=media&token=8b561d3f-040a-4f79-b10b-127d40e8b71f" alt="Квадратична крива Безьє" />
+                         </div>
+          </li>
+          <li class="module-text">
+            <strong
+              >n=3 (Кубічна крива, 4 точки P<sub>0</sub>, P<sub>1</sub>,
+              P<sub>2</sub>, P<sub>3</sub>):</strong
+            >
+            Найчастіше використовується на практиці.<br />
+            <span class="formula"
+              >B(t) = (1-t)<sup>3</sup>P<sub>0</sub> + 3t(1-t)<sup>2</sup>P<sub
+                >1</sub
+              >
+              + 3t<sup>2</sup>(1-t)P<sub>2</sub> + t<sup>3</sup>P<sub
+                >3</sub
+              ></span
+            >
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F4-%D0%B1%D0%B5%D0%B7%D1%8C%D1%94.png?alt=media&token=f024f6a7-07e8-4b23-aed6-f64bc6ad2aa9" alt="Кубічна крива Безьє" />
+            </div>
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Властивості поліномів Бернштейна:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            Невід'ємні (b<sub>i,n</sub>(t) ≥ 0 для t в [0,1]).
+          </li>
+          <li class="module-text">
+            Сума дорівнює одиниці (Σ b<sub>i,n</sub>(t) = 1).
+          </li>
+          <li class="module-text">
+            Залежать лише від степеня n та індексу i, а не від координат точок
+            P<sub>i</sub>.
+          </li>
+        </ul>
+
+        <h5>4.2. Рекурсивний вигляд (Алгоритм де Кастельє)</h5>
+        <p class="module-text">
+          Геометричний метод побудови точки на кривій Безьє для заданого t:
+        </p>
+        <ol>
+          <li class="module-text">
+            Кожна сторона початкової характеристичної ламаної ділиться у
+            відношенні t : (1-t).
+          </li>
+          <li class="module-text">
+            Отримані точки поділу з'єднуються, утворюючи нову ламану з меншою на
+            одну вершину кількістю сторін.
+          </li>
+          <li class="module-text">
+            Процес повторюється, доки не залишиться одна точка – це і є точка на
+            кривій Безьє, що відповідає параметру t.
+          </li>
+        </ol>
+        <div class="ai-prompt-container">
+          <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2FDeCasteljau1.svg.png?alt=media&token=a4bdf483-0bb3-4066-b933-e464c1760703" alt="Алгоритм де Кастельє" />
+        </div>
+
+        <h5>4.3. Матричний вигляд</h5>
+        <p class="module-text">
+          Рівняння кривої Безьє можна записати у матричній формі:
+          <span class="formula">B(t) = T * M * G</span><br />
+          Де:
+        </p>
+        <ul>
+          <li class="module-text">
+            T – вектор-рядок параметрів (наприклад, для кубічної:
+            <code>[t<sup>3</sup> t<sup>2</sup> t 1]</code>)
+          </li>
+          <li class="module-text">
+            M – матриця базисних функцій (характеристична матриця, залежить від
+            типу кривої)
+          </li>
+          <li class="module-text">
+            G – вектор-стовпець контрольних точок (геометричний вектор)
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Для кубічної кривої Безьє (n=3):</strong>
+        </p>
+        <pre
+          class="formula-block"
+        ><code>B(t) = [t³ t² t 1] * | -1  3 -3  1 | * | P₀ |
+                      |  3 -6  3  0 |   | P₁ |
+                      | -3  3  0  0 |   | P₂ |
+                      |  1  0  0  0 |   | P₃ |</code></pre>
+        <p class="module-text">
+          (Порядок рядків/стовпців у матрицях може варіюватися в літературі, але
+          результат той самий).
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>5. Властивості Кривих Безьє</h4>
+        <ol>
+          <li class="module-text">
+            <strong>Форма:</strong> Крива повторює загальний хід
+            характеристичної ламаної. Порядок контрольних точок суттєво впливає
+            на форму.
+          </li>
+          <li class="module-text">
+            <strong>Кінцеві точки:</strong> Крива завжди починається в точці
+            P<sub>0</sub> (B(0) = P<sub>0</sub>) і закінчується в точці P<sub
+              >n</sub
+            >
+            (B(1) = P<sub>n</sub>).
+          </li>
+          <li class="module-text">
+            <strong>Дотичні в кінцевих точках:</strong>
+            <ul>
+              <li class="module-text">
+                Дотична до кривої в початковій точці P<sub>0</sub> збігається з
+                напрямком відрізка P<sub>0</sub>P<sub>1</sub>.
+              </li>
+              <li class="module-text">
+                Дотична до кривої в кінцевій точці P<sub>n</sub> збігається з
+                напрямком відрізка P<sub>n-1</sub>P<sub>n</sub>.
+              </li>
+            </ul>
+          </li>
+          <li class="module-text">
+            <strong>Інваріантність щодо афінних перетворень:</strong> Афінне
+            перетворення кривої (поворот, масштабування, перенесення)
+            еквівалентне виконанню цього ж перетворення над її контрольними
+            точками з подальшою побудовою кривої. Це спрощує маніпуляції.
+          </li>
+          <li class="module-text">
+            <strong>Властивість опуклої оболонки:</strong> Крива Безьє завжди
+            повністю лежить всередині опуклої оболонки, утвореної її
+            контрольними точками. Це корисно для тестів на перетин та
+            відсікання.
+          </li>
+          <li class="module-text">
+            <strong
+              >Відсутність локального контролю (для однієї кривої):</strong
+            >
+            Зміна положення будь-якої однієї контрольної точки впливає на форму
+            <strong>всієї</strong> кривої.
+          </li>
+          <li class="module-text">
+            <strong>Залежність степеня від кількості точок:</strong> Степінь
+            полінома, що описує криву, на одиницю менший за кількість
+            контрольних точок. Додавання точки підвищує степінь і потребує
+            перерахунку.
+          </li>
+        </ol>
+      </section>
+
+      <section class="module-section">
+        <h4>6. Складені Криві Безьє</h4>
+        <p class="module-text">
+          Для створення складних форм та забезпечення локального контролю окремі
+          сегменти кривих Безьє (зазвичай кубічних) з'єднують між собою.
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Побудова:</strong> Загальний набір точок розбивається на
+            підмножини (наприклад, по 4 точки для кубічних сегментів), де
+            остання точка попереднього сегмента є першою точкою наступного.
+          </li>
+          <li class="module-text">
+            <strong>Неперервність (C<sup>0</sup>):</strong> Забезпечується
+            автоматично, якщо кінцева точка одного сегмента збігається з
+            початковою точкою наступного.
+          </li>
+          <li class="module-text">
+            <strong>Гладкість (C<sup>1</sup>):</strong> Для забезпечення
+            гладкості в точці з'єднання двох кубічних сегментів (неперервності
+            першої похідної), три точки – остання керуюча точка першого
+            сегмента, спільна опорна точка, та перша керуюча точка другого
+            сегмента – <strong>повинні лежати на одній прямій</strong>.
+            <div class="ai-prompt-container">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D1%81%D0%BA%D0%BB%D0%B5%D1%8E%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F.png?alt=media&token=adcb0352-7dd5-4361-bf65-b3e38ed9c78e"
+                alt="Складені криві Безьє - гладкість"
+              />
+            </div>
+          </li>
+        </ul>
+        <p class="module-text">
+          Використання складених кривих дозволяє змінювати форму одного
+          сегмента, не впливаючи на інші, тобто забезпечує
+          <strong>локальний контроль</strong>.
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>7. Переваги та Недоліки Кривих Безьє</h4>
+        <h5>Переваги:</h5>
+        <ul>
+          <li class="module-text">
+            <strong>Інтуїтивність:</strong> Легкість керування формою через
+            контрольні точки.
+          </li>
+          <li class="module-text">
+            <strong>Математична простота:</strong> Відносно прості формули для
+            обчислень.
+          </li>
+          <li class="module-text">
+            <strong>Обчислювальна стійкість:</strong> Алгоритми побудови є
+            стійкими.
+          </li>
+          <li class="module-text">
+            <strong>Гарантована гладкість</strong> (для одного сегмента).
+          </li>
+          <li class="module-text">
+            <strong>Властивість опуклої оболонки</strong> спрощує багато
+            алгоритмів (наприклад, відсікання, перетин).
+          </li>
+          <li class="module-text">
+            <strong>Інваріантність до афінних перетворень.</strong>
+          </li>
+        </ul>
+        <h5>Недоліки (для окремої, не складеної кривої):</h5>
+        <ul>
+          <li class="module-text">
+            <strong>Глобальний контроль:</strong> Зміна однієї контрольної точки
+            впливає на всю криву.
+          </li>
+          <li class="module-text">
+            <strong>Степінь залежить від кількості точок:</strong> Для великої
+            кількості точок степінь кривої стає високим, що ускладнює обчислення
+            та може призводити до небажаних коливань.
+          </li>
+          <li class="module-text">
+            <strong>Додавання/видалення точок</strong> змінює степінь і вимагає
+            повного перерахунку кривої.
+          </li>
+        </ul>
+        <p class="module-text">
+          Ці недоліки значною мірою нівелюються використанням
+          <strong>складених кривих Безьє</strong>.
+        </p>
+      </section>
+
+
+      <div class="buttons">
+        <button class="back" onclick="redirectToMainPage()">
+          Назад до модулів
+        </button>
+        <button onclick="redirectToQuiz('module2')" class="test">
+          Перейти до тесту
+        </button>
+        <button
+          onclick="markTheoryCompleted('module2')"
+        
+          class="complete-theory" > Пройшов теорію
+        </button>
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+    <df-messenger
+      project-id="singular-tuner-453212-c2"
+      agent-id="fea4b086-5934-4c1d-9883-34dc2a9057cf"
+      language-code="uk"
+      max-query-length="-1"
+    >
+      <df-messenger-chat-bubble chat-title="Hamster"> </df-messenger-chat-bubble>
+    </df-messenger>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
+    <script src="./js/components.js"></script>
+    <script type="module" src="./js/mainPage.js"></script>
+  </body>
+</html>

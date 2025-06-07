@@ -1,0 +1,262 @@
+html{
+  background-color: #f9f9f9;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 30px;
+}
+
+.quiz-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  color: #212121;
+}
+
+.question-count {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.question-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.question-header h2 {
+  flex: 1;
+  font-size: 18px;
+  color: #111;
+  margin: 0;
+}
+
+.illustration {
+  width: 120px;
+  border-radius: 8px;
+}
+
+.answers {
+  margin-top: 20px;
+}
+
+.answer {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  transition: background-color 0.3s;
+}
+
+.answer .icon {
+  margin-right: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 24px;
+}
+
+.answer.correct {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.answer.correct .icon {
+  color: #137333;
+}
+
+.answer.wrong {
+  background-color: #fce8e6;
+  color: #d93025;
+}
+
+.answer.wrong .icon {
+  color: #d93025;
+}
+
+.answer.neutral {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  font-size: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.prev {
+  background-color: #f1f3f4;
+  color: #333;
+}
+
+.next {
+  background-color: #ff8c1a;
+  color: white;
+}
+
+.answer-open-wrapper {
+  padding: 10px 0;
+}
+
+.open-answer-input {
+  width: calc(100% - 22px); /* Враховуємо padding */
+  padding: 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+.open-answer-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+.correct-answer-display {
+  font-size: 0.9em;
+  color: #27ae60;
+  margin-top: 8px;
+}
+
+.answer.type-single .icon::before {
+  content: "○"; /* Пусте коло */
+  font-size: 1.3em;
+  color: #7f8c8d;
+}
+.answer.type-single.selected .icon::before {
+  content: "●"; /* Заповнене коло */
+  color: #3498db;
+}
+
+/* Стилі для checkbox (multiple choice) */
+.answer.type-multiple .icon::before {
+  content: "□"; /* Пустий квадрат */
+  font-size: 1.3em;
+  color: #7f8c8d;
+}
+.answer.type-multiple.selected .icon::before {
+  content: "▣"; /* Заповнений квадрат або галочка */
+  color: #3498db;
+}
+
+.answer.selected {
+  /* border-color: #3498db; */ /* Можна прибрати, якщо іконка достатньо виразна */
+}
+
+.answer.correct,
+.open-answer-input.correct {
+  background-color: #e8f5e9; /* Світло-зелений */
+  border-color: #2ecc71 !important;
+}
+.answer.correct .icon {
+  color: #2ecc71 !important; /* Зелений для іконки */
+}
+.answer.correct .icon::before {
+  content: "" !important; /* Ховаємо дефолтну іконку radio/checkbox */
+}
+
+.answer.wrong,
+.open-answer-input.wrong {
+  background-color: #ffebee; /* Світло-червоний */
+  border-color: #e74c3c !important;
+}
+.answer.wrong .icon {
+  color: #e74c3c !important; /* Червоний для іконки */
+}
+.answer.wrong .icon::before {
+  content: "" !important; /* Ховаємо дефолтну іконку radio/checkbox */
+}
+
+.answer.correct-show {
+  /* Для правильних, але не вибраних у multiple */
+  background-color: #e0f7fa; /* Світло-блакитний або інший */
+  border-color: #0097a7;
+}
+.answer.correct-show .icon {
+  color: #0097a7;
+}
+.answer.correct-show .icon::before {
+  content: "" !important;
+}
+
+
+/* Основний контейнер */
+.final-stats {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  margin-top: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.final-stats h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.final-stats p {
+  font-size: 18px;
+  margin: 12px 0;
+  color: #34495e;
+}
+
+.final-stats strong {
+  color: #1abc9c;
+}
+
+/* Кнопки */
+.restart-button,
+.next-module-button {
+  margin: 20px 10px 0;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.restart-button:hover,
+.next-module-button:hover {
+  background: #2980b9;
+}
+
+/* Анімація */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

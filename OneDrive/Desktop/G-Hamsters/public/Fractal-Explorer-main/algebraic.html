@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>G-Hamsters</title>
+
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div id="canvas-container">
+        <canvas id="canvas" width="1170" height="690"></canvas>
+        <div id="canvas-spinner"></div>
+        <div id="mouse-cords">
+          Re: <span id="mouse-re">0</span><br />
+          Im: <span id="mouse-im">0</span>
+        </div>
+      </div>
+
+      <div id="progress-container">
+        <progress id="fractal-progress" value="0" max="1"></progress>
+        <button id="btn-cancel">Зупинити</button>
+        <span id="progress-label"></span>
+      </div>
+
+      <div class="controls">
+        <div class="tab-buttons">
+          <button class="active">Формула</button>
+          <button>Розташування</button>
+          <button>Анімація</button>
+        </div>
+
+        <div id="fractal-formula" class="tab">
+          <h2>Вид фракталу</h2>
+          <div class="field-row">
+            <label for="fractal-type">Тип:</label>
+            <select id="fractal-type">
+              <option value="mandelbrot">Мандельброт</option>
+              <option value="julia">Жюліа</option>
+              <option value="burning-ship">Палаючий корабель</option>
+            </select>
+            <label for="color-theme">Колірна схема:</label>
+            <select id="color-theme">
+              <option value="classic">Класична</option>
+              <option value="rainbow">Веселка</option>
+              <option value="thermal">Термальна</option>
+              <option value="grayscale">Темно-сіра</option>
+              <option value="blue_yellow">Синьо-жовта</option>
+            </select>
+            <label for="setColor">Колір множини:</label>
+            <input type="color" id="setColor" />
+          </div>
+
+          <h2>Формула</h2>
+          <div class="field-row">
+            <label for="maxIter">Макс. ітерацій:</label
+            ><input type="number" min="1" max="5000" value="100" id="maxIter" />
+          </div>
+          <div id="initZ">
+            <div class="field-row">
+              <label for="initZr">Початкове Zr:</label
+              ><input type="number" value="0" id="initZr" />
+            </div>
+            <div class="field-row">
+              <label for="initZi">Початкове Zi:</label
+              ><input type="number" value="0" id="initZi" />
+            </div>
+          </div>
+          <div id="initC">
+            <div class="field-row">
+              <label for="constCr">Стала Cr:</label
+              ><input type="number" value="0" id="constCr" />
+            </div>
+            <div class="field-row">
+              <label for="constCi">Стала Ci:</label
+              ><input type="number" value="0" id="constCi" />
+            </div>
+          </div>
+          <div class="field-row">
+            <label for="bailout">Поріг втечі:</label
+            ><input type="number" value="2" max="5000" id="bailout" />
+          </div>
+          <div class="field-row" id="form1-cont">
+            <label for="formula1">Формула 1:</label
+            ><select id="formula1">
+              <option value="1">1</option>
+              <option value="z">z</option>
+              <option value="sinz">sin(z)</option>
+              <option value="cosz">cos(z)</option>
+              <option value="tgz">tg(z)</option>
+              <option value="ctgz">ctg(z)</option>
+              <option value="shz">sh(z)</option>
+              <option value="chz">ch(z)</option>
+            </select>
+          </div>
+          <div class="field-row" id="pow1-cont">
+            <label for="pow1">Степінь:</label
+            ><input type="number" value="1" id="pow1" />
+          </div>
+          <div class="field-row" id="form2-cont">
+            <label>Формула 2:</label
+            ><select id="formula2">
+              <option value="1">1</option>
+              <option value="z">z</option>
+              <option value="sinz">sin(z)</option>
+              <option value="cosz">cos(z)</option>
+              <option value="tgz">tg(z)</option>
+              <option value="ctgz">ctg(z)</option>
+              <option value="shz">sh(z)</option>
+              <option value="chz">ch(z)</option>
+            </select>
+          </div>
+          <div class="field-row" id="pow2-cont">
+            <label for="pow2">Степінь:</label
+            ><input type="number" value="1" id="pow2" />
+          </div>
+          <div class="field-row">
+            <button id="btn-draw">Намалювати</button>
+            <button id="btn-save">Зберегти</button>
+          </div>
+        </div>
+
+        <div id="location" class="tab">
+          <h2>Розташування</h2>
+          <div class="field-row">
+            <label>Центр (Re):</label
+            ><input type="number" value="0" id="centerRe" step="any" />
+          </div>
+          <div class="field-row">
+            <label>Центр (Im):</label
+            ><input type="number" value="0" id="centerIm" step="any" />
+          </div>
+          <div class="field-row">
+            <label>Збільшення:</label
+            ><input type="number" value="1" id="zoom" step="any" />
+          </div>
+          <div class="field-row">
+            <label>Кут повороту:</label
+            ><input type="number" value="0" id="rotationAngle" step="any" />
+          </div>
+          <button id="btn-location">Застосувати</button>
+        </div>
+
+        <div id="animation" class="tab">
+          <h2>Анімація</h2>
+          <div class="field-row">
+            <label>Параметр:</label>
+            <select id="animParam">
+              <option value="k">Кількість ітерацій</option>
+              <option value="zr">Дійсна частина (Zr)</option>
+              <option value="zi">Уявна частина (Zi)</option>
+              <option value="cr">Дійсна частина (Cr)</option>
+              <option value="ci">Уявна частина (Ci)</option>
+              <option value="r">Поріг втечі</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label id="lab-anim-init">Почат. к. ітер:</label
+            ><input type="number" value="0" id="anim-init" />
+          </div>
+          <div class="field-row">
+            <label id="lab-anim-last">Кінцева к. ітер:</label
+            ><input type="number" value="0" id="anim-last" />
+          </div>
+          <div class="field-row">
+            <label id="lab-anim-step">Крок:</label
+            ><input type="number" value="0.05" id="anim-step" />
+          </div>
+          <label for="slider"></label>
+          <input
+            type="range"
+            id="slider"
+            name="slider"
+            min="0"
+            step="1"
+            disabled
+          />
+
+          <div class="field-row">
+            <button id="btn-anim">Анімувати</button>
+            <button id="btn-play">Відтворити</button>
+          </div>
+        </div>
+      </div>
+
+      <button id="main-page-btn" title="Перейти до головної сторінки">
+        Головна сторінка
+      </button>
+      <button
+        id="geometric-fractals-btn"
+        title="Перейти до геометричних фракталів"
+      >
+        Геометричні фрактали
+      </button>
+    </main>
+
+    <script src="algebraic.js"></script>
+
+    <script>
+      document
+        .getElementById("geometric-fractals-btn")
+        .addEventListener("click", () => {
+          window.location.href = "geometric.html";
+        });
+      document.getElementById("main-page-btn").addEventListener("click", () => {
+        window.location.href = "../main.html";
+      });
+    </script>
+  </body>
+</html>

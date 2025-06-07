@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- Переконайтесь, що шлях правильний -->
+    <link rel="stylesheet" href="styles/module.css" />
+    <!-- Переконайтесь, що шлях правильний -->
+    <style>
+      /* Додаткові стилі для кращого відображення запитів ШІ та формул */
+      .ai-prompt-container {
+        border: 1px dashed #ccc;
+        padding: 10px;
+        margin: 15px 0;
+        background-color: #f9f9f9;
+      }
+      .ai-prompt-container img {
+        width: 500px;
+        display: block;
+        margin: 0 auto 10px auto;
+        max-width: 80%;
+        border: 1px solid #eee;
+      }
+      .ai-prompt-caption {
+        font-style: italic;
+        font-size: 0.9em;
+        color: #555;
+        text-align: center;
+      }
+      .placeholder-text {
+        font-weight: bold;
+        color: #d9534f;
+        text-align: center;
+        margin-top: 5px;
+      }
+      .formula {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f0f0f0;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: inline-block;
+        margin: 5px 0;
+        word-break: break-all; /* Для довгих формул */
+      }
+      .formula-block {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 4px;
+        display: block;
+        margin: 10px 0;
+        white-space: pre-wrap; /* Дозволяє переносити довгі рядки */
+        overflow-x: auto;
+      }
+      img {
+        max-width: 500px; /* Обмеження максимальної ширини для всіх зображень в модулі */
+        height: auto; /* Збереження пропорцій */
+        display: block; /* Для центрування, якщо потрібно */
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+    <!-- Завантаження шапки, якщо є -->
+    <div class="module-wraper">
+      <h3>
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2FChatGPT%20Image%2025%20%D1%82%D1%80%D0%B0%D0%B2.%202025%20%D1%80.%2C%2004_55_26.png?alt=media&token=65b7778f-d7f7-4a55-af37-9680c90eb852"
+        alt="icon" class="module-icon" /> Модуль: 3 <br /><span
+          >Фрактальна графіка </span
+        >
+      </h3>
+
+      <section class="module-section">
+        <p class="module-text">
+          <strong>Мета модуля:</strong> Ознайомити слухачів з поняттям
+          фракталів, їх основними властивостями, класифікацією, методами
+          побудови геометричних та алгебраїчних фракталів, а також їхнім
+          практичним застосуванням у комп'ютерній графіці та інших галузях.
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>1. Вступ до Фрактальної Графіки</h4>
+        <p class="module-text"><strong>Що таке фрактал?</strong></p>
+        <ul>
+          <li class="module-text">
+            Слово "фрактал" (від лат. <code>fractus</code> – подрібнений, той,
+            що складається з фрагментів) запропонував
+            <strong>Бенуа Мандельброт</strong> у 1975 році.
+          </li>
+          <li class="module-text">
+            <strong>Фрактал</strong> – це структура, що складається з частин,
+            які в якомусь сенсі подібні до цілого.
+          </li>
+          <li class="module-text">
+            Народження фрактальної геометрії пов'язують з виходом книги
+            Мандельброта <strong>"The Fractal Geometry of Nature"</strong> (1977
+            р.).
+          </li>
+          <li class="module-text">
+            Створення фрактальної композиції – це
+            <strong>програмування</strong>, а не промальовування. Зображення
+            генеруються автоматично шляхом математичних розрахунків.
+          </li>
+        </ul>
+        <div class="ai-prompt-container">
+          <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%B0%D0%B2%D1%96%D0%B2%D0%B0.png?alt=media&token=2073ccda-fe30-472a-9285-9ecdd826bc5d" alt="Генерація фракталу" />
+        </div>
+        <p class="module-text">
+          <strong>Основні концепції та властивості фракталів:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Самоподібність:</strong> Ключова властивість. Невелика
+            частина фрактала містить інформацію про весь фрактал. Вигляд
+            фрактальної структури не змінюється (або змінюється передбачувано)
+            при масштабних перетвореннях.
+          </li>
+          <li class="module-text">
+            <strong>Типи самоподібності:</strong>
+            <ul>
+              <li class="module-text">Точна самоподібність</li>
+              <li class="module-text">Майже самоподібність</li>
+              <li class="module-text">Статистична самоподібність</li>
+            </ul>
+          </li>
+          <li class="module-text">
+            <strong>Ієрархічний принцип організації:</strong> В основі концепції
+            фрактальності лежить можливість виділяти об’єкти різного масштабу.
+          </li>
+          <li class="module-text">
+            <strong>Ітераційність та рекурсивність:</strong> Важливі властивості
+            фрактальних структур з точки зору програмної реалізації.
+          </li>
+          <li class="module-text">
+            <strong>Масштабна інваріантність:</strong> Незмінність якої-небудь
+            величини по відношенню до деяких перетворень масштабу (може бути
+            точною або наближеною).
+          </li>
+          <li class="module-text">
+            <strong>Фрактальна розмірність:</strong> Важливою характеристикою
+            фрактала (в строгому сенсі) є його топологічна розмірність, яка є
+            <strong>нецілим числом</strong>. Формула для обчислення (приклад):
+            <span class="formula">D = ln(n) / ln(N)</span>, де n – кількість
+            зменшених копій, що вміщуються у вихідній фігурі, зменшеній в N
+            разів.
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>2. Фрактали в Природі та їх Застосування</h4>
+        <p class="module-text">
+          <strong>"Книга природи написана мовою фракталів"</strong>: Багато
+          природних об'єктів демонструють фрактальні властивості (гори, хмари,
+          берегові лінії, дерева, кровоносні системи, сніжинки).
+        </p>
+        <div class="ai-prompt-container">
+          <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fnatie.png?alt=media&token=262f0d2e-5e80-4b7d-b4d8-c3fcd7e06688" alt="Фрактали в природі" />
+        </div>
+        <p class="module-text">
+          Фрактальна математика широко застосовується для аналізу різних
+          процесів:
+        </p>
+        <ul>
+          <li class="module-text">Зміни цін та заробітної платні.</li>
+          <li class="module-text">
+            Статистика помилок на телефонних станціях.
+          </li>
+          <li class="module-text">Опис Всесвіту.</li>
+          <li class="module-text">
+            Структури живої (системи кровообігу, будова легенів) та неживої
+            природи (рельєф, корисні копалини).
+          </li>
+          <li class="module-text">Економічні та турбулентні процеси.</li>
+        </ul>
+        <p class="module-text">
+          Алгоритми фрактальної геометрії використовують для:
+        </p>
+        <ul>
+          <li class="module-text">Стиснення зображень.</li>
+          <li class="module-text">Дистанційного зондування та радіолокації.</li>
+          <li class="module-text">
+            Моделювання фракталоподібних розсіювальних систем.
+          </li>
+          <li class="module-text">Еволюційних обчислень.</li>
+          <li class="module-text">
+            Генерації штучних хмар, гір, поверхні морів.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Корисна властивість:</strong> За допомогою декількох
+          коефіцієнтів (або формул) можна задати лінії та поверхні дуже складної
+          форми, схожі на природні.
+        </p>
+        <p class="module-text">
+          <strong>Відмінність від векторної графіки:</strong> Хоча фрактальна
+          графіка теж заснована на математичних обчисленнях, її базовим
+          елементом є <strong>математична формула</strong>. Ніяких об'єктів у
+          пам'яті комп'ютера не зберігається, зображення будується виключно за
+          формулами/рівняннями.
+        </p>
+      </section>
+
+      <section class="module-section">
+        <h4>3. Класифікація Фракталів</h4>
+        <p class="module-text">
+          Фрактали можна класифікувати за різними критеріями.
+        </p>
+        <p class="module-text">
+          <strong>За способом побудови (найчастіше використовується):</strong>
+        </p>
+        <ul>
+          <li class="module-text">Геометричні (конструктивні) фрактали</li>
+          <li class="module-text">
+            Алгебраїчні (рекурентні, динамічні) фрактали
+          </li>
+          <li class="module-text">Стохастичні (випадкові) фрактали</li>
+          <li class="module-text">IFS-фрактали (системи ітерованих функцій)</li>
+        </ul>
+        <p class="module-text">
+          <em
+            >Зауваження: Класифікація є дещо умовною, один фрактал може належати
+            до різних класів залежно від інтерпретації методу побудови.</em
+          >
+        </p>
+        <p class="module-text"><strong>За детермінованістю:</strong></p>
+        <ul>
+          <li class="module-text">
+            <strong>Детерміновані:</strong> Геометричні, алгебраїчні.
+          </li>
+          <li class="module-text">
+            <strong>Недетерміновані:</strong> Стохастичні.
+          </li>
+        </ul>
+        <p class="module-text"><strong>За рівнем самоподібності:</strong></p>
+        <ul>
+          <li class="module-text">
+            Фрактали <strong>точної самоподібності</strong> (геометричні).
+          </li>
+          <li class="module-text">
+            Фрактали з <strong>майже самоподібністю</strong> (алгебраїчні).
+          </li>
+          <li class="module-text">
+            Фрактали зі
+            <strong>статистичною самоподібністю</strong> (стохастичні).
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>4. Геометричні (Конструктивні) Фрактали</h4>
+        <p class="module-text">
+          Будуються поетапно, починаючи з <strong>основи</strong> (початкової
+          фігури).
+        </p>
+        <ul>
+          <li class="module-text">
+            На кожному кроці деякі частини основи (або попередньої ітерації)
+            замінюються на <strong>генератор</strong> (фрагмент) у відповідному
+            масштабі.
+          </li>
+          <li class="module-text">
+            Масштаб генератора зменшується з кожною ітерацією.
+          </li>
+          <li class="module-text">
+            Для отримання "ідеального" фрактала потрібна нескінченна кількість
+            етапів.
+          </li>
+          <li class="module-text">
+            У двомірному випадку отримують за допомогою ламаної-генератора; у
+            тривимірному – поверхні-генератора.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Приклади геометричних фракталів:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Сніжинка Коха (і крива Коха):</strong>
+            <ul>
+              <li class="module-text">
+                Основа – відрізок (для кривої) або рівносторонній трикутник (для
+                сніжинки).
+              </li>
+              <li class="module-text">
+                Генератор – ламана, де середня третина відрізка замінюється
+                двома сторонами рівностороннього трикутника.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%BA%D0%BE%D1%85%D0%B0.png?alt=media&token=841c4703-86d7-4bbb-92c1-dc41983a5486" alt="Сніжинка Коха" />
+            </div>
+          </li>
+          <li class="module-text">
+            Узагальнення: Острів Коха, Острів Мінковського (з використанням
+            квадратів або інших генераторів).
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F220px-Minkowski_island_1-3.svg.png?alt=media&token=e97f5d05-6d87-4c62-99f5-2d89dca80a00" alt="Острів Мінковського" />
+            </div>
+          </li>
+          <li class="module-text">
+            Сніжинка Коха "навпаки" (виступи всередину).
+            <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2Fkoch_fig4_600.gif?alt=media&token=72d3c529-98d5-4c00-bd1e-cc335c59036d" alt="Сніжинка Коха навпаки">
+            </div>
+          </li>
+          <li class="module-text">
+            Лінії Чезаро (з рівнобедреними трикутниками).
+            <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D1%87%D1%96%D0%B7%D0%B0%D1%80%D0%BE.png?alt=media&token=4495fdb5-cfdd-4006-9c56-31d761785884" alt="Лінії Чезаро (з рівнобедреними трикутниками)" >
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Крива Гільберта-Пеано:</strong> Крива, що заповнює простір.
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%BF%D1%96%D0%B0%D0%BD%D0%BE.png?alt=media&token=16bc754e-f8d4-418b-bc01-aac863d7f6dd" alt="Крива Гільберта-Пеано" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Множина Кантора:</strong> Утворюється шляхом видалення середньої третини відрізка на кожному кроці.
+            <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2F%D0%BA%D0%B0%D0%BD%D1%82%D1%80%D1%80.png?alt=media&token=1f88aa0f-e88f-4ac4-b6d4-5bfc408a6761" alt="Множина Кантора">
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Килим Серпінського:</strong> Квадрат, з якого на кожній
+            ітерації видаляється центральний з 9 менших квадратів.
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images%2FSierpinski6.png?alt=media&token=f5e36a92-932f-4acc-b5ce-1f147bcd58ad" alt="Килим Серпінського" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Трикутник Серпінського:</strong> Рівносторонній трикутник, з
+            якого на кожній ітерації видаляється центральний трикутник,
+            утворений серединами сторін.
+            <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fc%D0%B5%D1%80%D0%B2%D0%B5%D1%82%D0%BA%D0%B0.png?alt=media&token=7cf1339d-17c6-4b41-88b2-d7d0bd5939c9" alt="Трикутник Серпінського">
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Крива дракона (Дракон Хартера-Хейтуея)</strong>
+                <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fdragon.jpg?alt=media&token=f1e12ac8-f0e0-4a1c-a0d0-3634bae55add" alt="Крива дракона (Дракон Хартера-Хейтуея)">
+            </div>
+          </li>
+          <li class="module-text"><strong>Т-Квадрат</strong>
+            <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Ft-aquare.png?alt=media&token=227a2f7e-f273-4c7a-947f-fd3f3fc405bf" alt="Т-Квадрат">
+            </div></li>
+          <li class="module-text">
+            <strong>Губка Менгера</strong> (тривимірний аналог килима
+            Серпінського)
+                <div class="ai-prompt-container">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2F250px-Menger-Schwamm-Reihe.jpg?alt=media&token=4c2af8c1-8282-4059-8f19-b00214f5bba2" alt="Губка Менгера">
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>5. Алгебраїчні (Рекурентні, Динамічні) Фрактали</h4>
+        <p class="module-text">Найбільша група фракталів.</p>
+        <ul>
+          <li class="module-text">
+            Отримують за допомогою
+            <strong>нелінійних ітераційних процесів</strong> в n-мірних
+            просторах (найбільш вивчені двомірні процеси на комплексній
+            площині).
+          </li>
+          <li class="module-text">
+            Використовуються ітерації нелінійних відображень, що задаються
+            простими алгебраїчними формулами.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Основа – Теорія динамічних систем:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Динамічна система:</strong> Математична абстракція для опису
+            систем, що еволюціонують у часі.
+          </li>
+          <li class="module-text">
+            <strong>Детермінованість:</strong> Передбачуваність поведінки за
+            станом у початковий момент часу.
+          </li>
+          <li class="module-text">
+            <strong>Фазовий простір:</strong> Множина усіх можливих станів
+            системи.
+          </li>
+          <li class="module-text">
+            <strong>Атрактор:</strong> Стабільний стан, до якого прагне система
+            з певної області початкових станів (області тяжіння). Фазовий
+            простір розбивається на області тяжіння атракторів.
+          </li>
+          <li class="module-text">
+            Забарвлюючи області тяжіння різними кольорами (часто залежно від
+            швидкості збіжності до атрактора), можна отримати кольорові фазові
+            портрети – фрактальні зображення.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong
+            >Загальний алгоритм для динамічних фракталів (на комплексній
+            площині):</strong
+          >
+        </p>
+        <ol>
+          <li class="module-text">
+            Для кожної точки <code>c</code> (або початкової точки
+            <code>z<sub>0</sub></code
+            >) на комплексній площині виконується ітераційний процес за
+            формулою:
+            <span class="formula">Z<sub>k+1</sub> = F(Z<sub>k</sub>, c)</span>
+            (або
+            <span class="formula">Z<sub>k+1</sub> = F(Z<sub>k</sub>)</span>), де
+            Z і c – комплексні числа, F – нелінійна функція, k – номер ітерації.
+          </li>
+          <li class="module-text">
+            Ітерації продовжуються, доки точка Z<sub>k</sub> не вийде за межі
+            певної області (наприклад, кола радіуса 2 для множини Мандельброта –
+            це означає, що атрактор у нескінченності) або доки не буде досягнуто
+            максимальної кількості ітерацій.
+          </li>
+          <li class="module-text">
+            Колір точки на зображенні визначається поведінкою ітераційної
+            послідовності (наприклад, кількістю ітерацій до "вильоту" або
+            належністю до певного атрактора).
+          </li>
+        </ol>
+        <p class="module-text">
+          <strong>Приклади алгебраїчних фракталів:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Множина Мандельброта:</strong>
+            <ul>
+              <li class="module-text">
+                Визначається ітераційною формулою:
+                <span class="formula"
+                  >Z<sub>k+1</sub> = Z<sub>k</sub><sup>2</sup> + c</span
+                >, де <span class="formula">Z<sub>0</sub> = 0</span>.
+              </li>
+              <li class="module-text">
+                До множини належать ті точки c комплексної площини, для яких
+                послідовність Z<sub>k</sub> не прямує на нескінченність
+                (залишається обмеженою, зазвичай в межах кола радіуса 2).
+              </li>
+              <li class="module-text">
+                Має надзвичайно складну структуру на межі.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fimages.png?alt=media&token=4296d91e-8336-49df-afd8-34531d17be8b" alt="Множина Мандельброта" />
+            </div>
+            <div class="ai-prompt-container">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2F%D0%B7%D1%83%D0%BC%20%D0%BC%D0%B0%D0%BD%D0%B4.jpg?alt=media&token=58c6cc0c-6bd1-429b-aabc-488ecd4beecd"
+                alt="Збільшена ділянка множини Мандельброта"
+              />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Множина Жуліа:</strong>
+            <ul>
+              <li class="module-text">
+                Загальна формула:
+                <span class="formula">Z<sub>k+1</sub> = f(Z<sub>k</sub>)</span>,
+                де f(z) – деяка комплексна функція (часто
+                <span class="formula">f(z) = z<sup>2</sup> + c</span>).
+              </li>
+              <li class="module-text">
+                Параметр c є фіксованим для всієї множини Жуліа, а ітерації
+                проводяться для різних початкових точок Z<sub>0</sub> на
+                комплексній площині.
+              </li>
+              <li class="module-text">
+                Множина Мандельброта є картою параметрів c, для яких відповідна
+                множина Жуліа є зв'язною.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2FFractal_julia.png?alt=media&token=0b80eb62-9566-4ad8-8c18-dfcfae012e02" alt="Множина Жуліа" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Фрактали Ньютона (Басейни Ньютона):</strong>
+            <ul>
+              <li class="module-text">
+                Базуються на методі Ньютона для знаходження коренів нелінійних
+                рівнянь <span class="formula">f(z) = 0</span>.
+              </li>
+              <li class="module-text">
+                Ітераційна формула:
+                <span class="formula"
+                  >Z<sub>k+1</sub> = Z<sub>k</sub> – f(Z<sub>k</sub>) /
+                  f'(Z<sub>k</sub>)</span
+                >.
+              </li>
+              <li class="module-text">
+                Площина розбивається на області тяжіння різних коренів рівняння.
+                Межі цих областей мають фрактальну структуру.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2F250px-Newtroot_1_0_0_0_0_m1.png?alt=media&token=cac04f9d-b846-46fb-9d14-bc627690127f" alt="Фрактал Ньютона" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Палаючий корабель (Burning Ship fractal)</strong>
+          </li>
+          <li class="module-text"><strong>Фрактал Ляпунова</strong></li>
+          <li class="module-text"><strong>Біоморфи</strong></li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>6. Стохастичні (Випадкові) Фрактали</h4>
+        <p class="module-text">
+          Утворюються, якщо в ітераційний процес
+          <strong>випадковим чином</strong> змінювати які-небудь його параметри.
+        </p>
+        <p class="module-text">
+          Результат – об'єкти, дуже схожі на природні: несиметричні дерева,
+          порізані берегові лінії, рельєф місцевості, поверхня моря.
+        </p>
+        <p class="module-text"><strong>Приклади:</strong></p>
+        <ul>
+          <li class="module-text">
+            <strong>Траєкторія броунівського руху:</strong> Моделюється
+            зміщенням частинки на задану відстань у довільному напрямку (кроки
+            можуть мати розподіл Гауса).
+            <div class="ai-prompt-container">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fxbrounivskyj_ruh.jpg.pagespeed.ic.eOIacboZUY.jpg?alt=media&token=0c6289f7-54b3-4fe4-b8bb-16acc9d6d7e4"
+                alt="Траєкторія броунівського руху"
+              />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Рандомізовані фрактали:</strong> Отримуються за допомогою
+            рекурсивної процедури, в яку на кожному кроці введений випадковий
+            параметр (наприклад, рандомізована сніжинка Коха, де кути або
+            довжини сегментів генератора змінюються випадково).
+            <div class="ai-prompt-container">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Frand.png?alt=media&token=db45650a-5650-4296-91a4-1335497893ee"
+                alt="Рандомізована сніжинка Коха"
+              />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong>Плазма (Plasma fractal):</strong>
+            <ul>
+              <li class="module-text">
+                Алгоритм: Задаються кольори кутів квадрата. Кольори середин
+                сторін та центру квадрата визначаються як середнє між
+                відповідними точками плюс/мінус випадкова величина. Процес
+                рекурсивно повторюється для менших квадратів. Розмах випадкової
+                величини залежить від розміру квадрата.
+              </li>
+              <li class="module-text">
+                Якщо колір точки інтерпретувати як висоту, можна отримати модель
+                гірського масиву.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2FFractal_plazma.jpg?alt=media&token=2998c2bd-e20a-4a16-af5d-d5fcc9adfd9b" alt="Плазма фрактал" />
+            </div>
+          </li>
+          <li class="module-text">
+            <strong
+              >Моделювання гірських пейзажів (метод Лорена Карпентера):</strong
+            >
+            <ul>
+              <li class="module-text">
+                Починається з трикутника. Центральні точки ребер з'єднуються,
+                утворюючи 4 менші трикутники. Центральні точки зсуваються
+                вгору/вниз на випадкову відстань. Процедура повторюється
+                рекурсивно зі зменшенням діапазону зсуву.
+              </li>
+              <li class="module-text">
+                Лорен Карпентер (співзасновник Pixar) першим візуалізував
+                природні об'єкти, використовуючи теорію Мандельброта.
+              </li>
+            </ul>
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Fberg.jpg?alt=media&token=793684c6-99cb-4a83-80e8-42a0af4178d1" alt="Фрактальні гори" />
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>7. IFS-фрактали (Системи Ітерованих Функцій)</h4>
+        <p class="module-text">
+          IFS (Iterated Function System) – метод, що з'явився в середині 80-х
+          років.
+        </p>
+        <ul>
+          <li class="module-text">
+            Це система функцій деякого фіксованого класу (найчастіше
+            <strong>афінних перетворень</strong>), що відображають одну
+            багатовимірну множину на іншу.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Загальна формула ітераційного процесу (для 2D):</strong>
+        </p>
+        <pre
+          class="formula-block"
+        ><code>x<sub>k+1</sub> = F<sub>x</sub>(x<sub>k</sub>, y<sub>k</sub>)
+y<sub>k+1</sub> = F<sub>y</sub>(x<sub>k</sub>, y<sub>k</sub>)</code></pre>
+        <p class="module-text">
+          <strong>Афінні перетворення (найпростіший випадок):</strong>
+        </p>
+        <pre class="formula-block"><code>X* = a·X + b·Y + c
+Y* = d·X + e·Y + f</code></pre>
+        <p class="module-text">(включають зсув, масштабування, поворот)</p>
+        <p class="module-text">
+          Також можуть використовуватися квадратичні, проективні та інші
+          перетворення.
+        </p>
+        <p class="module-text">
+          <strong>Побудова:</strong> На кожній ітерації до поточної точки (або
+          набору точок) випадковим чином (з певною ймовірністю) застосовується
+          одне з перетворень системи. Через велику кількість ітерацій точки
+          починають формувати атрактор системи – фрактальне зображення.
+        </p>
+        <p class="module-text"><strong>Приклади IFS-фракталів:</strong></p>
+        <ul>
+          <li class="module-text">
+            <strong>Папороть Барнслі:</strong> Класичний приклад, що генерується
+            системою з 4 афінних перетворень, кожне з яких має свою ймовірність
+            застосування.
+            <div class="ai-prompt-container">
+              <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/images_new%2Falim_papor.png?alt=media&token=d630edcd-6af5-4bc6-b8ec-a19e554a98b5" alt="Папороть Барнслі" />
+            </div>
+          </li>
+          <li class="module-text">
+            Лінія Коха, трикутник Серпінського, дракон Хартера-Хейтуея також
+            можуть бути побудовані за допомогою IFS.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Фрактальне стиснення зображень:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            Ідеї запропоновані Барнслі та Слоаном (1988 р.).
+          </li>
+          <li class="module-text">
+            Метод базується на виявленні
+            <strong>локальної самоподібності</strong> у зображенні: знаходженні
+            пар областей, де менша область подібна до більшої.
+          </li>
+          <li class="module-text">
+            Зберігаються коефіцієнти перетворень (зазвичай афінних), що
+            переводять більшу область в меншу, та інформація про положення цих
+            областей.
+          </li>
+          <li class="module-text">
+            Дозволяє досягати високих ступенів стиснення (теоретично 500-1000
+            разів).
+          </li>
+          <li class="module-text">
+            <strong>Проблема:</strong> Важко знайти коефіцієнти IFS, які б точно
+            кодували довільне зображення.
+          </li>
+          <li class="module-text">
+            <strong>Формат файлів:</strong> FIF (Fractal Image Format).
+          </li>
+        </ul>
+      </section>
+
+      <section class="module-section">
+        <h4>8. Програмні Засоби для Роботи з Фракталами</h4>
+        <p class="module-text">
+          <strong>Фрактальні редактори та генератори:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Fractal Design Painter</strong> (історично відомий,
+            поєднував фрактальні інструменти з растровими/векторними)
+          </li>
+          <li class="module-text">
+            <strong>Apophysis:</strong> Генерація на основі базових фрактальних
+            формул (часто для "фрактального полум'я").
+          </li>
+          <li class="module-text">
+            <strong>XaosPro:</strong> Безкоштовний, підтримує анімацію руху у
+            фракталі.
+          </li>
+          <li class="module-text">
+            <strong>Incendia:</strong> Мультипроцесорний генератор тривимірних
+            фракталів.
+          </li>
+          <li class="module-text">
+            <strong
+              >Fractal Explorer, Fractal Zoomer, XenoDream, Fractracker.</strong
+            >
+          </li>
+          <li class="module-text">
+            Програми часто дозволяють генерувати фрактали на основі вбудованих
+            формул або створювати власні.
+          </li>
+        </ul>
+        <p class="module-text">
+          <strong>Пакети наукової візуалізації:</strong>
+        </p>
+        <ul>
+          <li class="module-text">
+            <strong>Surfer (Golden Software):</strong> Створення 2D/3D
+            поверхонь, цифрових моделей рельєфу.
+          </li>
+          <li class="module-text">
+            <strong>Map Viewer (Golden Software):</strong> Побудова кольорових
+            карт.
+          </li>
+          <li class="module-text">
+            <strong>Iris Explorer, Earth Watch:</strong> Моделювання погодних
+            умов, поверхонь океану, метеоумов.
+          </li>
+        </ul>
+      </section>
+
+      
+
+      <div class="buttons">
+        <button class="back" onclick="redirectToMainPage()">
+          Назад до модулів
+        </button>
+        <button onclick="redirectToQuiz('module3')" class="test">
+          Перейти до тесту
+        </button>
+        <button
+          onclick="markTheoryCompleted('module3')"
+          class="complete-theory"
+        >
+          Пройшов теорію
+        </button>
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+    <df-messenger
+      project-id="singular-tuner-453212-c2"
+      agent-id="fea4b086-5934-4c1d-9883-34dc2a9057cf"
+      language-code="uk"
+      max-query-length="-1"
+    >
+      <df-messenger-chat-bubble chat-title="Hamster"> </df-messenger-chat-bubble>
+    </df-messenger>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
+    <script src="./js/components.js"></script>
+    <!-- Переконайтесь, що шлях правильний -->
+    <script type="module" src="./js/mainPage.js"></script>
+    <!-- Переконайтесь, що шлях правильний -->
+  </body>
+</html>

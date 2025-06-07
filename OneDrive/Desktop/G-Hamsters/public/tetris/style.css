@@ -1,0 +1,90 @@
+body {
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.tetris-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  background: #222;
+  border: 2px solid #fff;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #444;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #666;
+  transform: scale(1.05);
+}
+
+.score-panel {
+  color: #fff;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+button:disabled {
+  background: #222;
+  color: #777;
+  border-color: #444;
+  cursor: not-allowed;
+}
+
+#gameOver {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 20px 30px;
+  margin-top: 20px;
+  border: 2px solid #f00;
+  border-radius: 12px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+
+#go-back {
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+#go-back:hover {
+  background-color: #357ab8;
+}

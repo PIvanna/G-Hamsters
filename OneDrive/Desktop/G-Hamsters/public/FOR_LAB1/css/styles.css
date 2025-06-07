@@ -1,0 +1,43 @@
+body{
+    font-family: "Montserrat", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --light-brown: #a83b3b;
+    --brown: #a52a2a;
+    --dark-brown: #891d1d;
+    --light: #fff0f0;
+    --green: #4CAF50;
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #c4c4c4;
+    --middle-grey:  #a7a7a7;
+            
+}
+
+header{
+    margin-left: 12px;
+    background-color: var(--brown);
+    margin: 0;
+    padding: 10px;
+    color: var(--white);
+    position: fixed;
+    width: 100%;
+}
+
+h1{
+    margin: 0;
+}
+
+
+main{
+  display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: var(--white);
+    margin: 0;
+    padding-top: 60px; 
+
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>G-Hamsters</title>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/game.css">
+</head>
+
+<body>
+  <header>
+    <a href="main.html" class="home">
+      <h1>Оберни та з'єднай</h1>
+    </a>
+  </header>
+
+  <main>
+    <div class="game-screen">
+      <div class="game-header">
+     <button class="end-game-btn" onclick="window.location.href='main.html'">Завершити гру</button>
+
+        <div class="game-info">
+          <span>Рівень: <strong id="game-level">Середній</strong></span>
+          <span>Пари: <strong id="pairs-found">0</strong>/<strong id="total-pairs">8</strong></span>
+        </div>
+
+        <div class="timer">
+          ⏱ <span id="timer">00:00</span>
+        </div>
+      </div>
+
+      <div class="game-board" id="game-board">
+        <!-- Тут будуть картки -->
+      </div>
+
+    <div id="result-screen">
+  <p id="final-message"></p>
+  <p>Ваш час: <span id="final-time"></span></p>
+  <img id="hamster-gif" src="" alt="Хом'ячок святкує" style="max-width: 200px; margin-top: 20px;" />
+</div>
+
+
+    </div>
+
+  </main>
+
+
+</body>
+<script src="js/colors_db.js"></script>
+<script src="js/messages_db.js"></script>
+<script src="js/game.js"></script>
+<script src="js/game_setting.js"></script>
+
+
+
+</html>

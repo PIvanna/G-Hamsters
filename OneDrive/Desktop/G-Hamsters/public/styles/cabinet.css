@@ -1,0 +1,1043 @@
+html {
+  background-color: white;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #fffbf2; /* Light cream background */
+  margin: 0;
+  color: #333;
+}
+
+.segment-wraper {
+  margin: 20px auto;
+  width: 100%;
+}
+
+.page-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #ffffff; /* Slightly lighter or same as body, for content area if distinct */
+  padding: 30px;
+  border-radius: 8px; /* Optional: if content area has a card-like feel */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Optional subtle shadow */
+}
+
+.header-title {
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.header-title h3 {
+  font-family: "Georgia", serif;
+  color: #6a1b1b; /* Maroon */
+  font-size: 2.5em;
+  margin: 0;
+  font-size: 40px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.register-btn {
+  background-color: #6a1b1b; /* Maroon */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.profile-icon-header {
+  background-color: #6a1b1b; /* Maroon */
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon-header svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 200px; /* Fixed width for avatar section */
+  flex-shrink: 0;
+}
+
+.avatar-placeholder {
+  width: 144px;
+  height: 144px;
+  background-color: #fdf5e6; /* Light beige/cream for avatar background circle */
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Vertically centers if items don't fill height */
+  margin-bottom: 20px;
+  padding-top: 15px; /* Adjust to position elements like in image */
+  box-sizing: border-box;
+}
+
+.avatar-icon-head {
+  width: 54px;
+  height: 54px;
+  background-color: #f9a825; /* Orange-yellow */
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.avatar-icon-body {
+  width: 100px;
+  height: 50px;
+  background-color: #f9a825; /* Orange-yellow */
+  border-radius: 50px 50px 0 0; /* Makes top half of an ellipse */
+}
+
+.change-avatar-btn {
+  background-color: white;
+  color: #303f9f; /* Blue */
+  border: 1px solid #303f9f; /* Blue */
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  width: 100%;
+  max-width: 180px; /* Limit button width */
+}
+
+.info-section {
+  flex-grow: 1;
+}
+
+.info-section h2 {
+  font-family: "Georgia", serif;
+  color: #6a1b1b; /* Maroon */
+  font-size: 1.8em;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: normal;
+  color: #333; /* Dark gray for labels */
+  font-size: 0.9em;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between input and button */
+}
+
+.input-wrapper input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #e0d6c1; /* Light brown/beige border */
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #fff;
+  width: 400px;
+}
+.input-wrapper input:read-only {
+  /* Though not specified, often inputs are not editable by default */
+  background-color: #fafafa; /* Slightly off-white for readonly */
+}
+
+.edit-btn {
+  width: 100px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+#edit-name-btn {
+  background-color: white;
+  color: #303f9f; /* Blue */
+  border: 1px solid #303f9f; /* Blue */
+}
+
+#edit-email-btn,
+#edit-phone-btn,
+#edit-name-btn,
+#edit-surname-btn {
+  background-color: #303f9f; /* Blue */
+  color: white;
+  border: none;
+}
+
+.edit-btn .icon {
+  margin-left: 5px;
+  font-size: 1.1em; /* Adjust icon size if needed */
+}
+
+.change-password-btn {
+  background-color: #388e3c; /* Green */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px; /* Space above this button */
+}
+
+.learning-pace-card {
+  background-color: #ffffff;
+  border-radius: 16px; /* Rounded corners for the card */
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07); /* Soft shadow */
+  width: 80%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* Title */
+.card-title {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600; /* Bold */
+  color: #1d232a; /* Dark text color */
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.card-title .emoji {
+  font-size: 28px; /* Larger emoji */
+  margin-right: 10px;
+  line-height: 1;
+}
+
+/* Subtitle */
+.card-subtitle {
+  font-size: 15px;
+  color: #5a6470; /* Medium gray for subtitle */
+  margin-top: 0;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Pace Options */
+.pace-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Space between options */
+}
+
+.pace-option {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid #eaecef; /* Light gray border */
+  border-radius: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.pace-option:hover {
+  border-color: #d0d5da; /* Slightly darker border on hover */
+}
+
+.pace-option .emoji {
+  font-size: 22px;
+  margin-right: 12px;
+  line-height: 1; /* Ensure emoji aligns well */
+  color: #333; /* Default emoji color */
+}
+
+.pace-option-text {
+  font-size: 17px;
+  color: #1d232a; /* Dark text for options */
+}
+
+/* Custom Radio Button for "Normal" option */
+.radio-icon-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007aff; /* Blue border as per selected state in image */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.radio-icon-custom-inner {
+  width: 10px;
+  height: 10px;
+  background-color: #007aff; /* Blue fill as per selected state in image */
+  border-radius: 50%;
+}
+
+/* Selected State for Pace Option */
+.pace-option.selected {
+  border-color: #007aff; /* Blue border for selected */
+  background-color: #f0f7ff; /* Light blue background for selected (very subtle) */
+}
+/*
+           If an unselected "Normal" option existed, its radio icon would be styled differently:
+           .pace-option:not(.selected) .radio-icon-custom { border-color: #ADB5BD; }
+           .pace-option:not(.selected) .radio-icon-custom-inner { background-color: transparent; }
+        */
+
+/* Slider */
+.pace-slider {
+  margin-top: 30px; /* Space above the slider */
+  padding: 0 5px; /* Small padding to not have track touch edges if desired */
+}
+
+.slider-track {
+  height: 3px;
+  background-color: #e9ecef; /* Light gray for the track */
+  border-radius: 1.5px;
+  position: relative;
+}
+
+.slider-thumb {
+  width: 5px; /* Width of the thumb */
+  height: 18px; /* Height of the thumb */
+  background-color: #007aff; /* Blue color for the thumb */
+  border-radius: 2.5px;
+  position: absolute;
+  top: 50%;
+  left: 50%; /* Positioned in the middle for the image */
+  transform: translate(-50%, -50%); /* Center the thumb */
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 80%;
+  padding: 28px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-icon {
+  display: flex;
+  align-items: flex-end; /* Align bars to their bottom */
+  gap: 4px;
+  margin-right: 12px;
+}
+
+.header-icon .icon-bar {
+  width: 6px; /* Width of each bar in the icon */
+  border-radius: 2px;
+}
+
+.icon-bar.bar1 {
+  background-color: #4a90e2;
+  height: 14px;
+} /* Blue */
+.icon-bar.bar2 {
+  background-color: #f5a623;
+  height: 20px;
+} /* Orange/Yellow */
+.icon-bar.bar3 {
+  background-color: #d0021b;
+  height: 26px;
+} /* Red */
+
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1d232a;
+  margin: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Space between top and bottom sections */
+}
+
+.top-section,
+.bottom-section {
+  display: flex;
+  gap: 20px; /* Space between items in a row */
+}
+
+.top-section > div,
+.bottom-section > div {
+  flex: 1; /* Distribute space equally */
+}
+
+/* Circular Progress */
+.progress-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 180px; /* Ensure space for circle */
+  max-width: 200px;
+  flex-basis: 40%; /* Give it a bit less space than chart */
+}
+
+.progress-ring {
+  width: 150px;
+  height: 150px;
+}
+
+.progress-ring__track,
+.progress-ring__progress {
+  fill: transparent;
+  stroke-width: 18; /* Thickness of the ring */
+}
+
+.progress-ring__track {
+  stroke: #e9e9e9; /* Light gray track */
+}
+
+.progress-ring__progress {
+  stroke: #7ed321; /* Green progress */
+  stroke-linecap: round; /* Rounded ends for the progress part */
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg); /* Start from top */
+  transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.progress-text {
+  position: absolute;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Placeholder Chart (Top Right) */
+.placeholder-chart {
+  padding-left: 20px;
+  flex-basis: 60%;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  white-space: nowrap;
+}
+.placeholder-chart .chart-title {
+  margin-bottom: 10px;
+}
+
+.placeholder-y-axis {
+  font-size: 12px;
+  color: #777;
+  height: 90px; /* Approximate height based on image */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.placeholder-y-axis span {
+  display: block;
+  position: relative; /* For line positioning */
+}
+.placeholder-y-axis span::after {
+  content: "";
+  position: absolute;
+  left: 25px; /* Start line after text */
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: #eee;
+}
+/* Specific positioning for non-uniform labels */
+.placeholder-y-axis .label-100 {
+  align-self: flex-start;
+}
+.placeholder-y-axis .label-70 {
+  align-self: flex-start;
+  margin-top: 18px;
+} /* Visual guess */
+.placeholder-y-axis .label-40 {
+  align-self: flex-start;
+  margin-top: 18px;
+} /* Visual guess */
+
+/* Bar Chart Container */
+.bar-chart-container {
+  /* flex: 1; */
+}
+.bar-chart-area {
+  display: flex;
+  height: 250px; /* Height of the chart plot area */
+  position: relative;
+}
+.bar-chart-y-axis {
+  font-size: 12px;
+  color: #777;
+  display: flex;
+  flex-direction: column-reverse; /* 0 at bottom */
+  justify-content: space-between;
+  padding-right: 8px;
+  text-align: right;
+  height: 100%;
+}
+.bar-chart-y-axis span {
+  flex-grow: 1; /* Distribute space */
+  display: flex; /* To align text if needed */
+  align-items: flex-start; /* Align text to its top */
+}
+.bar-chart-y-axis span:first-child {
+  align-items: flex-end;
+} /* Align '0' to bottom */
+
+.bars-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end; /* Bars grow from bottom */
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding-left: 10px;
+  padding-right: 5px;
+  position: relative;
+}
+/* Grid lines for bar chart - drawn behind bars */
+.bar-chart-grid-lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+.bar-chart-grid-lines .grid-line {
+  flex-grow: 1;
+  border-top: 1px solid #f5f5f5; /* Very light grid lines */
+}
+.bar-chart-grid-lines .grid-line:first-child {
+  border-top: none;
+}
+
+.bar {
+  width: 20%; /* Width of each bar */
+  max-width: 25px;
+  border-radius: 4px 4px 0 0; /* Rounded top corners */
+  transition: height 0.5s ease-out;
+}
+
+/* Line Chart Container */
+.line-chart-container {
+  /* flex: 1; */
+}
+.line-chart-area {
+  height: 200px; /* Height of the chart plot area */
+  display: flex;
+}
+.line-chart-y-axis {
+  font-size: 12px;
+  color: #777;
+  display: flex;
+  flex-direction: column-reverse; /* 0 at bottom */
+  justify-content: space-between;
+  padding-right: 8px;
+  text-align: right;
+  height: 100%;
+}
+.line-chart-y-axis span {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+}
+.line-chart-y-axis span:first-child {
+  align-items: flex-end;
+}
+
+.line-chart-svg-wrapper {
+  flex-grow: 1;
+  position: relative;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+/* Grid lines for line chart */
+.line-chart-grid-lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+.line-chart-grid-lines .grid-line {
+  flex-grow: 1;
+  border-top: 1px solid #f5f5f5;
+}
+.line-chart-grid-lines .grid-line:first-child {
+  border-top: none;
+}
+
+.line-chart-svg {
+  width: 100%;
+  height: 100%;
+}
+.line-chart-svg .line {
+  fill: none;
+  stroke: #4a90e2; /* Blue line */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.line-chart-svg .area {
+  fill: rgba(74, 144, 226, 0.15); /* Light blue fill */
+  stroke: none;
+}
+.line-chart-svg .point {
+  fill: #4a90e2; /* Blue points */
+  stroke: white;
+  stroke-width: 1.5;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 600px) {
+  .top-section,
+  .bottom-section {
+    flex-direction: column;
+    align-items: center; /* Center items when stacked */
+  }
+  .top-section > div,
+  .bottom-section > div {
+    width: 100%;
+    max-width: 350px; /* Limit width when stacked */
+    flex-basis: auto;
+  }
+  .progress-circle-container {
+    margin-bottom: 20px;
+  }
+  .placeholder-chart {
+    padding-left: 0;
+  }
+}
+
+.avatar-collection-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  width: 80%;
+  padding: 28px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.trophy-icon {
+  font-size: 28px;
+  margin-right: 10px;
+  color: #ffca28; /* Gold color for trophy */
+  line-height: 1;
+}
+
+.card-main-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1d232a; /* Dark text color */
+  margin: 0;
+}
+
+.collection-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3c3c43;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 avatars per row */
+  gap: 16px; /* Gap between avatar items */
+}
+
+.avatar-item {
+  display: flex;
+  flex-direction: column; /* If there were labels below */
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon-wrapper {
+  width: 72px; /* Diameter of the circle */
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* For lock overlay */
+  overflow: hidden; /* Ensure content stays within circle */
+  background-color: #f8f8f8; /* Default light gray background */
+  border: 1px solid #eaeaea; /* Subtle border */
+}
+
+.avatar-icon-wrapper.selected {
+  background-color: #007aff; /* Blue background for selected */
+  border-color: #007aff;
+}
+.avatar-icon-wrapper.selected .avatar-graphic svg path,
+.avatar-icon-wrapper.selected .avatar-graphic svg circle {
+  /* If SVGs need different colors on blue, adjust here */
+}
+
+.avatar-graphic {
+  width: 65%; /* Size of the inner graphic relative to wrapper */
+  height: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar-graphic svg {
+  width: 100%;
+  height: 100%;
+}
+.avatar-graphic .emoji-placeholder {
+  font-size: 36px; /* Adjust emoji size */
+  line-height: 1;
+}
+
+/* Locked State */
+.avatar-item.locked .avatar-icon-wrapper {
+  background-color: #e9ecef; /* Slightly darker gray for locked */
+  border-color: #e0e0e0;
+}
+
+.avatar-item.locked .avatar-graphic svg path,
+.avatar-item.locked .avatar-graphic svg circle {
+  fill: #b0b8c1 !important; /* Grayed out color for SVG parts */
+  stroke: #b0b8c1 !important;
+}
+.avatar-item.locked .avatar-graphic svg .eye-fill {
+  fill: #8d949b !important; /* Darker gray for eyes if needed */
+}
+
+.lock-overlay {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background-color: #a8adb2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid white;
+}
+.lock-overlay-emoji {
+  font-size: 9px;
+  color: white;
+  line-height: 1;
+}
+
+/* Specific Hamster SVG Parts Styling */
+.hamster-face {
+  fill: #f5e6cc;
+}
+.hamster-ear {
+  fill: #d2b48c;
+}
+.hamster-eye {
+  fill: #333333;
+}
+.hamster-mouth-stroke {
+  stroke: #333333;
+}
+.hamster-tongue {
+  fill: #ff8a80;
+} /* For tongue out variant */
+
+.glasses-frame {
+  stroke: #333333;
+}
+.glasses-lens {
+  fill: rgba(200, 200, 255, 0.2);
+} /* Optional lens tint */
+.glasses-bow {
+  fill: #007aff;
+  stroke: #0056b3;
+} /* Blue bow */
+
+.santa-hat-main {
+  fill: #d0021b;
+} /* Red */
+.santa-hat-trim {
+  fill: #ffffff;
+}
+.apple-body {
+  fill: #ff3b30;
+} /* Red apple */
+.apple-leaf {
+  fill: #34c759;
+} /* Green leaf */
+
+.leaderboard-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  width: 80%;
+  padding: 24px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-icon {
+  font-size: 26px; /* Size of the trend icon */
+  margin-right: 10px;
+  color: #4e342e; /* Dark brown/maroon */
+  line-height: 1;
+}
+.header-icon svg {
+  /* If using SVG */
+  width: 26px;
+  height: 26px;
+  fill: #4e342e;
+}
+
+.card-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #4e342e; /* Dark brown/maroon text color */
+  margin: 0;
+}
+
+.tabs-container {
+  display: flex;
+  gap: 10px; /* Space between tabs */
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-button.active {
+  background-color: #eaebff; /* Light lavender/blue */
+  color: #373a7d; /* Dark blue/purple text */
+}
+
+.tab-button.inactive {
+  background-color: #f5f4f0; /* Off-white, slightly creamy */
+  color: #706d69; /* Gray-brown text */
+}
+.tab-button.inactive:hover {
+  background-color: #edece8;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse; /* Use collapse for cleaner lines */
+  font-size: 14px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #f5f4f0; /* Light horizontal lines */
+}
+
+.leaderboard-table th {
+  background-color: #f8f7f5; /* Very light beige/gray for header */
+  color: #756f6b; /* Gray-brown text for header */
+  font-weight: 500;
+}
+
+/* Add vertical borders */
+.leaderboard-table th:not(:last-child),
+.leaderboard-table td:not(:last-child) {
+  border-right: 1px solid #f5f4f0; /* Light vertical lines */
+}
+.leaderboard-table tr:last-child td {
+  border-bottom: none; /* No bottom border for the last row */
+}
+
+.leaderboard-table td {
+  color: #4e342e; /* Dark brown/maroon for cell text */
+}
+
+.leaderboard-table .rank-col {
+  width: 15%;
+  text-align: center;
+  font-weight: 500; /* Make rank numbers boldish */
+}
+
+.leaderboard-table .player-col {
+  width: 55%;
+}
+
+.leaderboard-table .score-col {
+  width: 30%;
+  text-align: right;
+}
+
+/* Highlighted row */
+.leaderboard-table tr.highlighted td {
+  background-color: #eaebff; /* Light lavender/blue, same as active tab */
+  color: #373a7d;
+}
+.leaderboard-table tr.highlighted .rank-col {
+  color: #373a7d; /* Ensure rank is also highlighted color */
+}
+
+.error-text {
+  color: red;
+}
+input {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.edit-btn {
+  margin-left: 5px;
+}
+
+/* Модальне вікно: затемнений фон */
+.modal {
+  display: none; /* Приховане за замовчуванням */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* напівпрозорий фон */
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  transition: opacity 0.3s ease;
+}
+
+/* Контейнер модального вікна */
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.modal-content label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.modal-content input[type="password"]:focus {
+  border-color: var(--primary-color, #4caf50);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.modal-buttons #confirm-password-change {
+  background-color: var(--primary-color, #4caf50);
+  color: #fff;
+}
+
+.modal-buttons #confirm-password-change:hover {
+  background-color: #45a049;
+}
+
+.modal-buttons #cancel-password-change {
+  background-color: #ccc;
+  color: #333;
+}
+
+.modal-buttons #cancel-password-change:hover {
+  background-color: #b0b0b0;
+}

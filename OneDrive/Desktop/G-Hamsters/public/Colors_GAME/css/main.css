@@ -1,0 +1,155 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+h3{
+  font-weight:bold;
+  
+}
+
+:root {
+  --light-brown: #a83b3b;
+  --brown: #a52a2a;
+  --dark-brown: #891d1d;
+  --light: #fff0f0;
+  --green: #4caf50;
+  --black: #000000;
+  --white: #ffffff;
+  --grey: #c4c4c4;
+  --middle-grey: #a7a7a7;
+}
+
+
+.settings-container {
+  padding: 20px;
+  width: 700px;
+  margin: 0px auto;
+ 
+ 
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(165,42,42,0.4);
+  text-align: center;
+}
+
+.instruction-card {
+  width: 100%;
+height: 98%;
+  perspective: 1000px;
+ 
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  margin-bottom: 44px;
+  
+
+}
+
+.instruction-card .card-front,
+.instruction-card .card-back {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  padding: 16px;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  transition: transform 0.6s;
+}
+
+.instruction-card .card-front {
+  background-color: var(--white);
+  justify-content:center;
+}
+
+.instruction-card .card-back {
+  background-color: var(--brown);
+  color: var(--white);
+  transform: rotateY(180deg);
+  text-align:left;
+}
+
+.instruction-card.flipped .card-front {
+  transform: rotateY(180deg);
+}
+
+.instruction-card.flipped .card-back {
+  transform: rotateY(360deg);
+   box-shadow: 0 0 20px rgba(165, 42, 42, 0.5);
+}
+
+/* Опції у вигляді карток */
+.card-options {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.option-card, .image-card {
+  padding: 8px;
+  border-radius: 12px;
+  background-color: var(--white);
+  border: 2px solid var(--grey);
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  transition: transform 0.2s, background-color 0.3s;
+
+}
+
+.option-card.selected, .image-card.selected {
+ 
+  background-color: var(--brown);
+  box-shadow: 0 0 8px rgba(165, 42, 42, 0.5);
+  transform: scale(1.05);
+ border: 2px solid var(--brown);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.image-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.start-game-btn{
+  width: 50%;
+  height: 40px;
+}
+
+
+.layout {
+  margin-top: 40px;
+  margin-left: 40px;
+   display: grid;
+grid-template-columns: auto auto auto;
+  justify-content: center; /* Центрує всю сітку по центру екрана */
+  column-gap: 30px; /* Відстань між колонками */
+ 
+  
+}
+
+.left-panel {
+  
+ 
+ width: fit-content; /* відповідає settings-container */
+ 
+ 
+}
+
+.right-panel {
+ 
+
+
+width: 370px;
+height: 95%;
+
+}

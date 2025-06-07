@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>G-Hamsters</title>
+
+
+    <link rel="stylesheet" href="./css/palette.css" />
+    <link rel="stylesheet" href="./css/styles.css"/>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="side-panel">
+            <div class="control-button side passive" id="control-button-projects">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fprojects.png?alt=media&token=5e3035da-15f3-45ff-9453-5826336e8e5d" alt="view projects" class="icon-button" id="icon-button-projects">
+                <span class="tooltip">Переглянути проекти</span>
+            </div>
+            <div class="control-button side passive" id="control-button-pentool">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fpentool.png?alt=media&token=cb38424b-2ed3-410b-89a2-d153ab0a363d" alt="open pentool" class="icon-button">
+                <span class="tooltip">Переглянути точки кривої</span>
+            </div>
+
+            <div class="spm passive" id="spm">
+                <div class="control-button side passive" id="control-button-menu">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fmenu.png?alt=media&token=52c035e3-6f33-41bb-841f-68db3b383c12" alt="open menu" class="icon-button">
+                    <span class="tooltip">Відкрити меню</span>
+                </div>
+                <div class="side-panel-menu" id="side-panel-menu">
+                    <div class="control-button side" id="control-button-method">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fmethod.png?alt=media&token=a03d4c96-070d-44be-bdb4-9d6fb80ab05a" alt="choose build method" class="icon-button">
+                        <span class="tooltip">Обрати метод побудови</span>
+                    </div>
+                    <div class="control-button side" id="control-button-recursive">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Frecursive.png?alt=media&token=049b8f02-0871-4c69-8161-7599ee030e41" alt="open recursive" class="icon-button">
+                        <span class="tooltip">Відтворити рекурсивну побудову</span>
+                    </div>
+                    <div class="control-button side" id="control-button-points">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fpoints.png?alt=media&token=4d79a0ad-dd6a-482b-b577-b548fec9d903" alt="open points" class="icon-button">
+                        <span class="tooltip">Проаналізувати згладжування</span>
+                    </div>
+                    <div class="control-button side" id="control-button-polynom">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fpolynom.png?alt=media&token=7f99f134-1ec9-45b8-ac95-1942092b0a71" alt="open polynom" class="icon-button">
+                        <span class="tooltip">Обчислити поліноми</span>
+                    </div>
+                    <div class="control-button side" id="control-button-matrix">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fmatrix.png?alt=media&token=3f218008-5212-46c7-9df7-5f505c8034af" alt="open matrix" class="icon-button">
+                        <span class="tooltip">Обчислити коефіцієнти матриці</span>
+                    </div>
+                    <div class="control-button side" id="control-button-pallete">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fpallete.png?alt=media&token=7799776f-043f-430f-bfac-ab04dd40ff68" alt="open pallete" class="icon-button">
+                        <span class="tooltip">Змінити кольори відображення</span>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************-->
+            <div class="control-button side passive" id="control-button-back">
+                <div id="control-button-back-move">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fhome.png?alt=media&token=6d9df1d6-6a83-44cc-bca3-8a6bf905f64c" alt="open info window" class="icon-button">
+                </div>
+                <span class="tooltip">Повернутися на головну сторінку</span>
+            </div>
+            <script>
+                document.getElementById('control-button-back').addEventListener('click', () => {
+                    window.location.href = "../main.html"; 
+                });
+            </script>
+            <!--**********************************-->
+            <div class="control-button side passive" id="control-button-info">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Finfo.png?alt=media&token=c51ad56e-e6ab-457e-8ed9-1fc10c8695d6" alt="open info window" class="icon-button">
+                <span class="tooltip">Побачити довідкову інофрмацію</span>
+            </div>
+        </div>
+
+        <div class="control-panel" id="control-panel">
+           
+         
+            <div class="control-main" id="control-main-info">
+                <div class="control-title">
+                    <p class="text-button">Довідка</p>
+                </div>
+                <div class="control-body scroll" id="control-body-info">
+                    <h3>Про програму</h3>
+                    <p>Доступно два види побудови кривої Безьє: <strong>склеїна</strong> та <strong>несклеїна</strong>.</p>
+                    
+                    <h4>Склеїна крива</h4>
+                    <p>Для склеїної кривої існують два типи точок:</p>
+                    <ul>
+                        <li><strong>Гладка точка</strong> — дотичні рівні за модулем та протилежні за напрямком.</li>
+                        <li><strong>Кутова точка</strong> — дотичні можуть бути різними як за модулем, так і за напрямком.</li>
+                    </ul>
+                    <p>Між двома сусідніми кутовими точками утворюється прямолінійний відрізок (крива першого порядку).</p>
+            
+                    <h4>Керування</h4>
+                    <ul>
+                        <li>Для пересування по полотні: зажати <strong>пробіл</strong> і, утримуючи ліву кнопку миші, потягнути у потрібну сторону.</li>
+                        <li>Для зміни масштабу: покрутити колесико миші.
+                            <ul>
+                                <li>При віджатому <strong>Ctrl</strong> — масштаб змінюється відносно курсора.</li>
+                                <li>При зажатому <strong>Ctrl</strong> — масштаб змінюється відносно центру координатної площини.</li>
+                            </ul>
+                        </li>
+                        <li>Для центрування екрану відносно координатної площини: натиснути <strong>C</strong>.</li>
+                        <li>Для центрування із одночасною зміною масштабу до звичайного: натиснути <strong>R</strong>.</li>
+                        <li>Для видалення поточної (обраної) кривої: натиснути <strong>Delete</strong>.</li>
+                        <li>Для видалення усіх кривих проєкту: натиснути <strong>Ctrl + Delete</strong>.</li>
+                    </ul>
+            
+                    <h4>Додавання точок</h4>
+                    <p><strong>Склеїна крива:</strong></p>
+                    <ul>
+                        <li>Короткий натиск лівою кнопкою миші додає <strong>кутову точку</strong>.</li>
+                        <li>Натиск із перетягуванням додає <strong>гладку точку</strong>, де:
+                            <ul>
+                                <li>Перша дотична задається від початкової точки до кінцевої (при відпусканні кнопки миші).</li>
+                                <li>Друга дотична протилежна першій.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Несклеїна крива:</strong> точки додаються лише коротким натиском.</p>
+            
+                    <h4>Редагування кривих</h4>
+                    <p>При зажатій клавіші <strong>Ctrl</strong> доступне редагування існуючих кривих:</p>
+                    <ul>
+                        <li>Для зміни точок поточної кривої: зажати ліву кнопку миші на обраній точці та перетягнути у потрібне місце.</li>
+                        <li>Для точок склеєної кривої: 
+                            <ul>
+                                <li>При віджатій клавіші <strong>Alt</strong> — зберігається рівність за модулем та протилежність напрямку дотичних.</li>
+                                <li>При зажатій клавіші <strong>Alt</strong> — зберігається лише протилежність напрямку.</li>
+                            </ul>
+                        </li>
+                    </ul>
+            
+                    <h4>Вибір сегмента чи відрізка</h4>
+                    <ul>
+                        <li>Для вибору сегмента чи відрізка ламаної: натиснути лівою кнопкою миші на бажаний сегмент/відрізок поточної кривої.</li>
+                        <li>Для зняття фокусу з поточної кривої: двічі натиснути мимо неї по полотну.</li>
+                    </ul>
+                    <p>Після цього можна малювати нову криву або обрати існуючу, натиснувши лівою кнопкою миші на неї.</p>
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-projects">
+                <div class="control-title">
+                    <p class="text-button">Проекти</p>
+                </div>
+                <div class="control-body scroll" id="control-body-projects">
+                </div>
+                <div class="control-button control" id="control-button-create">
+                    <p class="text-button">Створити проект</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fadd.png?alt=media&token=65d5ef77-3901-4962-b4f1-0b7cbb15bdf7" alt="create project" class="icon-button">
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-method">
+                <div class="control-title">
+                    <p class="text-button">Метод побудови</p>
+                </div>
+                <div class="control-body scroll" id="control-body-method">
+                    <div class="menu-item">
+                        <div class="line-block radio">
+                            <p class="text-item-head">Парамтеричний</p>
+                            <div class="panel-radio">
+                                <input type="radio" id="radio-method-parametric" name="radio-method" value="parametric" checked>
+                                <label class="label-radio" for="radio-method-recursive">Обрати параметричну побудову</label>
+                            </div>
+                        </div>
+                        
+                        <p class="text-item-body">Крива Безьє визначається як лінійна 
+                            комбінація контрольних точок з використанням поліномів Бернштейна:
+                            \[
+                            B(t) = \sum_{i=0}^{n} P_i \cdot b_{i,n}(t), \quad t \in [0, 1]
+                            \]
+                            де \(P_i\) — контрольні точки, а
+                            \[
+                            b_{i,n}(t) = \frac{n!}{i!(n-i)!}(1 - t)^{n - i}t^i
+                            \]
+                            — базисні поліноми Бернштейна.
+                        </p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="line-block radio">
+                            <p class="text-item-head">Рекурсивний</p>
+                            <div class="panel-radio">
+                                <input type="radio" id="radio-method-recursive" name="radio-method" value="recursive">
+                                <label class="label-radio" for="radio-method-recursive">Обрати рекурсивну побудову</label>
+                            </div>
+                        </div>
+                        
+                        <p class="text-item-body">Алгоритм побудови полягає в поступовому лінійному інтерполюванні між контрольними точками:
+                            \[B(t) = (1 - t)B_{i}^{r - 1}(t) + t⋅B_{i+1}^{r - 1}(t)\]</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="line-block radio">
+                            <p class="text-item-head">Матричний</p>
+                            <div class="panel-radio">
+                                <input type="radio" id="radio-method-matrix" name="radio-method" value="matrix">
+                                <label class="label-radio" for="radio-method-recursive">Обрати матричну побудову</label>
+                            </div>
+                        </div>
+                        
+                        <p class="text-item-body">Крива подається у вигляді добутку векторів 
+                            і матриці: 
+                            \[
+                            B(t) = T \cdot M \cdot P
+                            \]
+                            де \(T = [0, t^1, \dots, t^{n-1}, 1]\) — вектор параметра,  
+                            \(M\) — матриця базису, 
+                            \(P = [P_0, P_1, P_2, P_3, \dots ,P_{n+1}] \) — вектор контрольних точок.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-menu">
+                <div class="control-title">
+                    <p class="text-button">Меню</p>
+                </div>
+                <div class="control-body scroll" id="control-body-menu">
+                    <div class="menu-item">
+                        <p class="text-item-head">Метод побудови</p>
+                        <p class="text-item-body">Вибір методу побудови кривої Безьє (параметричний, рекурсивний, матричний).</p>
+                    </div>
+                    <div class="menu-item">
+                        <p class="text-item-head">Рекурсивна побудова</p>
+                        <p class="text-item-body">Анімація побудови кривої Безьє рекурсивнитм методом.</p>
+                    </div>
+                    <div class="menu-item">
+                        <p class="text-item-head">Аналіз згладжування</p>
+                        <p class="text-item-body">Обчислення значень заданої користувачем кілкості точок 
+                            обраного відразка ламаної та відповідних точок кривої на цьому ж діапозоні абсциси.</p>
+                    </div>
+                    <div class="menu-item">
+                        <p class="text-item-head">Обчислення полінома</p>
+                        <p class="text-item-body">Обчислення значень обраних поліномів Берштейна із заданим користувачем 
+                            кроком точок для обраног сегмента кривої.</p>
+                    </div>
+                    <div class="menu-item">
+                        <p class="text-item-head">Обчислення матриці</p>
+                        <p class="text-item-body">Обчислення значень обраних коефіцієнтів матриці (матричного методу побудови кривої).</p>
+                    </div>
+                    <div class="menu-item">
+                        <p class="text-item-head">Налаштування палітри</p>
+                        <p class="text-item-body">Вибір кольору для різних елементів кривої Безьє.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-pentool">
+                <div class="control-title">
+                    <p class="text-button">Перо</p>
+                </div>
+                <div class="control-body">
+                    <div class="line-block start">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase.png?alt=media&token=a97e1790-e3dd-4853-8a2d-7b52e284cf2c" alt="base soft point" class="icon-base">
+                        <p class="text-item-info"> - опорна (гладка) точка</p>
+                    </div>
+                    <div class="line-block start">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase_hard.png?alt=media&token=a97e1790-e3dd-4853-8a2d-7b52e284cf2c" alt="base hard point" class="icon-base">
+                        <p class="text-item-info"> - опорна (кутова) точка</p>
+                    </div>
+                    <div class="line-block start">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fcontrol.png?alt=media&token=a801ccbe-95a6-41a8-bfd0-3e899c7b4792" alt="base point" class="icon-base">
+                        <p class="text-item-info"> - керуюча точка</p>
+                    </div>
+
+    
+                    <div class="point-panel scroll" id="point-panel">
+                        
+                    </div>
+                </div>
+                <div class="control-button control" id="control-button-delete">
+                    <p class="text-button">Видалити криву</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fdelete.png?alt=media&token=76abb2e4-e488-4f15-90b9-91e5a863a0d8" alt="delete all points" class="icon-button" id="icon-button-delete">
+                </div>
+            </div>
+
+
+
+            <div class="control-main" id="control-main-recursive">
+                <div class="control-title">
+                    <p class="text-button">Рекурсивна побудова</p>
+                </div>
+                <!-- <br> -->
+                <div class="control-body">
+                <p class="text-item-info">t - значення для поточного сегмента</p>
+                <p class="text-item-info">s - номер поточного сегмента</p>
+                <p class="error-message" id="error-message-recurcive"></p>
+                <div class="line-block">
+                    <label class="text-item-info" for="step-t-size-recursive">Крок параметра t:</label>
+                    <input type="number" name="step-t-size-recursive" id="step-t-size-recursive">                    
+                </div>
+                <div class="line-block">
+                    <label class="text-item-info" for="time-recursive">Час анімації сегмента:</label>
+                    <input type="number" name="time-recursive" id="time-recursive">                    
+                </div>
+                <div class="control-button control" id="control-button-start-recursive">
+                    <p class="text-button" id="control-button-start-recursive-text">Запустити</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fstart.png?alt=media&token=3dfc7eb9-5bb0-4f0a-8960-7911c26baa64" alt="start animation" class="icon-button" id="control-button-start-recursive-icon">
+                </div>
+                <div class="br"></div>
+                <p class="text-progress">t: <span id="text-cur-t-value">0.00</span></p>
+                <div class="progress-bar" id="progress-bar-t">
+                    <div class="progress" id="progress-t"></div>
+                </div>
+                <p class="text-progress">s: <span id="text-cur-segment">0/0</span></p>
+                <div class="progress-bar" id="progress-bar-s">
+                    <div class="progress" id="progress-s"></div>
+                </div>
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-polynom">
+                <div class="control-title">
+                    <p class="text-button">Обчислення поліномів</p>
+                </div>
+                <div class="control-body">
+
+                <p class="error-message" id="error-message-polynom"></p>
+                <div class="line-block">
+                    <label class="text-item-info" for="step-t-size-polynom">Крок параметра t:</label>
+                    <input type="number" name="step-t-size-polynom" id="step-t-size-polynom">                    
+                </div>
+                <div class="line-block">
+                    <label class="text-item-info" for="time-polynom">Час анімації сегмента:</label>
+                    <input type="number" name="time-polynom" id="time-polynom">                    
+                </div>
+                <!-- <div class="line-block">
+                    <label class="text-item-info" for="start-polynom">Початковий номер полінома:</label>
+                    <input type="number" name="start-polynom" id="start-polynom">
+                </div>
+                <div class="line-block">
+                    <label class="text-item-info" for="end-polynom">Кінцевий номер полінома:</label>
+                    <input type="number" name="end-polynom" id="end-polynom">
+                </div> -->
+
+                <div class="line-block" id="line-block-polynom">
+                    <label class="text-item-info bold" for="start-polynom">Поліноми:</label>
+
+                    <label class="text-item-info" for="start-polynom"> Від: </label>
+                    <input type="number" name="start-polynom" id="start-polynom">
+        
+                    <label class="text-item-info" for="end-polynom"> До: </label>
+                    <input type="number" name="end-polynom" id="end-polynom">
+                </div>
+                <div class="control-button control" id="control-button-calc-polynom">
+                    <p class="text-button" id="control-button-calc-polynom-text">Обчислити</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fstart.png?alt=media&token=3dfc7eb9-5bb0-4f0a-8960-7911c26baa64" alt="start animation" class="icon-button" id="control-button-calc-polynom-icon">
+                </div>
+                <br>
+                <div class="scroll" id="table-panel-polynom">
+                    <table class="table-data" id="table-polynom">
+                        <thead>
+                            <!-- <tr>
+                                <th>t</th>
+                                <th>b<sub>3,0</sub></th>
+                                <th>b<sub>3,1</sub></th>
+                                <th>b<sub>3,2</sub></th>
+                                <th>b<sub>3,3</sub></th>
+                            </tr> -->
+                        </thead>
+                        <tbody id="table-polynom-body">
+    
+                        </tbody>
+                    </table>
+                </div>
+                
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-matrix">
+                <div class="control-title">
+                    <p class="text-button">Обчислення матриці</p>
+                </div>
+                <div class="control-body">
+                <!-- <p class="text-item-info">Обчислення коефіцієнтів матриці для введенної "підматриці", заданої початковими та кінцевими рядками та стовпцями.</p> -->
+
+                <p class="error-message" id="error-message-matrix"></p>
+                <div class="line-block">
+                    <label class="text-item-info bold" for="start-matrix-column">Стовпці:</label>
+         
+                    <label class="text-item-info dark" for="start-matrix-column"> Від: </label>
+                    <input type="number" name="start-matrix-column" id="start-matrix-column">
+    
+                    <label class="text-item-info dark" for="end-matrix-column"> До: </label>
+                    <input type="number" name="end-matrix-column" id="end-matrix-column">
+ 
+                </div>
+                <div class="line-block">
+                    <label class="text-item-info bold" for="end-matrix-rows">Рядки:</label>
+
+                    <label class="text-item-info dark" for="start-matrix-rows"> Від: </label>
+                    <input type="number" name="start-matrix-rows" id="start-matrix-rows">
+
+                    <label class="text-item-info dark" for="end-matrix-rows"> До: </label>
+                    <input type="number" name="end-matrix-rows" id="end-matrix-rows">
+                </div>
+                <div class="control-button control" id="control-button-calc-matrix">
+                    <p class="text-button">Обчислити</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fstart.png?alt=media&token=3dfc7eb9-5bb0-4f0a-8960-7911c26baa64" alt="start animation" class="icon-button">
+                </div>
+                <br>
+                <div class="scroll" id="table-panel-matrix">
+                    <table class="table-data" id="table-matrix">
+                        <thead>
+                            <!-- <tr>
+                                <th>t</th>
+                                <th>b<sub>3,0</sub></th>
+                                <th>b<sub>3,1</sub></th>
+                                <th>b<sub>3,2</sub></th>
+                                <th>b<sub>3,3</sub></th>
+                            </tr> -->
+                        </thead>
+                        <tbody id="table-matrix-body">
+    
+                        </tbody>
+                    </table>
+                </div>
+                
+                </div>
+            </div>
+
+            <div class="control-main" id="control-main-points">
+                <div class="control-title">
+                    <p class="text-button">Аналіз згладжування</p>
+                </div>
+                <div class="control-body">
+                <p class="error-message" id="error-message-point"></p>
+                <div class="line-block">
+                    <label class="text-item-info" for="step-x">Крок x:</label>
+                    <input type="number" name="step-x" id="step-x-size-point">                    
+                </div>
+    
+                <div class="control-button control" id="control-button-calc-points">
+                    <p class="text-button">Обчислити</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fstart.png?alt=media&token=3dfc7eb9-5bb0-4f0a-8960-7911c26baa64" alt="start animation" class="icon-button">
+                </div>
+                <br>
+                <div class="scroll">
+                    <table class="table-data" id="table-points">
+                        <thead>
+                            <tr>
+                                <th>x</th>
+                                <th>y<sub>ламаної</sub></th>
+                                <th>y<sub>кривої</sub></th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-point-body">
+    
+                        </tbody>
+                    </table>
+                </div>
+                
+                </div>
+            </div>
+            <div class="control-main" id="control-main-pallete">
+                <div class="control-title">
+                    <p class="text-button">Палітра кольорів</p>
+                </div>
+                <div class="control-body" id="control-body-pallete">
+                    <br>
+                    <p class="text-progress">Кольори кривої:</p>
+                    <hr>
+                    <div class="line-block">
+                        <label class="text-item-info" for="active-curve-color">Активна крива:</label>
+                        <input type="color" name="active-curve-color" id="active-curve-color">                    
+                    </div>
+                    <div class="line-block">
+                        <label class="text-item-info" for="non-active-curve-color">Неактивна крива:</label>
+                        <input type="color" name="non-active-curve-color" id="non-active-curve-color">                    
+                    </div>
+                    <div class="line-block">
+                        <label class="text-item-info" for="active-segment-color">Обраний сегмент:</label>
+                        <input type="color" name="active-segment-color" id="active-segment-color">                    
+                    </div>
+                    <br>
+                    <p class="text-progress">Кольори точок:</p>
+                    <hr>
+                    <div class="line-block">
+                        <label class="text-item-info" for="base-points-color">Опорні точки:</label>
+                        <input type="color" name="base-points-color" id="base-points-color">                    
+                    </div>
+                    <div class="line-block">
+                        <label class="text-item-info" for="control-points-color">Керуючі точки:</label>
+                        <input type="color" name="control-points-color" id="control-points-color">                    
+                    </div>
+                    <br>
+                    <p class="text-progress">Кольори ламаної:</p>
+                    <hr>
+                    <div class="line-block">
+                        <label class="text-item-info" for="tangent-color">Дотичні відрізки:</label>
+                        <input type="color" name="tangent-color" id="tangent-color">                    
+                    </div>
+                    <div class="line-block">
+                        <label class="text-item-info" for="non-tangent-color">Недотичні відрізки:</label>
+                        <input type="color" name="non-tangent-color" id="non-tangent-color">                    
+                    </div>
+                </div>
+                <div class="control-button control" id="control-button-reset">
+                    <p class="text-button">Скинути зміни</p>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fclear.png?alt=media&token=25c00307-14e6-468f-8eef-800cca7adc4b" alt="reset changes" class="icon-button">
+                </div>
+            </div>
+
+            <div class="control-panel-resize" id="control-panel-resize"></div>
+
+        </div>
+  
+
+        <div class="canvas-panel">
+            <div id="canvas-lock">
+                <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2FLock.png?alt=media&token=4b118258-8037-4d0f-b98e-ad8fa9bbef66" alt="Locked" />
+            </div>
+            <div id="canvas-glue" class="canvas-overlay">
+                <span class="glue-label">Склеювання</span>
+                <label class="switch">
+                  <input type="checkbox" id="glue-toggle">
+                  <span class="slider" id="slider"></span>
+                </label>
+              </div>
+            <canvas class="canvas-main" id="canvas-main">
+
+            </canvas>
+            <canvas class="canvas-main" id="canvas-main-curve">
+
+            </canvas>
+
+            <div id="point-info-window" class="hidden">
+                <p id="point-info-coords"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="./js/colors.js"></script>
+<script src="./js/window.js"></script>
+<script src="./js/curve.js"></script>
+<script src="./js/tasks.js"></script>
+<script src="./js/system.js"></script>
+
+</html>

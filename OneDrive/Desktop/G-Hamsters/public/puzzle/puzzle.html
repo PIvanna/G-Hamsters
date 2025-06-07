@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="puzzle.css" />
+  </head>
+  <body>
+    <div class="back-button-container">
+      <button id="go-back">← Назад</button>
+    </div>
+
+    <div class="controls">
+      <div class="timer">01 : 00</div>
+      <select id="difficulty">
+        <option value="4">Легкий (4x4)</option>
+        <option value="5">Середній (5x5)</option>
+        <option value="6">Важкий (6x6)</option>
+      </select>
+      <select id="time-select">
+        <option value="60">1 хвилина</option>
+        <option value="180">3 хвилини</option>
+        <option value="300">5 хвилин</option>
+        <option value="0">Без таймера</option>
+      </select>
+
+      <div class="buttons">
+        <button id="start">Почати</button>
+        <button id="check" disabled>Перевірити</button>
+        <button id="new" disabled>Новий</button>
+      </div>
+      <label>
+        <input type="checkbox" id="show-preview" checked />
+        Показати приклад зображення
+      </label>
+    </div>
+
+    <div class="preview-area" id="preview-section">
+      <h3>Картинка для збирання</h3>
+      <img id="puzzle-preview" alt="Попередній перегляд картинки" />
+    </div>
+
+    <div class="game-areas">
+      <div>
+        <h3>Перемішані частини</h3>
+        <div class="container"></div>
+      </div>
+      <div>
+        <h3>Зібрати тут</h3>
+        <div class="board"></div>
+      </div>
+    </div>
+
+    <div class="check-menu">
+      <div class="result">
+        <p class="result-p"></p>
+        <button id="closeResult">Закрити</button>
+      </div>
+      <div class="time-less">
+        <!-- <p class="time-less-p">У Вас закінчився час</p> -->
+        <div class="buttons-check">
+          <p class="time-less-p">Ви впевнені?</p>
+
+          <button id="closeBut">Закрити</button>
+          <button id="check-check">Перевірити</button>
+        </div>
+      </div>
+      <div class="pity">
+        <p>Шкода, але Ви програли</p>
+        <button id="close-pity">Закрити</button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

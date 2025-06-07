@@ -1,0 +1,162 @@
+:root{
+    --light-brown: #a83b3b;
+    --brown: #a52a2a;
+    --dark-brown: #891d1d;
+    --light: #fff0f0;
+    --green: #4CAF50;
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #c4c4c4;
+    --middle-grey:  #a7a7a7;
+}
+
+.back-button-container {
+    display: flex;
+   
+    padding: 10px;
+    padding-right: 0;
+    justify-self: end;
+   
+}
+
+.back-button{
+    border-radius: 8px 0px 0px 8px;
+    width: 200px;
+    text-align: left;
+
+}
+
+body {
+    display: grid;
+   
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+#hamster-gif{
+    height: 124px;
+    width: 124px;
+}
+
+.hamster-run-container{
+    display: flex;
+   
+    justify-content: center;
+   align-self: flex-end;
+    align-items: end;
+    padding-bottom: 40px;
+}
+
+main{
+  grid-template-columns: 1fr 3fr 1fr ; /* 2 колонки: ширина кнопки і решта для work-area */
+  display: grid;
+  width: 100%;
+    align-items: flex-start;
+    
+   flex-direction: row;
+}
+
+.work-area{
+   
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    height: 86vh;
+  
+   padding: 20px;
+   box-shadow: 
+   20px 0 100px -5px var(--light),  /* праворуч */
+   -20px 0 100px -5px var(--light); /* ліворуч */
+
+
+}
+
+.tests-container{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* ← це дозволяє перенос */
+    max-width: 850px;
+   
+    justify-content: flex-start;
+    margin-top: 20px;
+    gap: 28px; /* необов'язково: додає відступи між блоками */
+padding-left: 24px;
+}
+
+
+
+.task-game{
+    height: 220px;
+    width: 250px;
+   background-color: var(--white);
+    border-radius: 20px;
+    box-shadow: 2px 2px 8px 0px var(--grey);
+   
+   margin: 0;
+}
+
+.back-home{
+    cursor: pointer;
+}
+
+.task-game:hover{
+    box-shadow: 0px 0px 8px 2px var(--brown);
+   
+}
+
+#tests-container-header{
+    color: var(--black);
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 20px;
+
+}
+
+.task-game-img{
+    border-radius: 20px 20px 0px 0px;
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Flex для розташування назви+зірок ліворуч, кнопки праворуч */
+.task-game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+}
+
+/* Лівий блок з назвою і зірочками */
+.task-game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+
+
+.task-game-content {
+    width: 100%;
+    text-align:left;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.task-game-title {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.task-game-stars {
+    color: gold;
+    font-size: 1.2rem;
+}
+
+.star.inactive {
+    color: #ccc;
+}

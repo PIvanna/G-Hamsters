@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="custom.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="page-header" id="page-header">
+        <h1 onclick="goHome()">Моделі кольорів </h1>
+    </header>
+
+    <main>
+       
+
+        <div class="main-canvases-container">
+ <div class="back-button-container">
+            <button class="button back-button" onclick="goHome()"> ⬅ Головне меню </button>
+        </div>
+
+            <div class="canvas-container">
+                <div class="canvas-model-type">
+                    <label class="file-upload">
+                        📁 Завантажити
+                        <input type="file" id="upload-file" accept="image/*" style="display: none" />
+                    </label>
+
+                    <button class="save-button" onclick="SavePhoto(1)">
+                        💾 Зберегти фото
+                    </button>
+                </div>
+                <canvas id="canvas-parent"></canvas>
+            </div>
+            <div class="canvas-container">
+                <div class="canvas-model-type">
+                    <button class="save-button" onclick="SavePhoto(2)">
+                        📥 Зберегти файл
+                    </button>
+
+                    <button class="save-button" onclick="SaveVersion()">
+                        📝 Зберегти зміни
+                    </button>
+
+                    <button class="save-button" onclick="DiscardChanges()">
+                        ♻️Скасувати все
+                    </button>
+
+                </div>
+                <canvas id="canvas-child"></canvas>
+                <canvas id="magnifier"></canvas>
+            </div>
+        </div>
+
+
+
+
+        <div>
+            <div id="colorDisplay">Натисніть на канву</div>
+
+            <div class="settings-container">
+
+                <div class="instruments-container">
+                    <button class="tool-button active" id="picker-tool" onclick="activateTool('picker')"><img
+                            src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Feyedropper.png?alt=media&token=758a6a19-92cb-4243-aa95-9b95ea50b247" alt="color-picker"></button>
+                    <button class="tool-button" id="selector-tool" onclick="activateTool('selector')"><img
+                            src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Maria%2Fmark.png?alt=media&token=cd151a3e-abe4-47a6-9929-d8e94331d345" alt="selector"></button>
+                </div>
+
+                <label id="toggleConvert" class="container-label">
+                    Перетворення моделей
+                    <span class="arrow-icon">▶</span>
+                </label>
+
+                <div class="collapsible open" id="convert-settings">
+                    <div class="general-container">
+                        <select id="fromSelect">
+                            <option value="rgb">RGB</option>
+                            <option value="lab">LAB</option>
+                            <option value="hsb">HSB</option>
+                            <option value="xyz">XYZ</option>
+                            <option value="cmy">CMY</option>
+                            <option value="hsl">HSL</option>
+                        </select>
+
+                        <div class="arrow">⟶</div>
+
+                        <select id="toSelect"></select>
+
+                        <button onclick="convertC1ToC2()">Перетворити</button>
+                    </div>
+                    <div class="general-container modify-container" id="modify-container">
+                        <input type="checkbox" id="is-modify-lab-to-rgb">
+                        <label for="is-modify-lab-to-rgb">Модифіковане перетворення</label>
+                    </div>
+
+                </div>
+
+                <label id="toggleInfo" class="container-label">
+                    Результати перетворення <span class="arrow-icon">▶</span>
+                </label>
+                <div class="collapsible open" id="convert-info">
+                    <div class="general-container" id="info">
+                        <p id="match-percentage">Співпадіння:</p>
+                        <p id="mismatch-percentage">Неспівпадіння:</p>
+                        <p id="max-deviation">Максимальне відхилення:</p>
+                        <p id="min-deviation">Мінімальне відхилення:</p>
+                        <div class="modify-colors">
+                            <div id="most-modified" class="MODIFIED-COLORS"></div>
+                            <div id="min-modified" class="MODIFIED-COLORS"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <label id="toggleModifyConvert" class="container-label">
+                    Редагування
+                    <span class="arrow-icon">▶</span>
+                </label>
+                <div class="collapsible open" id="modify-convert-container">
+                    <div class="general-container" id="modify-convert">
+                        <div class="mode-selector">
+                            <input type="radio" id="labMode" name="modMode" value="LAB" checked />
+                            <label for="labMode">LAB</label>
+
+                            <input type="radio" id="rgbMode" name="modMode" value="RGB" />
+                            <label for="rgbMode">RGB</label>
+                        </div>
+
+                        <div id="editor-sliders" class="range-group">
+                            <div class="range-container">
+                                <!-- Component 1 -->
+                                <div class="slider-wrapper">
+                                    <label id="component-1-name">L:</label>
+                                    <button type="button" class="decrease" data-target="component-1-slider">
+                                        −
+                                    </button>
+                                    <input type="range" id="component-1-slider" min="-100" max="100" step="1"
+                                        value="0" />
+                                    <button type="button" class="increase" data-target="component-1-slider">
+                                        +
+                                    </button>
+                                    <input type="number" id="component-1-input" value="0" min="-100" max="100"
+                                        class="input-component" />
+                                </div>
+
+                                <!-- 2-->
+                                <div class="slider-wrapper">
+                                    <label id="component-2-name">a:</label>
+                                    <button type="button" class="decrease" data-target="component-2-slider">
+                                        −
+                                    </button>
+                                    <input type="range" id="component-2-slider" min="-127" max="127" step="1"
+                                        value="0" />
+                                    <button type="button" class="increase" data-target="component-2-slider">
+                                        +
+                                    </button>
+                                    <input type="number" id="component-2-input" value="0" min="-127" max="127"
+                                        class="input-component" />
+                                </div>
+
+                                <!-- b -->
+                                <div class="slider-wrapper">
+                                    <label id="component-3-name">b:</label>
+                                    <button type="button" class="decrease" data-target="component-3-slider">
+                                        −
+                                    </button>
+                                    <input type="range" id="component-3-slider" min="-100" max="100" step="1"
+                                        value="0" />
+                                    <button type="button" class="increase" data-target="component-3-slider">
+                                        +
+                                    </button>
+                                    <input type="number" id="component-3-input" value="0" min="-100" max="100"
+                                        class="input-component" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-row">
+                            <button onclick="AddModify()">Застосувати зміни</button>
+                            <!-- <button onclick="ResetModify()">Скинути модифікацію</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <label id="toggleColorEdit" class="container-label">
+                    Редагування
+                    <span class="arrow-icon">▶</span>
+                </label>
+
+                <div class="collapsible open" id="color-edit-container">
+                    <div class="general-container" id="color-edit">
+                        <div class="range-group">
+                            <h3>H:</h3>
+
+                            <div class="slider-wrapper double-slider">
+                                <div class="slider-container">
+                                    <label class="range-label">Від:</label>
+                                    <button type="button" class="decrease" data-target="hueMin-slider">
+                                        −
+                                    </button>
+                                    <input class="hue-slider" type="range" id="hueMin-slider" min="0" max="360"
+                                        value="0" step="1" />
+                                    <button type="button" class="increase" data-target="hueMin-slider">
+                                        +
+                                    </button>
+                                    <input type="number" id="hueMin-input" value="0" min="0" max="360"
+                                        class="input-component" />
+                                </div>
+
+                                <div class="slider-container">
+                                    <label class="range-label">До:</label>
+                                    <button type="button" class="decrease" data-target="hueMax-slider">
+                                        −
+                                    </button>
+                                    <input class="hue-slider" type="range" id="hueMax-slider" min="0" max="360"
+                                        value="360" step="1" />
+                                    <button type="button" class="increase" data-target="hueMax-slider">
+                                        +
+                                    </button>
+                                    <input type="number" id="hueMax-input" value="360" min="0" max="360"
+                                        class="input-component" />
+                                </div>
+                            </div>
+
+                            <div id="presets">
+
+                                <button data-hue="0" class="hue-buttons " style="background-color: red;">Red</button>
+                                <button data-hue="120" class="hue-buttons"
+                                    style="background-color: green;">Green</button>
+                                <button data-hue="240" class="hue-buttons" style="background-color: blue;">Blue</button>
+                                <button data-hue="180" class="hue-buttons contrast"
+                                    style="background-color: cyan;">Cyan</button>
+                                <button data-hue="300" class="hue-buttons"
+                                    style="background-color: magenta;">Magenta</button>
+                                <button data-hue="60" class="hue-buttons contrast"
+                                    style="background-color: yellow;">Yellow</button>
+                            </div>
+
+
+                        </div>
+
+                        <div class="range-group">
+                            <div class="slider-wrapper">
+                                <h3>S:</h3>
+                                <button type="button" class="decrease" data-target="saturation-slider">
+                                    −
+                                </button>
+                                <input type="range" id="saturation-slider" min="-100" max="100" value="0" step="1" />
+                                <button type="button" class="increase" data-target="saturation-slider">
+                                    +
+                                </button>
+
+                                <input type="number" id="saturation-input" value="0" min="0" max="100"
+                                    class="input-component" />
+                            </div>
+                        </div>
+
+                        <div class="range-group">
+                            <div class="slider-wrapper">
+                                <h3>B:</h3>
+                                <button type="button" class="decrease" data-target="brightness-slider">
+                                    −
+                                </button>
+                                <input type="range" id="brightness-slider" min="-100" max="100" value="0" step="1" />
+                                <button type="button" class="increase" data-target="brightness-slider">
+                                    +
+                                </button>
+                                <input type="number" id="brightness-input" value="0" min="0" max="100"
+                                    class="input-component" />
+                            </div>
+                        </div>
+                        <div class="button-row">
+                            <button onclick="convertC1ToC2()">Застосувати зміни</button>
+                            <!-- <button onclick="ResetHSB()">Скасувати зміни</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <label id="toggleColorPalette" class="container-label">
+                    Палітра кольорів
+                    <span class="arrow-icon">▶</span>
+                </label>
+
+                <div class="collapsible open" id="color-palette-container">
+                    <div class="general-container" id="color-edit">
+                        <div style="display: flex; flex-direction: row; margin-bottom: 8px">
+                            <label for="colorCountInput">Кількість кольорів (3–15):</label>
+                            <input type="number" id="colorCountInput" value="7" min="3" max="15"
+                                style="width: 60px; margin-left: 5px" />
+                        </div>
+
+                        <button id="generatePaletteBtn" onclick="GeneratePalette()">
+                            Оновити палітру
+                        </button>
+                        <div id="palette-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notify" class="notification">Зображення перетворено</div>
+    </main>
+</body>
+<script src="index.js"></script>
+<script src="dynamic.js"></script>
+<script src="color_picker.js"></script>
+<script src="color_palette.js"></script>
+<script src="selected_modify.js"></script>
+<script src="goHome.js"></script>
+
+</html>

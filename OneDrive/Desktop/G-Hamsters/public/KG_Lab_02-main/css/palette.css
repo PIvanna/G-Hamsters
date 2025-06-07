@@ -1,0 +1,35 @@
+:root {
+  --transperent: rgba(0, 0, 0, 0);
+  --shadow: rgba(32, 34, 43, 0.2);
+
+  --white-dark: rgb(184, 184, 184);
+  --white-normal: rgb(216, 216, 216);
+  --white-accent: white;
+  --white-accent-transperent: rgb(255, 255, 255, 0.95);
+
+  /* --darkblue-bright: #40434b;
+  --darkblue-normal: #2c2e36;
+  --darkblue-accent: #2d2f38; */
+
+  /* --darkblue-bright: #464241;
+  --darkblue-normal: #2b2929;
+  --darkblue-accent: #1f1d1d; */
+
+  --darkblue-bright: #59575c;
+  --darkblue-bright-2: #79777c;
+  --darkblue-normal: #2e2e31;
+  --darkblue-accent: #212123;
+  --black: #000000;
+
+  --hover-darkblue: #3a3a3d; /* Для hover-ефектів */
+  --shadow-light: rgba(0, 0, 0, 0.1); /* Легка тінь */
+  --shadow-dark: rgba(0, 0, 0, 0.3); /* Темна тінь */
+  --shadow-black: rgba(0, 0, 0, 0.6); /* Темна тінь */
+  
+  /* --darkblue-bright: #403f41;
+  --darkblue-normal: #212123;
+  --darkblue-accent: #18181a; */
+
+  --font-decorative: Cambria, Cochin, Georgia, serif;
+  --font-informative: "Arial Narrow", Arial, sans-serif;
+}

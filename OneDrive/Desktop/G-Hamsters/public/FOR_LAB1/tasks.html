@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/tasks.css">
+    <script src="js/tests_db.js"></script>
+</head>
+
+<body>
+    <header>
+       <a href="index.html" class="home"> <h1>Конструктор</h1></a>
+    </header>
+
+    <main>
+        <!-- <div>
+        <h3>Почати проходити рівень до 1 ЛР</h3>
+        <button>Start</button>
+      </div> -->
+
+        <div id="page-divider">
+            <div id="canvas-container">
+                <canvas id="canvas-board"></canvas>
+            </div>
+
+            <div class="task-container" id="task-container">
+                <div class="timer-container">
+                    <div id="timer">00:00</div>
+                    <!-- <button id="start-btn">Старт</button>
+                    <button id="stop-btn">Стоп</button> -->
+                </div>
+
+                <div id="task" class="task">
+                    <h3 id="task-num">Task 1</h3>
+
+                    <h4>Choose smth to pass test ...</h4>
+
+                    <div id="all-answers-container">
+                        <label class="answer-container">
+                            <input type="radio" name="answers" class="custom-radio" />
+                            <p>
+                              
+                                c.fillStyle = "grey"; <br>
+                                c.fillRect( STEP*3, canvas.height-STEP*5, STEP*4, STEP*4); <br>
+                            
+                            </p>
+                        </label>
+                        <label class="answer-container">
+                            <input type="radio" name="answers" class="custom-radio" />
+                            <p>Answer 1</p>
+                        </label>
+                        <label class="answer-container">
+                            <input type="radio" name="answers" class="custom-radio"/>
+                            <p>Answer 1</p>
+                        </label>
+                        <label class="answer-container">
+                            <input type="radio" name="answers" class="custom-radio" />
+                            <p>Answer 1</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="feedback" class="feedback"></div>
+
+                <div class="buttons-task-container">
+                    <button id="action-btn">Перевірити</button>
+                    <button id="retry-btn" onclick="RetryTask()">Спробувати ще раз</button>
+                    <button onclick="NextStep()" id="btn-next-task">Наступне питання</button>
+                </div>
+
+            </div>
+
+            <div id="results-container-wrap" >
+                <div class="results-container" id="results-container">
+                
+                </div>
+            </div>
+           
+
+
+
+        </div>
+    </main>
+</body>
+<script src="js/index.js"></script>
+<script src="js/timer.js"></script>
+
+<script src="js/task.js"></script>
+
+</html>

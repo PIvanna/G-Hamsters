@@ -1,3 +1,7 @@
+html{
+  background-color: white;
+}
+
 .title {
   font-size: 64px;
   display: flex;
@@ -23,7 +27,7 @@
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   width: 500px;
-  height: 350px;
+  height: 380px;
 }
 
 .module-header {
@@ -101,6 +105,7 @@
   box-shadow: #2b2a2a 0px 0px 5px;
 }
 
+
 .locked .btn {
   display: none;
 }
@@ -119,6 +124,7 @@
   font-family: "Times New Roman", Times, serif;
   letter-spacing: 0.5px;
   margin: 30px 0;
+  height: 83px;
 }
 
 .games-title {
@@ -185,14 +191,14 @@
 .game-content h3,
 .sandbox-card h3 {
   margin: 0 0 8px;
-  font-size: 48px;
+  font-size: 42px;
   letter-spacing: 2px;
 }
 
 .game-content p,
 .sandbox-card p {
   margin: 0 0 12px;
-  font-size: 24px;
+  font-size: 20px;
   color: #666;
 }
 
@@ -213,9 +219,6 @@
   font-family: "Times New Roman", Times, serif;
 }
 
-.game-content button:hover {
-  background-color: #218838;
-}
 
 .sandbox-card img {
   width: 140px;
