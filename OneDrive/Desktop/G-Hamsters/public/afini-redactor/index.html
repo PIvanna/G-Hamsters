@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-gradient-start: #e0eafc;
+        --bg-gradient-end: #cfdef3;
+        --card-bg: #ffffff;
+        --text-primary: #343a40;
+        --text-secondary: #6c757d;
+        --accent-primary: #007bff; /* Синій для акцентів */
+        --accent-secondary: #6c757d; /* Сірий для вторинних елементів */
+        --success-color: #28a745; /* Зелений для підтвердження */
+        --danger-color: #dc3545; /* Червоний для небезпеки/скидання */
+        --info-color: #17a2b8; /* Бірюзовий для інформаційних кнопок */
+        --border-color: #dee2e6;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --font-family: "Roboto", "Segoe UI", sans-serif;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background: linear-gradient(
+          135deg,
+          var(--bg-gradient-start),
+          var(--bg-gradient-end)
+        );
+        padding: 20px;
+        color: var(--text-primary);
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 25px;
+        margin: 0;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      #projectSelectionContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        min-height: calc(100vh - 40px);
+        text-align: center;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      #projectSelectionContainer h2 {
+        font-size: 2.5rem;
+        color: var(--text-primary);
+        margin-bottom: 40px;
+        font-weight: 500;
+        border-bottom: 2px solid var(--accent-primary);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      #projectCardsContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 30px;
+        width: 100%;
+        max-width: 1300px;
+        margin-top: 20px;
+        padding-bottom: 30px;
+      }
+
+      .project-choice {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        background-color: var(--card-bg);
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+        min-width: 240px;
+        box-sizing: border-box;
+        box-shadow: 0 4px 8px var(--shadow-color);
+      }
+      .project-choice:hover,
+      .project-choice:focus-visible {
+        box-shadow: 0 8px 20px rgba(0, 91, 255, 0.15);
+        transform: translateY(-6px) scale(1.02);
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 4px;
+      }
+      .project-choice canvas {
+        border: 1px solid #e9ecef;
+        background: #f8f9fa;
+        border-radius: 8px;
+        width: 100%; /* Make canvas responsive within the card */
+        height: auto; /* Maintain aspect ratio */
+        aspect-ratio: 200 / 133; /* Maintain original aspect ratio */
+      }
+      .project-choice span {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-top: 8px;
+      }
+
+      canvas#canvas {
+        border: 2px solid #adb5bd;
+        background: #f8f9fa;
+        display: block;
+        margin: 0;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        cursor: default;
+      }
+      .controls-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch; /* Stretch items to fill width */
+        gap: 20px;
+        max-width: 450px;
+        min-width: 300px;
+        background-color: var(--card-bg);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px var(--shadow-color);
+      }
+      .control-group {
+        background: #f8f9fa; /* Slightly different background for groups */
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        width: 100%;
+        text-align: left;
+        box-sizing: border-box;
+      }
+      .control-group label,
+      .control-group .group-title {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 1rem;
+        color: var(--text-secondary);
+      }
+      .control-group .group-title {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+      }
+
+      select,
+      input[type="number"],
+      input[type="text"] {
+        margin: 4px 0; /* Adjusted margin */
+        padding: 10px 14px;
+        font-size: 0.95rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--card-bg);
+        box-sizing: border-box;
+        width: 100%; /* Full width */
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      select:focus,
+      input:focus {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
+
+      button {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+        width: 100%; /* Full width by default for stacking */
+        margin-top: 8px;
+      }
+      button:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+      button:active {
+        transform: translateY(0px);
+      }
+
+      .control-group button {
+        /* Buttons inside control groups can have auto width if needed */
+        width: auto;
+        min-width: 120px;
+        margin-right: 8px; /* Spacing for inline buttons */
+        margin-bottom: 8px; /* Spacing if they wrap */
+      }
+
+      /* Specific button styles */
+      .control-group button[onclick*="applyRotationWrapper"],
+      .control-group button[onclick*="applyIncrementalScale"] {
+        background-color: var(--info-color);
+      }
+      .control-group button[onclick*="applyRotationWrapper"]:hover,
+      .control-group button[onclick*="applyIncrementalScale"]:hover {
+        background-color: #138496;
+      }
+
+      .control-group button[onclick*="resetView"] {
+        background-color: var(--accent-secondary);
+      }
+      .control-group button[onclick*="resetView"]:hover {
+        background-color: #5a6268;
+      }
+      .control-group button[onclick*="showProjectSelectionScreen"] {
+        background-color: var(--accent-secondary);
+        width: 100%; /* Make it full width as it's usually alone */
+      }
+      .control-group button[onclick*="showProjectSelectionScreen"]:hover {
+        background-color: #545b62;
+      }
+
+      .controls-container select[multiple] {
+        width: 100%;
+        padding: 10px;
+        height: 160px;
+      }
+
+      input.small-number-input {
+        width: 90px;
+        padding: 10px;
+        display: inline-block; /* Allow side-by-side with other elements if needed */
+        width: calc(50% - 4px); /* Example for two small inputs side by side */
+        margin-right: 4px;
+      }
+      #rotateInput {
+        margin-bottom: 10px;
+      }
+
+      .movement-grid-title {
+        text-align: center;
+        margin-bottom: 12px;
+        font-size: 1rem;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+      .movement-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 8px;
+        margin: 0 auto;
+      }
+      .movement-grid button {
+        padding: 14px;
+        font-size: 1.3rem;
+        background-color: var(--accent-primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        line-height: 1;
+        width: 100%; /* Ensure buttons fill grid cells */
+        margin: 0; /* Reset button margins */
+      }
+      .movement-grid button:hover {
+        background-color: #0056b3;
+      }
+      .movement-grid .reset-button {
+        background-color: var(--danger-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .movement-grid .reset-button:hover {
+        background-color: #c82333;
+      }
+      #displacementInput {
+        margin-bottom: 15px;
+        width: 100%;
+      }
+
+      #go-back {
+        padding: 10px 20px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #go-back:hover {
+        background-color: #357ab8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back-button-container">
+      <button id="go-back">← Назад</button>
+    </div>
+    <div id="projectSelectionContainer">
+      <h2>Оберіть проект для редагування</h2>
+      <div id="projectCardsContainer">
+        <div
+          class="project-choice"
+          onclick="loadProject('train')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('train'); event.preventDefault(); }"
+        >
+          <canvas id="preview-train" width="200" height="133"></canvas>
+          <span>Потяг</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('helicopter')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('helicopter'); event.preventDefault(); }"
+        >
+          <canvas id="preview-helicopter" width="200" height="133"></canvas>
+          <span>Вертоліт</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('tractor')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('tractor'); event.preventDefault(); }"
+        >
+          <canvas id="preview-tractor" width="200" height="133"></canvas>
+          <span>Трактор</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('hamster')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('hamster'); event.preventDefault(); }"
+        >
+          <canvas id="preview-hamster" width="200" height="133"></canvas>
+          <span>Хом'як</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('university')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('university'); event.preventDefault(); }"
+        >
+          <canvas id="preview-university" width="200" height="133"></canvas>
+          <span>Університет</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('laptop')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('laptop'); event.preventDefault(); }"
+        >
+          <canvas id="preview-laptop" width="200" height="133"></canvas>
+          <span>Ноутбук</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('rocket')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('rocket'); event.preventDefault(); }"
+        >
+          <canvas id="preview-rocket" width="200" height="133"></canvas>
+          <span>Ракета</span>
+        </div>
+        <div
+          class="project-choice"
+          onclick="loadProject('house')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key === 'Enter' || event.key === ' ') { loadProject('house'); event.preventDefault(); }"
+        >
+          <canvas id="preview-house" width="200" height="133"></canvas>
+          <span>Будинок</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="controls-container"
+      id="controlsContainer"
+      style="display: none"
+    >
+      <div class="control-group">
+        <label for="objectSelect" class="group-title">Вибір об'єкту</label>
+        <select id="objectSelect" multiple size="8"></select>
+      </div>
+      <div class="control-group">
+        <label for="displacementInput" class="group-title">Переміщення</label>
+        <input
+          type="number"
+          id="displacementInput"
+          value="10"
+          class="small-number-input"
+          style="width: 100%; margin-bottom: 10px"
+        />
+
+        <!-- <div class="movement-grid-title">Напрямок</div> -->
+        <div class="movement-grid">
+          <button onclick="applyMovement(-1, -1)" title="Ліво-Вверх">↖</button>
+          <button onclick="applyMovement(0, -1)" title="Вверх">↑</button>
+          <button onclick="applyMovement(1, -1)" title="Право-Вверх">↗</button>
+          <button onclick="applyMovement(-1, 0)" title="Вліво">←</button>
+          <button
+            onclick="resetSelectedObjects()"
+            class="reset-button"
+            title="Скинути положення"
+          >
+            Reset
+          </button>
+          <button onclick="applyMovement(1, 0)" title="Вправо">→</button>
+          <button onclick="applyMovement(-1, 1)" title="Ліво-Низ">↙</button>
+          <button onclick="applyMovement(0, 1)" title="Вниз">↓</button>
+          <button onclick="applyMovement(1, 1)" title="Право-Низ">↘</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="rotateInput" class="group-title">Обертання</label>
+        <input
+          type="number"
+          id="rotateInput"
+          value="5"
+          class="small-number-input"
+          style="width: 100%"
+        />
+        <button
+          onclick="applyRotationWrapper(false)"
+          title="Проти годинникової стрілки"
+        >
+          ↺ Проти год.
+        </button>
+        <button
+          onclick="applyRotationWrapper(true)"
+          title="За годинниковою стрілкою"
+        >
+          ↻ За год.
+        </button>
+      </div>
+      <div class="control-group">
+        <label for="scaleMode" class="group-title">Масштабування</label>
+        <div style="display: flex; gap: 8px; margin-bottom: 10px">
+          <button
+            onclick="applyIncrementalScale(1.1)"
+            title="Збільшити об'єкт"
+            style="flex-grow: 1"
+          >
+            +
+          </button>
+          <button
+            onclick="applyIncrementalScale(1 / 1.1)"
+            title="Зменшити об'єкт"
+            style="flex-grow: 1"
+          >
+            −
+          </button>
+        </div>
+        <select id="scaleMode">
+          <option value="center">Відносно центру</option>
+          <option value="axes">Відносно осей</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label class="group-title">Загальний вигляд</label>
+        <button onclick="resetView()" title="Скинути вигляд">
+          Скинути вигляд
+        </button>
+      </div>
+      <div class="control-group">
+        <button onclick="showProjectSelectionScreen()">
+          Повернутись до вибору
+        </button>
+      </div>
+    </div>
+
+    <canvas id="canvas" width="900" height="600" style="display: none"></canvas>
+
+    <script>
+      const canvasEl = document.getElementById("canvas");
+      const ctx = canvasEl.getContext("2d");
+
+      const projectSelectionDiv = document.getElementById(
+        "projectSelectionContainer"
+      );
+      const controlsDiv = document.getElementById("controlsContainer");
+      const objectSelectElement = document.getElementById("objectSelect");
+
+      let viewScale = 1.0;
+      let viewOffsetX = 0;
+      let viewOffsetY = 0;
+
+      const initialViewScale = 1.0;
+      const initialViewOffsetX = 50;
+      const initialViewOffsetY = 50;
+
+      let isPanning = false;
+      let panKeyDown = false;
+      const PAN_KEY = "Alt";
+      let lastPanMouseX, lastPanMouseY;
+
+      function updateCanvasCursor() {
+        if (!canvasEl) return;
+        if (isPanning) {
+          canvasEl.style.cursor = "grabbing";
+        } else if (panKeyDown && canvasEl.matches(":hover")) {
+          canvasEl.style.cursor = "grab";
+        } else {
+          canvasEl.style.cursor = "default";
+        }
+      }
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === PAN_KEY) {
+          if (
+            canvasEl &&
+            (canvasEl.matches(":hover") || document.activeElement === canvasEl)
+          ) {
+            event.preventDefault();
+          }
+          if (!event.repeat && !panKeyDown) {
+            panKeyDown = true;
+            updateCanvasCursor();
+          }
+        }
+      });
+
+      window.addEventListener("keyup", (event) => {
+        if (event.key === PAN_KEY) {
+          panKeyDown = false;
+          if (isPanning) {
+            isPanning = false;
+          }
+          updateCanvasCursor();
+        }
+      });
+
+      if (canvasEl) {
+        canvasEl.addEventListener("mousedown", (event) => {
+          if (panKeyDown && event.button === 0) {
+            isPanning = true;
+            lastPanMouseX = event.clientX;
+            lastPanMouseY = event.clientY;
+            updateCanvasCursor();
+            event.preventDefault();
+          }
+        });
+        canvasEl.addEventListener("mouseenter", updateCanvasCursor);
+        canvasEl.addEventListener("mouseleave", updateCanvasCursor);
+        canvasEl.addEventListener("wheel", function (event) {
+          event.preventDefault();
+
+          const currentViewOffsetX = viewOffsetX;
+          const currentViewOffsetY = viewOffsetY;
+          const currentViewScale = viewScale;
+
+          const rect = canvasEl.getBoundingClientRect();
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
+
+          const zoomIntensity = 0.05;
+          let factor = event.deltaY < 0 ? 1 + zoomIntensity : 1 - zoomIntensity;
+
+          let newViewScale = currentViewScale * factor;
+
+          const minScale = 0.1;
+          const maxScale = 20.0;
+
+          if (newViewScale < minScale) newViewScale = minScale;
+          if (newViewScale > maxScale) newViewScale = maxScale;
+
+          const effectiveFactor = newViewScale / currentViewScale;
+
+          viewScale = newViewScale;
+
+          viewOffsetX =
+            mouseX - (mouseX - currentViewOffsetX) * effectiveFactor;
+          viewOffsetY =
+            mouseY - (mouseY - currentViewOffsetY) * effectiveFactor;
+
+          draw();
+        });
+      }
+
+      window.addEventListener("mousemove", (event) => {
+        if (isPanning) {
+          const dx = event.clientX - lastPanMouseX;
+          const dy = event.clientY - lastPanMouseY;
+
+          viewOffsetX += dx;
+          viewOffsetY += dy;
+
+          lastPanMouseX = event.clientX;
+          lastPanMouseY = event.clientY;
+
+          draw();
+        }
+      });
+
+      window.addEventListener("mouseup", (event) => {
+        if (isPanning) {
+          isPanning = false;
+          updateCanvasCursor();
+        }
+      });
+
+      function createPolygonCircle(
+        cx,
+        cy,
+        radius,
+        sides,
+        startAngle = -Math.PI / 2
+      ) {
+        const points = [];
+        for (let i = 0; i < sides; i++) {
+          points.push([
+            cx + radius * Math.cos((i * 2 * Math.PI) / sides + startAngle),
+            cy + radius * Math.sin((i * 2 * Math.PI) / sides + startAngle),
+          ]);
+        }
+        return points;
+      }
+
+      function createEllipse(cx, cy, rx, ry, sides) {
+        const points = [];
+        for (let i = 0; i < sides; i++) {
+          const angle = (i / sides) * 2 * Math.PI;
+          points.push([cx + rx * Math.cos(angle), cy + ry * Math.sin(angle)]);
+        }
+        return points;
+      }
+
+      function createClosedSemiCircle(
+        cx,
+        cy,
+        radius,
+        sides,
+        startAngle = 0,
+        endAngle = Math.PI
+      ) {
+        const points = [];
+        for (let i = 0; i <= sides; i++) {
+          const angle = startAngle + (endAngle - startAngle) * (i / sides);
+          points.push([
+            cx + radius * Math.cos(angle),
+            cy + radius * Math.sin(angle),
+          ]);
+        }
+
+        points.push([cx + radius, cy]);
+        points.push([cx - radius, cy]);
+
+        return points;
+      }
+
+      const projectDefinitions = {
+        train: {
+          name: "Потяг",
+          objects: {
+            largeWheelOuter: {
+              points: createPolygonCircle(380, 340, 70, 24),
+              color: "#E0E0E0",
+            },
+            largeWheelInner: {
+              points: createPolygonCircle(380, 340, 58, 24),
+              color: "#D82020",
+            },
+            smallWheel1Outer: {
+              points: createPolygonCircle(155, 360, 35, 16),
+              color: "#E0E0E0",
+            },
+            smallWheel1Inner: {
+              points: createPolygonCircle(155, 360, 28, 16),
+              color: "#D82020",
+            },
+            smallWheel2Outer: {
+              points: createPolygonCircle(245, 360, 35, 16),
+              color: "#E0E0E0",
+            },
+            smallWheel2Inner: {
+              points: createPolygonCircle(245, 360, 28, 16),
+              color: "#D82020",
+            },
+            cowCatcher: {
+              points: [
+                [70, 375],
+                [140, 320],
+                [140, 375],
+              ],
+              color: "#006400",
+            },
+            mainBase: {
+              points: [
+                [120, 320],
+                [460, 320],
+                [460, 375],
+                [120, 375],
+              ],
+              color: "#808080",
+            },
+            yellowStripe: {
+              points: [
+                [120, 310],
+                [430, 310],
+                [430, 320],
+                [120, 320],
+              ],
+              color: "#FFC300",
+            },
+            boilerFront: {
+              points: [
+                [140, 310],
+                [140, 245],
+                [150, 225],
+                [170, 225],
+                [180, 245],
+                [180, 310],
+              ],
+              color: "#A9A9A9",
+            },
+            headlight1: {
+              points: createPolygonCircle(148, 255, 5, 8),
+              color: "#FFFF00",
+            },
+            headlight2: {
+              points: createPolygonCircle(148, 275, 5, 8),
+              color: "#FFFF00",
+            },
+            mainBoiler: {
+              points: [
+                [180, 310],
+                [180, 240],
+                [195, 210],
+                [300, 210],
+                [330, 240],
+                [330, 310],
+              ],
+              color: "#008000",
+            },
+            chimney: {
+              points: [
+                [200, 210],
+                [200, 170],
+                [190, 170],
+                [190, 155],
+                [240, 155],
+                [240, 170],
+                [230, 170],
+                [230, 210],
+              ],
+              color: "#696969",
+            },
+            boilerDome: {
+              points: createClosedSemiCircle(
+                270,
+                210,
+                20,
+                10,
+                Math.PI,
+                2 * Math.PI
+              ).reverse(),
+              color: "#A9A9A9",
+            },
+            cabin: {
+              points: [
+                [330, 310],
+                [330, 170],
+                [450, 170],
+                [450, 310],
+              ],
+              color: "#008000",
+            },
+            cabinRoof: {
+              points: [
+                [320, 170],
+                [320, 150],
+                [460, 150],
+                [460, 170],
+              ],
+              color: "#FFC300",
+            },
+            cabinWindow: {
+              points: [
+                [350, 190],
+                [400, 190],
+                [400, 240],
+                [350, 240],
+              ],
+              color: "#ADD8E6",
+            },
+            rearConnector: {
+              points: [
+                [450, 270],
+                [480, 270],
+                [480, 300],
+                [450, 300],
+              ],
+              color: "#696969",
+            },
+            driveRod: {
+              points: [
+                [155, 350],
+                [155, 370],
+                [240, 375],
+                [370, 370],
+                [380, 360],
+                [245, 345],
+                [165, 340],
+              ],
+              color: "#1A1A1A",
+            },
+          },
+          drawOrder: [
+            "largeWheelOuter",
+            "largeWheelInner",
+            "smallWheel1Outer",
+            "smallWheel1Inner",
+            "smallWheel2Outer",
+            "smallWheel2Inner",
+            "cowCatcher",
+            "mainBase",
+            "yellowStripe",
+            "boilerFront",
+            "headlight1",
+            "headlight2",
+            "mainBoiler",
+            "cabin",
+            "cabinRoof",
+            "cabinWindow",
+            "chimney",
+            "boilerDome",
+            "rearConnector",
+            "driveRod",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь потяг" },
+            { value: "cowCatcher", text: "Відвал" },
+            { value: "mainBase", text: "Основна база" },
+            { value: "yellowStripe", text: "Жовта смуга" },
+            { value: "boilerFront", text: "Передня частина котла" },
+            { value: "headlight1", text: "Фара 1" },
+            { value: "headlight2", text: "Фара 2" },
+            { value: "mainBoiler", text: "Основний котел" },
+            { value: "boilerDome", text: "Купол котла" },
+            { value: "chimney", text: "Димар" },
+            { value: "cabin", text: "Кабіна" },
+            { value: "cabinRoof", text: "Дах кабіни" },
+            { value: "cabinWindow", text: "Вікно кабіни" },
+            { value: "rearConnector", text: "Заднє зчеплення" },
+            { value: "largeWheelOuter", text: "Велике колесо (зовн.)" },
+            { value: "largeWheelInner", text: "Велике колесо (внутр.)" },
+            { value: "smallWheel1Outer", text: "Мале колесо 1 (зовн.)" },
+            { value: "smallWheel1Inner", text: "Мале колесо 1 (внутр.)" },
+            { value: "smallWheel2Outer", text: "Мале колесо 2 (зовн.)" },
+            { value: "smallWheel2Inner", text: "Мале колесо 2 (внутр.)" },
+            { value: "driveRod", text: "Привідний шатун" },
+          ],
+        },
+        helicopter: {
+          name: "Вертоліт",
+          objects: {
+            /* ...as before... */ mainBody: {
+              points: [
+                [150, 250],
+                [150, 350],
+                [450, 350],
+                [450, 250],
+                [350, 200],
+                [250, 200],
+              ],
+              color: "#4CAF50",
+            },
+            tailBoom: {
+              points: [
+                [450, 280],
+                [600, 290],
+                [600, 310],
+                [450, 320],
+              ],
+              color: "#607D8B",
+            },
+            cockpit: {
+              points: [
+                [150, 250],
+                [150, 320],
+                [100, 320],
+                [100, 250],
+                [125, 230],
+              ],
+              color: "#ADD8E6",
+            },
+            mainRotorHub: {
+              points: createPolygonCircle(300, 190, 15, 6),
+              color: "#333333",
+            },
+            mainRotorBlade1: {
+              points: [
+                [300, 190],
+                [100, 185],
+                [300, 188],
+                [100, 195],
+                [300, 192],
+              ],
+              color: "#555555",
+            },
+            mainRotorBlade2: {
+              points: [
+                [300, 190],
+                [500, 185],
+                [300, 188],
+                [500, 195],
+                [300, 192],
+              ],
+              color: "#555555",
+            },
+            tailRotorHub: {
+              points: createPolygonCircle(610, 300, 8, 4),
+              color: "#333333",
+            },
+            tailRotorBlade1: {
+              points: [
+                [610, 300],
+                [610, 270],
+                [612, 300],
+                [615, 270],
+                [613, 300],
+              ],
+              color: "#555555",
+            },
+            landingSkidLeft: {
+              points: [
+                [200, 350],
+                [220, 380],
+                [380, 380],
+                [400, 350],
+              ],
+              color: "#795548",
+            },
+            landingSkidRight: {
+              points: [
+                [200, 355],
+                [220, 385],
+                [380, 385],
+                [400, 355],
+              ],
+              color: "#795548",
+            },
+          },
+          drawOrder: [
+            "landingSkidRight",
+            "landingSkidLeft",
+            "tailBoom",
+            "mainBody",
+            "cockpit",
+            "mainRotorHub",
+            "mainRotorBlade1",
+            "mainRotorBlade2",
+            "tailRotorHub",
+            "tailRotorBlade1",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь вертоліт" },
+            { value: "mainBody", text: "Корпус" },
+            { value: "tailBoom", text: "Хвостова балка" },
+            { value: "cockpit", text: "Кабіна пілота" },
+            { value: "mainRotor", text: "Головний ротор (група)" },
+            { value: "mainRotorHub", text: "Втулка гол. ротора" },
+            { value: "mainRotorBlade1", text: "Лопать 1 гол. ротора" },
+            { value: "mainRotorBlade2", text: "Лопать 2 гол. ротора" },
+            { value: "tailRotor", text: "Хвостовий ротор (група)" },
+            { value: "tailRotorHub", text: "Втулка хвост. ротора" },
+            { value: "tailRotorBlade1", text: "Лопать хвост. ротора" },
+            { value: "landingSkids", text: "Шасі (група)" },
+            { value: "landingSkidLeft", text: "Ліве шасі" },
+            { value: "landingSkidRight", text: "Праве шасі" },
+          ],
+        },
+        tractor: {
+          name: "Трактор",
+          objects: {
+            /* ...as before... */ body: {
+              points: [
+                [150, 200],
+                [400, 200],
+                [400, 300],
+                [150, 300],
+              ],
+              color: "#FFC107",
+            },
+            engineBlock: {
+              points: [
+                [300, 200],
+                [400, 200],
+                [400, 150],
+                [300, 150],
+              ],
+              color: "#795548",
+            },
+            cabin: {
+              points: [
+                [150, 120],
+                [300, 120],
+                [300, 200],
+                [150, 200],
+              ],
+              color: "#2196F3",
+            },
+            cabinRoof: {
+              points: [
+                [140, 110],
+                [310, 110],
+                [310, 120],
+                [140, 120],
+              ],
+              color: "#F0F0F0",
+            },
+            exhaustPipe: {
+              points: [
+                [370, 150],
+                [370, 80],
+                [385, 80],
+                [385, 150],
+              ],
+              color: "#607D8B",
+            },
+            rearWheelOuter: {
+              points: createPolygonCircle(120, 300, 70, 16),
+              color: "#212121",
+            },
+            rearWheelInner: {
+              points: createPolygonCircle(120, 300, 50, 16),
+              color: "#424242",
+            },
+            frontWheelOuter: {
+              points: createPolygonCircle(350, 300, 40, 12),
+              color: "#212121",
+            },
+            frontWheelInner: {
+              points: createPolygonCircle(350, 300, 25, 12),
+              color: "#424242",
+            },
+          },
+          drawOrder: [
+            "rearWheelOuter",
+            "rearWheelInner",
+            "frontWheelOuter",
+            "frontWheelInner",
+            "body",
+            "engineBlock",
+            "cabin",
+            "cabinRoof",
+            "exhaustPipe",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь трактор" },
+            { value: "body", text: "Корпус" },
+            { value: "engineBlock", text: "Блок двигуна" },
+            { value: "cabin", text: "Кабіна" },
+            { value: "cabinRoof", text: "Дах кабіни" },
+            { value: "exhaustPipe", text: "Вихлопна труба" },
+            { value: "rearWheels", text: "Задні колеса (група)" },
+            { value: "rearWheelOuter", text: "Заднє колесо (зовн.)" },
+            { value: "rearWheelInner", text: "Заднє колесо (внутр.)" },
+            { value: "frontWheels", text: "Передні колеса (група)" },
+            { value: "frontWheelOuter", text: "Переднє колесо (зовн.)" },
+            { value: "frontWheelInner", text: "Переднє колесо (внутр.)" },
+          ],
+        },
+        hamster: {
+          name: "Хом'як",
+          objects: {
+            /* ...as before... */ body: {
+              points: createEllipse(250, 280, 80, 60, 20),
+              color: "#D2B48C",
+            },
+            head: {
+              points: createPolygonCircle(180, 250, 45, 20),
+              color: "#D2B48C",
+            },
+            earLeftOuter: {
+              points: createPolygonCircle(155, 215, 15, 16),
+              color: "#D2B48C",
+            },
+            earLeftInner: {
+              points: createPolygonCircle(155, 215, 10, 16),
+              color: "#FFC0CB",
+            },
+            earRightOuter: {
+              points: createPolygonCircle(205, 215, 15, 16),
+              color: "#D2B48C",
+            },
+            earRightInner: {
+              points: createPolygonCircle(205, 215, 10, 16),
+              color: "#FFC0CB",
+            },
+            eyeLeft: {
+              points: createPolygonCircle(165, 245, 7, 8),
+              color: "#000000",
+            },
+            eyeRight: {
+              points: createPolygonCircle(195, 245, 7, 8),
+              color: "#000000",
+            },
+            nose: {
+              points: createPolygonCircle(180, 260, 5, 3, Math.PI / 2),
+              color: "#FF69B4",
+            },
+            pawFrontLeft: {
+              points: createEllipse(200, 320, 10, 15, 12),
+              color: "#C4A484",
+            },
+            pawFrontRight: {
+              points: createEllipse(230, 320, 10, 15, 12),
+              color: "#C4A484",
+            },
+            pawBackLeft: {
+              points: createEllipse(290, 330, 15, 20, 12),
+              color: "#C4A484",
+            },
+          },
+          drawOrder: [
+            "body",
+            "pawBackLeft",
+            "head",
+            "earLeftOuter",
+            "earLeftInner",
+            "earRightOuter",
+            "earRightInner",
+            "eyeLeft",
+            "eyeRight",
+            "nose",
+            "pawFrontLeft",
+            "pawFrontRight",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь хом'як" },
+            { value: "body", text: "Тіло" },
+            { value: "head", text: "Голова" },
+            { value: "ears", text: "Вуха (група)" },
+            { value: "earLeftOuter", text: "Ліве вухо (зовн.)" },
+            { value: "earLeftInner", text: "Ліве вухо (внутр.)" },
+            { value: "earRightOuter", text: "Праве вухо (зовн.)" },
+            { value: "earRightInner", text: "Праве вухо (внутр.)" },
+            { value: "eyes", text: "Очі (група)" },
+            { value: "eyeLeft", text: "Ліве око" },
+            { value: "eyeRight", text: "Праве око" },
+            { value: "nose", text: "Ніс" },
+            { value: "paws", text: "Лапи (група)" },
+            { value: "pawFrontLeft", text: "Передня ліва лапа" },
+            { value: "pawFrontRight", text: "Передня права лапа" },
+            { value: "pawBackLeft", text: "Задня ліва лапа" },
+          ],
+        },
+        university: {
+          name: "Університет",
+          objects: {
+            /* ...as before... */ mainBuilding: {
+              points: [
+                [100, 350],
+                [100, 150],
+                [500, 150],
+                [500, 350],
+              ],
+              color: "#F5DEB3",
+            },
+            roof: {
+              points: [
+                [90, 150],
+                [300, 80],
+                [510, 150],
+              ],
+              color: "#A0522D",
+            },
+            door: {
+              points: [
+                [270, 350],
+                [270, 280],
+                [330, 280],
+                [330, 350],
+              ],
+              color: "#8B4513",
+            },
+            window1: {
+              points: [
+                [150, 200],
+                [150, 170],
+                [180, 170],
+                [180, 200],
+              ],
+              color: "#ADD8E6",
+            },
+            window2: {
+              points: [
+                [220, 200],
+                [220, 170],
+                [250, 170],
+                [250, 200],
+              ],
+              color: "#ADD8E6",
+            },
+            window3: {
+              points: [
+                [350, 200],
+                [350, 170],
+                [380, 170],
+                [380, 200],
+              ],
+              color: "#ADD8E6",
+            },
+            window4: {
+              points: [
+                [420, 200],
+                [420, 170],
+                [450, 170],
+                [450, 200],
+              ],
+              color: "#ADD8E6",
+            },
+            column1: {
+              points: [
+                [250, 350],
+                [250, 250],
+                [260, 250],
+                [260, 350],
+              ],
+              color: "#E0E0E0",
+            },
+            column2: {
+              points: [
+                [340, 350],
+                [340, 250],
+                [350, 250],
+                [350, 350],
+              ],
+              color: "#E0E0E0",
+            },
+            pediment: {
+              points: [
+                [240, 250],
+                [300, 220],
+                [360, 250],
+              ],
+              color: "#D2B48C",
+            },
+          },
+          drawOrder: [
+            "mainBuilding",
+            "roof",
+            "column1",
+            "column2",
+            "pediment",
+            "door",
+            "window1",
+            "window2",
+            "window3",
+            "window4",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь університет" },
+            { value: "mainBuilding", text: "Головна будівля" },
+            { value: "roof", text: "Дах" },
+            { value: "door", text: "Двері" },
+            { value: "windows", text: "Вікна (група)" },
+            { value: "window1", text: "Вікно 1" },
+            { value: "window2", text: "Вікно 2" },
+            { value: "window3", text: "Вікно 3" },
+            { value: "window4", text: "Вікно 4" },
+            { value: "columns", text: "Колони (група)" },
+            { value: "column1", text: "Колона 1" },
+            { value: "column2", text: "Колона 2" },
+            { value: "pediment", text: "Фронтон" },
+          ],
+        },
+        laptop: {
+          name: "Ноутбук",
+          objects: {
+            /* ...as before... */ base: {
+              points: [
+                [100, 350],
+                [500, 350],
+                [480, 380],
+                [120, 380],
+              ],
+              color: "#C0C0C0",
+            },
+            keyboard: {
+              points: [
+                [130, 355],
+                [470, 355],
+                [460, 375],
+                [140, 375],
+              ],
+              color: "#5A5A5A",
+            },
+            touchpad: {
+              points: [
+                [250, 365],
+                [350, 365],
+                [345, 378],
+                [255, 378],
+              ],
+              color: "#A9A9A9",
+            },
+            screenBezel: {
+              points: [
+                [100, 350],
+                [120, 150],
+                [480, 150],
+                [500, 350],
+              ],
+              color: "#808080",
+            },
+            screenDisplay: {
+              points: [
+                [130, 340],
+                [140, 165],
+                [460, 165],
+                [470, 340],
+              ],
+              color: "#E0FFFF",
+            },
+          },
+          drawOrder: [
+            "base",
+            "keyboard",
+            "touchpad",
+            "screenBezel",
+            "screenDisplay",
+          ],
+          selectOptions: [
+            /* ...as before... */ { value: "all", text: "Весь ноутбук" },
+            { value: "base", text: "Основа (клавіатура)" },
+            { value: "keyboard", text: "Клавіші" },
+            { value: "touchpad", text: "Тачпад" },
+            { value: "screen", text: "Екран (група)" },
+            { value: "screenBezel", text: "Рамка екрану" },
+            { value: "screenDisplay", text: "Дисплей" },
+          ],
+        },
+        rocket: {
+          name: "Ракета",
+          objects: {
+            body: {
+              points: [
+                [280, 400],
+                [280, 150],
+                [320, 150],
+                [320, 400],
+              ],
+              color: "#D0D0D0",
+            }, // Світло-сірий
+            noseCone: {
+              points: [
+                [280, 150],
+                [300, 80],
+                [320, 150],
+              ],
+              color: "#FF6347",
+            }, // Червоний
+            finLeft: {
+              points: [
+                [280, 380],
+                [240, 420],
+                [280, 320],
+              ],
+              color: "#B0B0B0",
+            }, // Сірий
+            finRight: {
+              points: [
+                [320, 380],
+                [360, 420],
+                [320, 320],
+              ],
+              color: "#B0B0B0",
+            },
+            window: {
+              points: createPolygonCircle(300, 200, 15, 16),
+              color: "#ADD8E6",
+            }, // Світло-блакитний
+            flame: {
+              points: [
+                [285, 400],
+                [275, 430],
+                [290, 415],
+                [280, 440],
+                [300, 420],
+                [320, 440],
+                [310, 415],
+                [325, 430],
+                [315, 400],
+              ],
+              color: "#FFA500",
+            }, // Помаранчевий
+          },
+          drawOrder: [
+            "flame",
+            "finLeft",
+            "finRight",
+            "body",
+            "noseCone",
+            "window",
+          ],
+          selectOptions: [
+            { value: "all", text: "Вся ракета" },
+            { value: "body", text: "Корпус" },
+            { value: "noseCone", text: "Носова частина" },
+            { value: "fins", text: "Стабілізатори (група)" },
+            { value: "finLeft", text: "Лівий стабілізатор" },
+            { value: "finRight", text: "Правий стабілізатор" },
+            { value: "window", text: "Ілюмінатор" },
+            { value: "flame", text: "Полум'я" },
+          ],
+        },
+        house: {
+          name: "Будинок",
+          objects: {
+            walls: {
+              points: [
+                [150, 400],
+                [150, 200],
+                [450, 200],
+                [450, 400],
+              ],
+              color: "#F5DEB3",
+            }, // Бежевий
+            roof: {
+              points: [
+                [130, 200],
+                [300, 100],
+                [470, 200],
+              ],
+              color: "#A0522D",
+            }, // Коричневий
+            door: {
+              points: [
+                [270, 400],
+                [270, 300],
+                [330, 300],
+                [330, 400],
+              ],
+              color: "#8B4513",
+            }, // Темно-коричневий
+            window: {
+              points: [
+                [200, 300],
+                [200, 250],
+                [250, 250],
+                [250, 300],
+              ],
+              color: "#ADD8E6",
+            }, // Світло-блакитний
+            chimney: {
+              points: [
+                [380, 180],
+                [380, 120],
+                [410, 120],
+                [410, 180],
+              ],
+              color: "#778899",
+            }, // Сірий
+          },
+          drawOrder: ["walls", "roof", "chimney", "door", "window"],
+          selectOptions: [
+            { value: "all", text: "Весь будинок" },
+            { value: "walls", text: "Стіни" },
+            { value: "roof", text: "Дах" },
+            { value: "door", text: "Двері" },
+            { value: "window", text: "Вікно" },
+            { value: "chimney", text: "Димар" },
+          ],
+        },
+      };
+
+      let currentProjectKey = null;
+      let objects = {};
+      let objectDrawOrder = [];
+
+      function getProjectBoundingBox(projectObjects) {
+        let minX = Infinity,
+          minY = Infinity,
+          maxX = -Infinity,
+          maxY = -Infinity;
+        let hasPoints = false;
+
+        for (const key in projectObjects) {
+          const obj = projectObjects[key];
+          if (obj.points && obj.points.length > 0) {
+            hasPoints = true;
+            obj.points.forEach(([x, y]) => {
+              minX = Math.min(minX, x);
+              minY = Math.min(minY, y);
+              maxX = Math.max(maxX, x);
+              maxY = Math.max(maxY, y);
+            });
+          }
+        }
+        if (!hasPoints) return null;
+        return {
+          minX,
+          minY,
+          maxX,
+          maxY,
+          width: maxX - minX,
+          height: maxY - minY,
+        };
+      }
+
+      function drawProjectOnPreviewCanvas(projectKey, canvasId) {
+        const previewCanvas = document.getElementById(canvasId);
+        if (!previewCanvas) {
+          console.error(`Preview canvas with id ${canvasId} not found.`);
+          return;
+        }
+        const pCtx = previewCanvas.getContext("2d");
+        const projectData = projectDefinitions[projectKey];
+        if (!projectData) {
+          console.error("Project for preview not found:", projectKey);
+          pCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+          pCtx.font = "10px Segoe UI";
+          pCtx.fillStyle = "#555";
+          pCtx.textAlign = "center";
+          pCtx.fillText(
+            "Помилка завантаження",
+            previewCanvas.width / 2,
+            previewCanvas.height / 2
+          );
+          return;
+        }
+
+        const tempObjects = JSON.parse(JSON.stringify(projectData.objects));
+        const tempDrawOrder = [...projectData.drawOrder];
+        const bbox = getProjectBoundingBox(tempObjects);
+
+        if (!bbox || bbox.width <= 0 || bbox.height <= 0) {
+          pCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+          pCtx.font = "10px Segoe UI";
+          pCtx.fillStyle = "#555";
+          pCtx.textAlign = "center";
+          pCtx.fillText(
+            "Перегляд",
+            previewCanvas.width / 2,
+            previewCanvas.height / 2 - 6
+          );
+          pCtx.fillText(
+            "недоступний",
+            previewCanvas.width / 2,
+            previewCanvas.height / 2 + 6
+          );
+          return;
+        }
+
+        const padding =
+          0.1 * Math.min(previewCanvas.width, previewCanvas.height); // 10% of smaller dimension
+        const canvasContentWidth = previewCanvas.width - 2 * padding;
+        const canvasContentHeight = previewCanvas.height - 2 * padding;
+
+        let scale;
+        if (
+          bbox.width / bbox.height >
+          canvasContentWidth / canvasContentHeight
+        ) {
+          scale = canvasContentWidth / bbox.width; // Fit by width
+        } else {
+          scale = canvasContentHeight / bbox.height; // Fit by height
+        }
+
+        const scaledWidth = bbox.width * scale;
+        const scaledHeight = bbox.height * scale;
+
+        const offsetX =
+          padding + (canvasContentWidth - scaledWidth) / 2 - bbox.minX * scale;
+        const offsetY =
+          padding +
+          (canvasContentHeight - scaledHeight) / 2 -
+          bbox.minY * scale;
+
+        pCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+        pCtx.save();
+        pCtx.translate(offsetX, offsetY);
+        pCtx.scale(scale, scale);
+
+        for (const key of tempDrawOrder) {
+          const obj = tempObjects[key];
+          if (!obj || !obj.points || obj.points.length === 0) continue;
+          pCtx.beginPath();
+          pCtx.moveTo(obj.points[0][0], obj.points[0][1]);
+          for (let i = 1; i < obj.points.length; i++) {
+            pCtx.lineTo(obj.points[i][0], obj.points[i][1]);
+          }
+          pCtx.closePath();
+          pCtx.fillStyle = obj.color || "grey";
+          pCtx.fill();
+        }
+        pCtx.restore();
+      }
+
+      function initializeProjectPreviews() {
+        Object.keys(projectDefinitions).forEach((key) => {
+          drawProjectOnPreviewCanvas(key, `preview-${key}`);
+        });
+      }
+
+      function showProjectSelectionScreen() {
+        projectSelectionDiv.style.display = "flex";
+        controlsDiv.style.display = "none";
+        canvasEl.style.display = "none";
+        document.title = "Редактор Афінних Перетворень";
+        initializeProjectPreviews();
+      }
+
+      function showControlsAndCanvas() {
+        projectSelectionDiv.style.display = "none";
+        controlsDiv.style.display = "flex";
+        canvasEl.style.display = "block";
+      }
+
+      function loadProject(projectKey) {
+        currentProjectKey = projectKey;
+        const projectData = projectDefinitions[projectKey];
+        if (!projectData) {
+          console.error("Проект не знайдено:", projectKey);
+          return;
+        }
+
+        document.title = `Редактор - ${projectData.name}`;
+
+        objects = JSON.parse(JSON.stringify(projectData.objects));
+        objectDrawOrder = [...projectData.drawOrder];
+
+        for (const key in objects) {
+          if (objects.hasOwnProperty(key)) {
+            objects[key].matrix = identityMatrix();
+            objects[key].initialMatrix = identityMatrix();
+          }
+        }
+
+        objectSelectElement.innerHTML = "";
+        projectData.selectOptions.forEach((opt) => {
+          const option = document.createElement("option");
+          option.value = opt.value;
+          option.textContent = opt.text;
+          objectSelectElement.appendChild(option);
+        });
+        if (
+          objectSelectElement.options.length > 0 &&
+          projectData.selectOptions.find((o) => o.value === "all")
+        ) {
+          objectSelectElement.value = "all";
+        }
+
+        resetView();
+        showControlsAndCanvas();
+      }
+
+      function identityMatrix() {
+        return [
+          [1, 0, 0],
+          [0, 1, 0],
+          [0, 0, 1],
+        ];
+      }
+
+      function multiplyMatrices(a, b) {
+        const result = Array(3)
+          .fill(0)
+          .map(() => Array(3).fill(0));
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            for (let k = 0; k < 3; k++) {
+              result[i][j] += a[i][k] * b[k][j];
+            }
+          }
+        }
+        return result;
+      }
+
+      function transformPoint([x, y], matrix) {
+        const [a, b_m, c] = matrix[0];
+        const [d, e, f] = matrix[1];
+        const w_denom = matrix[2][0] * x + matrix[2][1] * y + matrix[2][2];
+        return [(x * a + y * b_m + c) / w_denom, (x * d + y * e + f) / w_denom];
+      }
+
+      function draw() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+        ctx.save();
+
+        ctx.translate(viewOffsetX, viewOffsetY);
+        ctx.scale(viewScale, viewScale);
+
+        for (const key of objectDrawOrder) {
+          const obj = objects[key];
+          if (!obj) continue;
+          const transformed = obj.points.map((p) =>
+            transformPoint(p, obj.matrix)
+          );
+          if (transformed.length === 0) continue;
+          ctx.beginPath();
+          ctx.moveTo(...transformed[0]);
+          for (let i = 1; i < transformed.length; i++) {
+            ctx.lineTo(...transformed[i]);
+          }
+          ctx.closePath();
+          ctx.fillStyle = obj.color || "grey";
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function getSelectedObjectKeys() {
+        const selectedOptions = Array.from(objectSelectElement.selectedOptions);
+        let keys = [];
+
+        if (!currentProjectKey || !projectDefinitions[currentProjectKey])
+          return [];
+
+        const isAllSelected = selectedOptions.some(
+          (option) => option.value === "all"
+        );
+        if (isAllSelected) {
+          return Object.keys(objects);
+        }
+
+        selectedOptions.forEach((option) => {
+          const val = option.value;
+          // Existing groups
+          if (val === "mainRotor" && currentProjectKey === "helicopter")
+            keys.push("mainRotorHub", "mainRotorBlade1", "mainRotorBlade2");
+          else if (val === "tailRotor" && currentProjectKey === "helicopter")
+            keys.push("tailRotorHub", "tailRotorBlade1");
+          else if (val === "landingSkids" && currentProjectKey === "helicopter")
+            keys.push("landingSkidLeft", "landingSkidRight");
+          else if (val === "rearWheels" && currentProjectKey === "tractor")
+            keys.push("rearWheelOuter", "rearWheelInner");
+          else if (val === "frontWheels" && currentProjectKey === "tractor")
+            keys.push("frontWheelOuter", "frontWheelInner");
+          else if (val === "ears" && currentProjectKey === "hamster")
+            keys.push(
+              "earLeftOuter",
+              "earLeftInner",
+              "earRightOuter",
+              "earRightInner"
+            );
+          else if (val === "eyes" && currentProjectKey === "hamster")
+            keys.push("eyeLeft", "eyeRight");
+          else if (val === "paws" && currentProjectKey === "hamster")
+            keys.push("pawFrontLeft", "pawFrontRight", "pawBackLeft");
+          else if (val === "windows" && currentProjectKey === "university")
+            keys.push("window1", "window2", "window3", "window4");
+          else if (val === "columns" && currentProjectKey === "university")
+            keys.push("column1", "column2");
+          else if (val === "screen" && currentProjectKey === "laptop")
+            keys.push("screenBezel", "screenDisplay");
+          else if (val === "fins" && currentProjectKey === "rocket")
+            keys.push("finLeft", "finRight");
+          else if (objects[val]) keys.push(val);
+        });
+        return [...new Set(keys)];
+      }
+
+      function transform(type, params) {
+        const keysToTransform = getSelectedObjectKeys();
+        if (keysToTransform.length === 0) return;
+
+        for (let key of keysToTransform) {
+          if (!objects[key]) continue;
+          let m;
+          if (type === "translate") {
+            const [tx, ty] = params;
+            m = [
+              [1, 0, tx],
+              [0, 1, ty],
+              [0, 0, 1],
+            ];
+          }
+          if (m) {
+            objects[key].matrix = multiplyMatrices(m, objects[key].matrix);
+          }
+        }
+        draw();
+      }
+
+      function getDisplacementValue() {
+        const inputEl = document.getElementById("displacementInput");
+        let value = parseInt(inputEl.value, 10);
+        if (isNaN(value) || value <= 0) {
+          alert("Будь ласка, введіть додатнє числове значення для зміщення.");
+          inputEl.value = "10";
+          return 10;
+        }
+        return value;
+      }
+
+      function applyMovement(dxFactor, dyFactor) {
+        const baseDisplacement = getDisplacementValue();
+        let finalDx, finalDy;
+
+        if (dxFactor !== 0 && dyFactor !== 0) {
+          finalDx = Math.round(dxFactor * baseDisplacement * 0.7071);
+          finalDy = Math.round(dyFactor * baseDisplacement * 0.7071);
+        } else {
+          finalDx = dxFactor * baseDisplacement;
+          finalDy = dyFactor * baseDisplacement;
+        }
+        transform("translate", [finalDx, finalDy]);
+      }
+
+      function resetSelectedObjects() {
+        const keysToReset = getSelectedObjectKeys();
+        if (keysToReset.length === 0) return;
+
+        for (let key of keysToReset) {
+          if (objects[key] && objects[key].initialMatrix) {
+            objects[key].matrix = JSON.parse(
+              JSON.stringify(objects[key].initialMatrix)
+            );
+          } else if (objects[key]) {
+            objects[key].matrix = identityMatrix();
+          }
+        }
+        draw();
+      }
+
+      function applyRotationWrapper(isClockwise) {
+        const angleDegInput = parseFloat(
+          document.getElementById("rotateInput").value
+        );
+        if (isNaN(angleDegInput)) {
+          alert(
+            "Будь ласка, введіть дійсне числове значення для кута обертання."
+          );
+          return;
+        }
+        const angleDeg = isClockwise ? angleDegInput : -angleDegInput;
+        applyRotation(angleDeg);
+      }
+
+      function applyRotation(angleDeg) {
+        const angleRad = (angleDeg * Math.PI) / 180;
+        const cosA = Math.cos(angleRad);
+        const sinA = Math.sin(angleRad);
+
+        const keysToTransform = getSelectedObjectKeys();
+        if (keysToTransform.length === 0) return;
+
+        let totalPoints = 0;
+        let sumX = 0;
+        let sumY = 0;
+        for (const key of keysToTransform) {
+          const obj = objects[key];
+          if (obj && obj.points) {
+            obj.points.forEach((p_orig) => {
+              const p_transformed = transformPoint(p_orig, obj.matrix);
+              sumX += p_transformed[0];
+              sumY += p_transformed[1];
+              totalPoints++;
+            });
+          }
+        }
+        if (totalPoints === 0) return;
+
+        const cx = sumX / totalPoints;
+        const cy = sumY / totalPoints;
+
+        for (let key of keysToTransform) {
+          if (!objects[key]) continue;
+          const toOrigin = [
+            [1, 0, -cx],
+            [0, 1, -cy],
+            [0, 0, 1],
+          ];
+          const rotMatrix = [
+            [cosA, -sinA, 0],
+            [sinA, cosA, 0],
+            [0, 0, 1],
+          ];
+          const fromOrigin = [
+            [1, 0, cx],
+            [0, 1, cy],
+            [0, 0, 1],
+          ];
+
+          let transformMatrix = multiplyMatrices(fromOrigin, rotMatrix);
+          transformMatrix = multiplyMatrices(transformMatrix, toOrigin);
+
+          objects[key].matrix = multiplyMatrices(
+            transformMatrix,
+            objects[key].matrix
+          );
+        }
+        draw();
+      }
+
+      function applyIncrementalScale(factor) {
+        if (factor <= 0) return;
+        const scaleMode = document.getElementById("scaleMode").value;
+        const scaleFromOrigin = scaleMode === "axes";
+
+        const keysToTransform = getSelectedObjectKeys();
+        if (keysToTransform.length === 0) return;
+
+        let cx = 0,
+          cy = 0;
+        if (!scaleFromOrigin) {
+          let totalPoints = 0;
+          let sumX = 0;
+          let sumY = 0;
+          for (const key of keysToTransform) {
+            const obj = objects[key];
+            if (obj && obj.points) {
+              obj.points.forEach((p_orig) => {
+                const p_transformed = transformPoint(p_orig, obj.matrix);
+                sumX += p_transformed[0];
+                sumY += p_transformed[1];
+                totalPoints++;
+              });
+            }
+          }
+          if (totalPoints > 0) {
+            cx = sumX / totalPoints;
+            cy = sumY / totalPoints;
+          } else {
+            return;
+          }
+        }
+
+        for (let key of keysToTransform) {
+          if (!objects[key]) continue;
+          const toCenterMatrix = [
+            [1, 0, -cx],
+            [0, 1, -cy],
+            [0, 0, 1],
+          ];
+          const scaleMatrix = [
+            [factor, 0, 0],
+            [0, factor, 0],
+            [0, 0, 1],
+          ];
+          const fromCenterMatrix = [
+            [1, 0, cx],
+            [0, 1, cy],
+            [0, 0, 1],
+          ];
+
+          let transformMatrix = multiplyMatrices(fromCenterMatrix, scaleMatrix);
+          transformMatrix = multiplyMatrices(transformMatrix, toCenterMatrix);
+
+          objects[key].matrix = multiplyMatrices(
+            transformMatrix,
+            objects[key].matrix
+          );
+        }
+        draw();
+      }
+
+      function resetView() {
+        viewScale = initialViewScale;
+        viewOffsetX = initialViewOffsetX;
+        viewOffsetY = initialViewOffsetY;
+        if (currentProjectKey) {
+          draw();
+        }
+      }
+
+      document.getElementById("go-back").addEventListener("click", () => {
+        window.location.href = "../main.html"; // ← заміни на потрібний файл
+      });
+
+      showProjectSelectionScreen();
+    </script>
+  </body>
+</html>

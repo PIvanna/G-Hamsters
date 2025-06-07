@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>G-Hamsters</title>
+
+    <link rel="icon" href="img/favicon.png" type="image/png"> 
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            padding-top: 20px; /* Adjusted to make space for the back button */
+            text-align: center;
+            position: relative; /* Added for positioning context of the back button */
+        }
+        #backButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1001; /* Ensure it's above other content if necessary */
+        }
+        #backButton:hover {
+            background-color: #5a6268;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+         #appTitle {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #levelSelectScreen { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        #levelsGrid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 900px; }
+        .level-card {
+            width: 250px;
+            height: 200px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 5px;
+        }
+        .level-card:hover { border-color: #888; }
+        .level-card.locked {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .level-card canvas {
+            width: 100%;
+            height: calc(100% - 30px);
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+        .level-card-name {
+            font-size: 1em;
+            color: #333;
+            padding: 5px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .level-card .play-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .level-card:not(.locked):hover .play-overlay { opacity: 1; }
+        
+        #gameScreen {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        #mainCanvas {
+            border: 2px solid #888;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+
+        .controls-group { 
+            margin-top: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+        }
+
+        #editorControls p {
+            font-size: 0.85em;
+            color: #666;
+            margin: 5px 0 0 0;
+            width: 100%;
+            text-align: center;
+            flex-basis: 100%;
+            order: 1; 
+        }
+        button {
+            padding: 10px 18px;
+            font-size: 0.95em;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            min-width: 200px;
+        }
+        button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button:active {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+        button:disabled {
+            background-color: #ccc !important;
+            color: #666 !important;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        #scoreDisplayContainer {
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        #startGameButton { background-color: #4CAF50; }
+        #startGameButton:hover { background-color: #45a049; }
+
+        #clearPathButton { background-color: #f44336; }
+        #clearPathButton:hover { background-color: #d32f2f; }
+
+        #backToMenuButton { background-color: #2196F3; } 
+        #backToMenuButton:hover { background-color: #1976D2; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0s linear 0s;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 1.1em;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .modal-actions {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .modal-actions button { 
+            min-width: 150px;
+        }
+        #nextLevelOrRetryButton { background-color: #4CAF50; }
+        #nextLevelOrRetryButton:hover { background-color: #45a049; }
+        #resultBackToMenuButton { background-color: #757575; } 
+        #resultBackToMenuButton:hover { background-color: #616161; }
+
+    </style>
+</head>
+<body>
+    <a href="../main.html" id="backButton">На головну сторінку</a>
+    <div id="appTitle">Bezier Racer</div>
+
+    <div id="levelSelectScreen">
+        <h2>Виберіть Рівень</h2>
+        <div id="levelsGrid">
+        </div>
+    </div>
+
+    <div id="gameScreen"> 
+        <canvas id="mainCanvas" width="800" height="450"></canvas>
+        <div id="scoreDisplayContainer">
+            Очки: <span id="scoreDisplay">0</span> |
+            Поточний Рівень: <span id="currentLevelDisplay">-</span>
+        </div>
+
+        <div id="levelResultScreen" class="modal-overlay"> 
+            <div class="modal-content">
+                <h2 id="resultTitle">Результат Рівня</h2>
+                <p id="resultMessage"></p>
+                <p>Очки: <span id="resultScore">0</span></p>
+                <p>Зібрано звичайних бонусів: <span id="resultNormalBonusesCollected">0</span> з <span id="resultNormalBonusesTotal">0</span></p>
+                <p>Зібрано ключових бонусів: <span id="resultEdgeBonusesCollected">0</span> з <span id="resultEdgeBonusesTotal">0</span></p>
+                <div class="modal-actions">
+                    <button id="nextLevelOrRetryButton">Спробувати ще</button>
+                    <button id="resultBackToMenuButton">Повернутися в Меню</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="editorControls" class="controls-group" style="display:none;">
+            <button id="clearPathButton">Очистити</button>
+            <button id="startGameButton">Старт!</button>
+
+        </div>
+
+        <div id="gameControls" class="controls-group">
+            <button id="backToMenuButton">До меню рівнів</button>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/levelsData.js"></script>
+    <script src="js/progressManager.js"></script>
+    <script src="js/bezier.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/playerAI.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

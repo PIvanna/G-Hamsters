@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #202123;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding-top: 10px;
+        color: #e8eaed;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      h1 {
+        color: #e8eaed;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+        font-weight: 400;
+      }
+
+      #appContainer {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 20px);
+        max-width: 1800px;
+        height: calc(
+          100vh - 80px
+        ); /* Adjust if H1/toolbar height changes significantly */
+        margin: 0 auto;
+      }
+
+      #toolbar {
+        display: flex;
+        align-items: flex-start; /* Align sections to the top */
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        background-color: #2d2e30;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10px;
+        border: 1px solid #3c3d3f;
+      }
+
+      .toolbar-section {
+        display: flex;
+        flex-direction: column; /* Stack label on top of content within section */
+        align-items: center; /* Center content horizontally */
+        gap: 5px; /* Gap between label and content */
+        padding: 8px 10px;
+        background-color: #353638;
+        border-radius: 6px;
+        border: 1px solid #4a4b4d;
+      }
+
+      .toolbar-section-label {
+        font-size: 0.75em;
+        color: #9aa0a6;
+        text-transform: uppercase;
+        font-weight: 500;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 3px; /* Space below label */
+      }
+
+      /* Specific styling for shapes section to be wider */
+      .toolbar-section.shapes-section {
+        min-width: 240px; /* Allow space for ~5-6 larger shapes per row */
+        align-items: stretch;
+      }
+
+      #shapeButtonsContainer {
+        background-color: transparent;
+        border-radius: 6px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(40px, 1fr)
+        ); /* Updated for larger buttons */
+        gap: 5px;
+        max-height: 130px; /* 3 rows of 40px buttons + 5px gaps = 40+5+40+5+40 = 130px */
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #5f6368 #353638;
+      }
+      #shapeButtonsContainer::-webkit-scrollbar {
+        width: 6px;
+      }
+      #shapeButtonsContainer::-webkit-scrollbar-track {
+        background: #353638;
+        border-radius: 3px;
+      }
+      #shapeButtonsContainer::-webkit-scrollbar-thumb {
+        background-color: #5f6368;
+        border-radius: 3px;
+        border: 1px solid #353638;
+      }
+
+      .shape-button {
+        width: 40px;
+        height: 40px; /* Increased size */
+        background: #404144;
+        border: 1px solid #5f6368;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #bdc1c6;
+        cursor: pointer;
+        padding: 0;
+        transition: border-color 0.2s, background-color 0.2s;
+      }
+      .shape-button:hover {
+        border-color: #797d82;
+        background-color: #4d4e51;
+      }
+      .shape-button.active {
+        border-color: #8ab4f8;
+        background-color: #4a545e;
+        color: #8ab4f8;
+      }
+      .shape-button svg {
+        width: 28px;
+        height: 28px; /* Increased size */
+      }
+
+      /* Colors Section */
+      .toolbar-section.colors-section {
+        min-width: 300px;
+      }
+      #colorPaletteInternal {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+      }
+      #colorSwatchesContainer {
+        display: grid;
+        grid-template-columns: repeat(11, 22px);
+        gap: 4px;
+        padding: 2px;
+      }
+      .color-swatch {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #5f6368;
+        cursor: pointer;
+        transition: transform 0.1s ease-out, border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+      }
+      .color-swatch:hover {
+        transform: scale(1.1);
+        border-color: #9e9e9e;
+      }
+      .color-swatch.active-swatch {
+        border: 2px solid #a07acc;
+        transform: scale(1.15);
+        box-shadow: 0 0 4px #a07acc;
+      }
+      #systemColorPickerWrapper {
+        /* Wrapper for the input type=color */
+      }
+      #toolbar input[type="color"]#colorPicker {
+        width: 28px;
+        height: 28px;
+        min-height: 28px;
+        border-radius: 50%;
+        border: 1px solid #787878;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+      #toolbar input[type="color"]#colorPicker::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+      #toolbar input[type="color"]#colorPicker::-webkit-color-swatch {
+        border-radius: 50%;
+        border: none;
+      }
+      #toolbar input[type="color"]#colorPicker::-moz-color-swatch {
+        border-radius: 50%;
+        border: none;
+      }
+
+      #colorsLabel {
+        font-size: 0.8em;
+        color: #b0b0b0;
+        margin-top: 6px;
+      }
+
+      /* General Tools Section */
+      .toolbar-section.tools-section,
+      .toolbar-section.actions-section {
+        flex-direction: row;
+        align-items: center;
+      }
+      .toolbar-section.tools-section .toolbar-section-label,
+      .toolbar-section.actions-section .toolbar-section-label {
+        width: auto;
+        text-align: left;
+        margin-bottom: 0;
+        margin-right: 8px;
+      }
+
+      #toolbar input[type="range"],
+      #toolbar button,
+      #toolbar label {
+        padding: 6px 8px;
+        border-radius: 4px;
+        border: 1px solid #5f6368;
+        font-size: 0.85em;
+        color: #e8eaed;
+        background-color: #404144;
+      }
+      #toolbar input[type="range"] {
+        padding: 0;
+        vertical-align: middle;
+      }
+      #toolbar label {
+        margin-right: 3px;
+        border: none;
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background-color: transparent;
+      }
+      #toolbar input[type="checkbox"] {
+        margin-right: 3px;
+        accent-color: #8ab4f8;
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+      }
+      #toolbar button#clearBtn {
+        background-color: #505154;
+        color: #e8eaed;
+        cursor: pointer;
+        transition: background-color 0.2s, border-color 0.2s;
+      }
+      #toolbar button#clearBtn:hover {
+        background-color: #5f6368;
+        border-color: #797d82;
+      }
+
+      #mainContentContainer {
+        display: flex;
+        flex-grow: 1;
+        gap: 15px;
+        width: 100%;
+        min-height: 0;
+      }
+      #canvasWrapper {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+        border: 1px solid #3c3d3f;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        background: #ffffff;
+        min-width: 0;
+      }
+      canvas#paintCanvas {
+        cursor: crosshair;
+        display: block;
+      }
+
+      #codeExampleContainer {
+        width: 380px;
+        flex-shrink: 0;
+        background-color: #2d2e30;
+        color: #bdc1c6;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border: 1px solid #3c3d3f;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        min-height: 0;
+        max-height: 100%;
+      }
+      #codeExampleContainer h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        color: #e8eaed;
+        font-size: 1.1em;
+        border-bottom: 1px solid #4a4b4d;
+        text-align: left;
+        font-weight: 500;
+      }
+      #codeExampleContainer pre {
+        background-color: #202123;
+        padding: 12px;
+        border-radius: 6px;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+        font-size: 0.85em;
+        line-height: 1.5;
+        flex-grow: 1;
+        min-height: 0;
+        color: #d1d5db;
+        scrollbar-width: thin;
+        scrollbar-color: #5f6368 #202123;
+      }
+      #codeExampleContainer pre::-webkit-scrollbar {
+        width: 8px;
+      }
+      #codeExampleContainer pre::-webkit-scrollbar-track {
+        background: #202123;
+        border-radius: 4px;
+      }
+      #codeExampleContainer pre::-webkit-scrollbar-thumb {
+        background-color: #5f6368;
+        border-radius: 4px;
+        border: 2px solid #202123;
+      }
+
+      @media (max-width: 1450px) {
+        .toolbar-section.colors-section {
+          min-width: auto;
+        }
+        .toolbar-section.shapes-section {
+          min-width: 200px;
+        }
+      }
+      @media (max-width: 1200px) {
+        #codeExampleContainer {
+          width: 320px;
+        }
+        #toolbar {
+          justify-content: center;
+        }
+      }
+      @media (max-width: 900px) {
+        #appContainer {
+          height: auto;
+          padding-bottom: 10px;
+        }
+        #mainContentContainer {
+          flex-direction: column;
+          height: auto;
+        }
+        #canvasWrapper {
+          min-height: 400px;
+          width: 100%;
+          flex-grow: 0;
+        }
+        #codeExampleContainer {
+          width: 100%;
+          max-height: 400px;
+          margin-top: 15px;
+        }
+      }
+      @media (max-width: 700px) {
+        #toolbar {
+          gap: 8px;
+          padding: 6px 8px;
+        }
+        .toolbar-section {
+          padding: 6px;
+          gap: 4px;
+        }
+        #shapeButtonsContainer {
+          max-height: 90px;
+        } /* 2 rows of 40px buttons + 5px gap = 85px */
+        .toolbar-section.shapes-section {
+          min-width: 150px;
+        }
+        .toolbar-section.colors-section {
+          min-width: auto;
+        }
+        #colorSwatchesContainer {
+          grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+          max-width: 200px;
+        }
+        .color-swatch {
+          width: 18px;
+          height: 18px;
+        }
+        #toolbar input[type="color"]#colorPicker {
+          width: 24px;
+          height: 24px;
+          min-height: 24px;
+        }
+      }
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.3em;
+        }
+        .toolbar-section.tools-section,
+        .toolbar-section.actions-section {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .toolbar-section.tools-section .toolbar-section-label,
+        .toolbar-section.actions-section .toolbar-section-label {
+          width: 100%;
+          text-align: center;
+          margin-bottom: 3px;
+          margin-right: 0;
+        }
+        #toolbar label {
+          justify-content: center;
+        }
+      }
+
+      #go-back {
+        padding: 10px 20px;
+        background-color: #4a545e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      #go-back:hover {
+        background-color: #4a545e;
+      }
+    </style>
+  </head>
+  <body>
+ <div class="back-button-container">
+      <button id="go-back">← Назад</button>
+    </div>
+
+    <div id="appContainer">
+      <div id="toolbar">
+        <!-- Shapes Section -->
+        <div class="toolbar-section shapes-section">
+          <span class="toolbar-section-label">Фігури</span>
+          <div id="shapeButtonsContainer"></div>
+        </div>
+
+        <!-- Colors Section -->
+        <div class="toolbar-section colors-section">
+          <div id="colorPaletteInternal">
+            <div id="colorSwatchesContainer">
+              <!-- Swatches generated by JS -->
+            </div>
+            <div id="systemColorPickerWrapper" title="Більше кольорів...">
+              <input type="color" id="colorPicker" value="#FFD700" />
+            </div>
+          </div>
+          <span class="toolbar-section-label" id="colorsLabel">Кольори</span>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="toolbar-section tools-section">
+          <span class="toolbar-section-label">Інструменти</span>
+          <label for="brushSize" title="Розмір кисті/лінії">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M7 14c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0-2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zM17.36 8.64c-.28-.28-.77-.28-1.06 0l-10.34 10.34c-.28.28-.28.77 0 1.06.14.14.33.22.53.22s.39-.08.53-.22L17.36 9.7c.28-.28.28-.77 0-1.06zM18.5 2.5c-1.41 0-2.7.56-3.71 1.45l-1.06 1.06c-.28.28-.28.77 0 1.06.28.28.77.28 1.06 0l1.06-1.06C16.67 4.13 17.56 4 18.5 4c1.65 0 3 1.35 3 3 0 .94-.13 1.83-.88 2.71l-1.06 1.06c-.28.28-.28.77 0 1.06.28.28.77.28 1.06 0l1.06-1.06c.89-1.01 1.45-2.3 1.45-3.71 0-2.21-1.79-4-4-4z"
+              />
+            </svg>
+            <span id="brushSizeValue">3</span>
+          </label>
+          <input
+            type="range"
+            id="brushSize"
+            min="1"
+            max="50"
+            value="3"
+            title="Розмір кисті/лінії"
+          />
+          <label for="fillShapeCheckbox" title="Заливка фігури">
+            <input type="checkbox" id="fillShapeCheckbox" />
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-2-2H7V7h10v10zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+              />
+            </svg>
+            Заливка
+          </label>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="toolbar-section actions-section">
+          <span class="toolbar-section-label">Дії</span>
+          <button id="clearBtn" title="Очистити все полотно">
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="currentColor"
+              style="margin-right: 4px"
+            >
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+            Очистити
+          </button>
+        </div>
+      </div>
+
+      <div id="mainContentContainer">
+        <div id="canvasWrapper">
+          <canvas id="paintCanvas" width="1400" height="750"></canvas>
+        </div>
+        <div id="codeExampleContainer">
+          <h3>Приклад коду JavaScript:</h3>
+          <pre><code id="codeSnippetElement">/* Оберіть інструмент, щоб побачити приклад коду... */</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        document.getElementById("go-back").addEventListener("click", () => {
+  window.location.href = "../main.html"; // ← заміни на потрібний файл
+});
+
+      const canvas = document.getElementById("paintCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const offscreenCanvas = document.createElement("canvas");
+      const offscreenCtx = offscreenCanvas.getContext("2d");
+
+      const MIN_ZOOM_LEVEL = 0.1;
+      const MAX_ZOOM_LEVEL = 10;
+      const OFFSCREEN_CANVAS_MULTIPLIER = 1 / MIN_ZOOM_LEVEL;
+
+      offscreenCanvas.width = canvas.width * OFFSCREEN_CANVAS_MULTIPLIER;
+      offscreenCanvas.height = canvas.height * OFFSCREEN_CANVAS_MULTIPLIER;
+
+      offscreenCtx.fillStyle = "white";
+      offscreenCtx.fillRect(
+        0,
+        0,
+        offscreenCanvas.width,
+        offscreenCanvas.height
+      );
+
+      const shapeButtonsContainer = document.getElementById(
+        "shapeButtonsContainer"
+      );
+      const colorPicker = document.getElementById("colorPicker"); // This is the system <input type="color">
+      const brushSizeInput = document.getElementById("brushSize");
+      const brushSizeValue = document.getElementById("brushSizeValue");
+      const fillShapeCheckbox = document.getElementById("fillShapeCheckbox");
+      const clearBtn = document.getElementById("clearBtn");
+      const codeSnippetElement = document.getElementById("codeSnippetElement");
+
+      // --- Color Palette Implementation ---
+      const colorSwatchesContainer = document.getElementById(
+        "colorSwatchesContainer"
+      );
+      let currentSelectedColor = "#FFD700"; // Initial color, matches colorPicker value
+
+      const paletteColors = [
+        // Row 1 (as per image, slightly adjusted for common hex)
+        "#FFD700",
+        "#000000",
+        "#808080",
+        "#A52A2A",
+        "#FF0000",
+        "#FFA500",
+        "#FFFF00",
+        "#008000",
+        "#40E0D0",
+        "#0000FF",
+        "#800080",
+        // Row 2 (as per image, slightly adjusted)
+        "#FFFFFF",
+        "#D3D3D3",
+        "#D2B48C",
+        "#FFC0CB",
+        "#FFBF00",
+        "#FFFACD",
+        "#90EE90",
+        "#ADD8E6",
+        "#B0C4DE",
+        "#E6E6FA",
+      ];
+
+      function setActiveColor(color) {
+        currentSelectedColor = color.toUpperCase(); // Store consistently
+        colorPicker.value = currentSelectedColor;
+
+        document.querySelectorAll(".color-swatch").forEach((sw) => {
+          sw.classList.remove("active-swatch");
+          if (sw.dataset.color.toUpperCase() === currentSelectedColor) {
+            sw.classList.add("active-swatch");
+          }
+        });
+        updateCodeDisplay();
+      }
+
+      paletteColors.forEach((color) => {
+        const swatch = document.createElement("div");
+        swatch.classList.add("color-swatch");
+        swatch.style.backgroundColor = color;
+        swatch.dataset.color = color;
+        swatch.title = `Колір: ${color}`;
+        swatch.addEventListener("click", () => {
+          setActiveColor(color);
+        });
+        colorSwatchesContainer.appendChild(swatch);
+      });
+
+      colorPicker.addEventListener("input", (e) => {
+        setActiveColor(e.target.value);
+      });
+      // --- End Color Palette Implementation ---
+
+      let painting = false;
+      let startX = 0,
+        startY = 0;
+      let currentSelectedShape = "freehand";
+      let currentGCO = "source-over";
+
+      let scale = 1;
+      let panX = canvas.width / 2 - (offscreenCanvas.width / 2) * scale;
+      let panY = canvas.height / 2 - (offscreenCanvas.height / 2) * scale;
+
+      let isPanning = false;
+      let panStartMouse = { x: 0, y: 0 };
+      let panStartOffset = { x: 0, y: 0 };
+      const PAN_KEY = "AltLeft";
+      let isPanKeyDown = false;
+      let lastCursorStyle = "crosshair";
+
+      const shapesData = [
+        {
+          value: "eraser",
+          label: "Ластик",
+          svg: '<svg viewBox="0 0 24 24"><path d="M 4 12 C 4 10 5 9 7 9 L 17 9 C 19 9 20 10 20 12 L 20 16 C 20 18 19 19 17 19 L 7 19 C 5 19 4 18 4 16 Z M 7 9 L 17 9 L 14 4 L 10 4 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "freehand",
+          label: "Кисть",
+          svg: '<svg viewBox="0 0 24 24"><path d="M4 12 C 8 6, 10 18, 14 12 S 20 6, 20 6" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "line",
+          label: "Лінія",
+          svg: '<svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+        },
+        {
+          value: "rectangle",
+          label: "Прямокутник",
+          svg: '<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" stroke="currentColor" fill="none" stroke-width="1.5" rx="1"/></svg>',
+        },
+        {
+          value: "circle",
+          label: "Коло",
+          svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>',
+        },
+        {
+          value: "triangle",
+          label: "Трикутник",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 5 L20 19 L4 19 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "diamond",
+          label: "Ромб",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 4 L19 12 L12 20 L5 12 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "ellipse",
+          label: "Еліпс",
+          svg: '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>',
+        },
+        {
+          value: "arrow",
+          label: "Стрілка",
+          svg: '<svg viewBox="0 0 24 24"><path d="M5 12 H19 M15 8 L19 12 L15 16" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "star",
+          label: "Зірка",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 2 L14.09 8.26 L20 9.27 L15.5 14.14 L16.91 21 L12 17.77 L7.09 21 L8.5 14.14 L4 9.27 L9.91 8.26 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "heart",
+          label: "Серце",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "pentagon",
+          label: "П’ятикутник",
+          svg: '<svg viewBox="0 0 24 24"><polygon points="12,3 21,10 17,20 7,20 3,10" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "hexagon",
+          label: "Шестикутник",
+          svg: '<svg viewBox="0 0 24 24"><polygon points="12,4 20,8 20,16 12,20 4,16 4,8" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "cross",
+          label: "Хрест",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 5 V19 M5 12 H19" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>',
+        },
+        {
+          value: "parallelogram",
+          label: "Паралелограм",
+          svg: '<svg viewBox="0 0 24 24"><path d="M6 6 H18 L22 18 H10 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "trapezoid",
+          label: "Трапеція",
+          svg: '<svg viewBox="0 0 24 24"><path d="M4 18 L7 6 H17 L20 18 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "capsule",
+          label: "Капсула",
+          svg: '<svg viewBox="0 0 24 24"><path d="M16 6 A 4 4 0 0 0 16 18 H8 A 4 4 0 0 0 8 6 Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round" transform="rotate(90 12 12)"/></svg>',
+        },
+        {
+          value: "cloud",
+          label: "Хмарка",
+          svg: '<svg viewBox="0 0 24 24"><path d="M18 16C19.6569 16 21 14.6569 21 13C21 11.3431 19.6569 10 18 10C18 8.34315 16.6569 7 15 7C13.3431 7 12 8.34315 12 10C10.3431 10 9 11.3431 9 13C9 14.6569 10.3431 16 12 16H18Z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "speechbubble",
+          label: "Бульбашка",
+          svg: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+        },
+        {
+          value: "moon",
+          label: "Місяць",
+          svg: '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+        {
+          value: "drop",
+          label: "Крапля",
+          svg: '<svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-3.8-3.2-8.8-6.2-12.6A1 1 0 0 0 12 2a1 1 0 0 0-.8.4C8.2 5.2 5 10.2 5 15a7 7 0 0 0 7 7z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        },
+      ];
+
+      shapesData.forEach((shape) => {
+        const button = document.createElement("button");
+        button.classList.add("shape-button");
+        button.dataset.shape = shape.value;
+        button.title = shape.label;
+        button.innerHTML = shape.svg;
+        if (shape.value === currentSelectedShape)
+          button.classList.add("active");
+        button.addEventListener("click", () => {
+          currentSelectedShape = shape.value;
+          currentGCO =
+            shape.value === "eraser" ? "destination-out" : "source-over";
+          document
+            .querySelectorAll(".shape-button")
+            .forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+          updateCodeDisplay();
+        });
+        shapeButtonsContainer.appendChild(button);
+      });
+
+      setActiveColor(colorPicker.value);
+
+      function redrawVisibleCanvas() {
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.translate(panX, panY);
+        ctx.scale(scale, scale);
+        ctx.drawImage(offscreenCanvas, 0, 0);
+        ctx.restore();
+      }
+      redrawVisibleCanvas();
+
+      brushSizeInput.addEventListener("input", (e) => {
+        brushSizeValue.textContent = e.target.value;
+        updateCodeDisplay();
+      });
+      brushSizeValue.textContent = brushSizeInput.value;
+      fillShapeCheckbox.addEventListener("change", updateCodeDisplay);
+
+      canvas.addEventListener("mousedown", (e) => {
+        if (isPanKeyDown) {
+          isPanning = true;
+          panStartMouse = { x: e.clientX, y: e.clientY };
+          panStartOffset = { x: panX, y: panY };
+          canvas.style.cursor = "grabbing";
+          return;
+        }
+        painting = true;
+        const { x, y } = getMousePosInWorld(e);
+        startX = x;
+        startY = y;
+
+        offscreenCtx.strokeStyle = colorPicker.value;
+        offscreenCtx.fillStyle = colorPicker.value;
+        offscreenCtx.lineWidth = brushSizeInput.value;
+        offscreenCtx.lineCap = "round";
+        offscreenCtx.lineJoin = "round";
+        offscreenCtx.globalCompositeOperation = currentGCO;
+
+        if (
+          currentSelectedShape === "freehand" ||
+          currentSelectedShape === "eraser"
+        ) {
+          offscreenCtx.beginPath();
+          offscreenCtx.moveTo(startX, startY);
+        }
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        if (isPanning) {
+          panX = panStartOffset.x + (e.clientX - panStartMouse.x);
+          panY = panStartOffset.y + (e.clientY - panStartMouse.y);
+          redrawVisibleCanvas();
+          return;
+        }
+        if (!painting) return;
+        const { x: currentX, y: currentY } = getMousePosInWorld(e);
+
+        if (
+          currentSelectedShape === "freehand" ||
+          currentSelectedShape === "eraser"
+        ) {
+          offscreenCtx.lineTo(currentX, currentY);
+          offscreenCtx.stroke();
+          redrawVisibleCanvas();
+          offscreenCtx.beginPath();
+          offscreenCtx.moveTo(currentX, currentY);
+        } else {
+          redrawVisibleCanvas();
+          ctx.save();
+          ctx.translate(panX, panY);
+          ctx.scale(scale, scale);
+          ctx.strokeStyle = colorPicker.value;
+          ctx.fillStyle = colorPicker.value;
+          ctx.lineWidth = brushSizeInput.value;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.globalCompositeOperation = "source-over";
+          drawShape(
+            ctx,
+            startX,
+            startY,
+            currentX,
+            currentY,
+            fillShapeCheckbox.checked,
+            currentSelectedShape
+          );
+          ctx.restore();
+        }
+      });
+
+      canvas.addEventListener("mouseup", (e) => {
+        if (isPanning) {
+          isPanning = false;
+          canvas.style.cursor = isPanKeyDown ? "grab" : lastCursorStyle;
+          return;
+        }
+        if (!painting) return;
+        painting = false;
+        const { x: finalX, y: finalY } = getMousePosInWorld(e);
+        if (
+          currentSelectedShape !== "freehand" &&
+          currentSelectedShape !== "eraser"
+        ) {
+          offscreenCtx.globalCompositeOperation = currentGCO;
+          offscreenCtx.strokeStyle = colorPicker.value;
+          offscreenCtx.fillStyle = colorPicker.value;
+          offscreenCtx.lineWidth = brushSizeInput.value;
+          drawShape(
+            offscreenCtx,
+            startX,
+            startY,
+            finalX,
+            finalY,
+            fillShapeCheckbox.checked,
+            currentSelectedShape
+          );
+          redrawVisibleCanvas();
+        }
+      });
+
+      clearBtn.addEventListener("click", () => {
+        offscreenCtx.globalCompositeOperation = "source-over";
+        offscreenCtx.fillStyle = "white";
+        offscreenCtx.fillRect(
+          0,
+          0,
+          offscreenCanvas.width,
+          offscreenCanvas.height
+        );
+        scale = 1;
+        panX = canvas.width / 2 - (offscreenCanvas.width / 2) * scale;
+        panY = canvas.height / 2 - (offscreenCanvas.height / 2) * scale;
+        redrawVisibleCanvas();
+      });
+
+      function getMousePosInWorld(evt) {
+        const rect = canvas.getBoundingClientRect();
+        const canvasX = evt.clientX - rect.left;
+        const canvasY = evt.clientY - rect.top;
+        return {
+          x: (canvasX - panX) / scale,
+          y: (canvasY - panY) / scale,
+        };
+      }
+
+      function drawShape(targetContext, x1, y1, x2, y2, isFilled, shapeType) {
+        targetContext.strokeStyle = colorPicker.value;
+        targetContext.fillStyle = colorPicker.value;
+        targetContext.lineWidth = brushSizeInput.value;
+
+        const w = x2 - x1;
+        const h = y2 - y1;
+        const centerX = x1 + w / 2;
+        const centerY = y1 + h / 2;
+
+        targetContext.beginPath();
+        switch (shapeType) {
+          case "line":
+            targetContext.moveTo(x1, y1);
+            targetContext.lineTo(x2, y2);
+            break;
+          case "rectangle":
+            targetContext.rect(x1, y1, w, h);
+            break;
+          case "circle":
+            const radius = Math.sqrt(w * w + h * h) / 2;
+            targetContext.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            break;
+          case "ellipse":
+            targetContext.ellipse(
+              centerX,
+              centerY,
+              Math.abs(w / 2),
+              Math.abs(h / 2),
+              0,
+              0,
+              Math.PI * 2
+            );
+            break;
+          case "triangle":
+            targetContext.moveTo(x1, y2);
+            targetContext.lineTo(centerX, y1);
+            targetContext.lineTo(x2, y2);
+            targetContext.closePath();
+            break;
+          case "diamond":
+            targetContext.moveTo(centerX, y1);
+            targetContext.lineTo(x2, centerY);
+            targetContext.lineTo(centerX, y2);
+            targetContext.lineTo(x1, centerY);
+            targetContext.closePath();
+            break;
+          default:
+            drawComplexShape(
+              targetContext,
+              shapeType,
+              centerX,
+              centerY,
+              Math.abs(w),
+              Math.abs(h),
+              isFilled
+            );
+            return;
+        }
+
+        if (isFilled && shapeType !== "line" && shapeType !== "eraser") {
+          targetContext.fill();
+        }
+        if (shapeType !== "eraser" || targetContext === ctx) {
+          targetContext.stroke();
+        }
+      }
+
+      function drawComplexShape(
+        targetContext,
+        name,
+        cx,
+        cy,
+        width,
+        height,
+        isFilled
+      ) {
+        let rX = width / 2;
+        let rY = height / 2;
+        let r = Math.max(
+          Math.min(rX, rY),
+          parseFloat(targetContext.lineWidth) / 2 || 1
+        );
+        if (
+          name === "arrow" ||
+          name === "capsule" ||
+          name === "trapezoid" ||
+          name === "parallelogram" ||
+          name === "cross" ||
+          name === "cloud" ||
+          name === "speechbubble"
+        ) {
+        } else {
+          rX = r;
+          rY = r;
+        }
+        targetContext.beginPath();
+        switch (name) {
+          case "star":
+            for (let i = 0; i < 10; i++) {
+              const angle = (Math.PI * i) / 5 - Math.PI / 2;
+              const currentRadius = i % 2 === 0 ? r : r / 2.5;
+              targetContext.lineTo(
+                cx + currentRadius * Math.cos(angle),
+                cy + currentRadius * Math.sin(angle)
+              );
+            }
+            targetContext.closePath();
+            break;
+          case "arrow":
+            const headBaseRatio = 0.6;
+            const headWidthRatio = 0.3;
+            const shaftWidthRatio = 0.1;
+            let L = width;
+            const angle = Math.atan2(height, width);
+            targetContext.save();
+            targetContext.translate(
+              cx - (L / 2) * Math.cos(angle),
+              cy - (L / 2) * Math.sin(angle)
+            );
+            targetContext.rotate(angle);
+            const headLength = L * (1 - headBaseRatio);
+            const headWidth = L * headWidthRatio;
+            const shaftWidth = Math.max(
+              L * shaftWidthRatio,
+              parseFloat(targetContext.lineWidth) || 1
+            );
+            targetContext.moveTo(0, -shaftWidth / 2);
+            targetContext.lineTo(L - headLength, -shaftWidth / 2);
+            targetContext.lineTo(L - headLength, -headWidth / 2);
+            targetContext.lineTo(L, 0);
+            targetContext.lineTo(L - headLength, headWidth / 2);
+            targetContext.lineTo(L - headLength, shaftWidth / 2);
+            targetContext.lineTo(0, shaftWidth / 2);
+            targetContext.closePath();
+            targetContext.restore();
+            break;
+          case "heart":
+            targetContext.moveTo(cx, cy + rY * 0.3);
+            targetContext.bezierCurveTo(
+              cx + rX * 0.7,
+              cy - rY * 0.4,
+              cx + rX * 1.2,
+              cy + rY * 0.1,
+              cx,
+              cy + rY
+            );
+            targetContext.bezierCurveTo(
+              cx - rX * 1.2,
+              cy + rY * 0.1,
+              cx - rX * 0.7,
+              cy - rY * 0.4,
+              cx,
+              cy + rY * 0.3
+            );
+            targetContext.closePath();
+            break;
+          case "pentagon":
+            polygon(targetContext, cx, cy, r, 5, -Math.PI / 2);
+            break;
+          case "hexagon":
+            polygon(targetContext, cx, cy, r, 6, -Math.PI / 2);
+            break;
+          case "cross":
+            const crossArmRatio = 0.3;
+            const armThicknessX = Math.max(
+              rX * crossArmRatio,
+              parseFloat(targetContext.lineWidth) || 1
+            );
+            const armThicknessY = Math.max(
+              rY * crossArmRatio,
+              parseFloat(targetContext.lineWidth) || 1
+            );
+            targetContext.rect(
+              cx - rX,
+              cy - armThicknessY / 2,
+              width,
+              armThicknessY
+            );
+            targetContext.rect(
+              cx - armThicknessX / 2,
+              cy - rY,
+              armThicknessX,
+              height
+            );
+            break;
+          case "trapezoid":
+            const topFactor = 0.6;
+            targetContext.moveTo(cx - rX * topFactor, cy - rY);
+            targetContext.lineTo(cx + rX * topFactor, cy - rY);
+            targetContext.lineTo(cx + rX, cy + rY);
+            targetContext.lineTo(cx - rX, cy + rY);
+            targetContext.closePath();
+            break;
+          case "parallelogram":
+            const slantFactor = 0.3;
+            const slant = rX * slantFactor;
+            targetContext.moveTo(cx - rX + slant, cy - rY);
+            targetContext.lineTo(cx + rX + slant, cy - rY);
+            targetContext.lineTo(cx + rX - slant, cy + rY);
+            targetContext.lineTo(cx - rX - slant, cy + rY);
+            targetContext.closePath();
+            break;
+          case "capsule":
+            const capRadius = Math.min(Math.abs(rX), Math.abs(rY));
+            const straightLength = Math.max(
+              0,
+              (width > height ? width : height) - 2 * capRadius
+            );
+            const halfStraight = straightLength / 2;
+            if (width >= height) {
+              targetContext.arc(
+                cx - halfStraight,
+                cy,
+                capRadius,
+                Math.PI / 2,
+                Math.PI * 1.5
+              );
+              targetContext.lineTo(cx + halfStraight, cy - capRadius);
+              targetContext.arc(
+                cx + halfStraight,
+                cy,
+                capRadius,
+                Math.PI * 1.5,
+                Math.PI / 2
+              );
+              targetContext.lineTo(cx - halfStraight, cy + capRadius);
+            } else {
+              targetContext.arc(cx, cy - halfStraight, capRadius, Math.PI, 0);
+              targetContext.lineTo(cx + capRadius, cy + halfStraight);
+              targetContext.arc(cx, cy + halfStraight, capRadius, 0, Math.PI);
+              targetContext.lineTo(cx - capRadius, cy - halfStraight);
+            }
+            targetContext.closePath();
+            break;
+          case "cloud":
+            targetContext.arc(
+              cx - rX * 0.4,
+              cy + rY * 0.2,
+              rX * 0.35,
+              Math.PI * 0.7,
+              Math.PI * 1.85
+            );
+            targetContext.arc(
+              cx + rX * 0.05,
+              cy - rY * 0.3,
+              rX * 0.5,
+              Math.PI * 1.15,
+              Math.PI * 0.05
+            );
+            targetContext.arc(
+              cx + rX * 0.6,
+              cy + rY * 0.1,
+              rX * 0.3,
+              Math.PI * 1.6,
+              Math.PI * 0.6
+            );
+            targetContext.closePath();
+            break;
+          case "speechbubble":
+            const cornerRadius = Math.min(rX, rY) * 0.2;
+            const tailWidth = Math.min(rX, rY) * 0.3;
+            const tailDepth = Math.min(rX, rY) * 0.4;
+            targetContext.moveTo(cx - rX + cornerRadius, cy - rY);
+            targetContext.lineTo(cx + rX - cornerRadius, cy - rY);
+            targetContext.quadraticCurveTo(
+              cx + rX,
+              cy - rY,
+              cx + rX,
+              cy - rY + cornerRadius
+            );
+            targetContext.lineTo(
+              cx + rX,
+              cy + rY - cornerRadius - tailDepth * 0.5
+            );
+            targetContext.quadraticCurveTo(
+              cx + rX,
+              cy + rY - tailDepth * 0.5,
+              cx + rX - cornerRadius,
+              cy + rY - tailDepth * 0.5
+            );
+            targetContext.lineTo(
+              cx + tailWidth * 0.5,
+              cy + rY - tailDepth * 0.5
+            );
+            targetContext.lineTo(cx, cy + rY);
+            targetContext.lineTo(
+              cx - tailWidth * 0.5,
+              cy + rY - tailDepth * 0.5
+            );
+            targetContext.lineTo(
+              cx - rX + cornerRadius,
+              cy + rY - tailDepth * 0.5
+            );
+            targetContext.quadraticCurveTo(
+              cx - rX,
+              cy + rY - tailDepth * 0.5,
+              cx - rX,
+              cy + rY - cornerRadius - tailDepth * 0.5
+            );
+            targetContext.lineTo(cx - rX, cy - rY + cornerRadius);
+            targetContext.quadraticCurveTo(
+              cx - rX,
+              cy - rY,
+              cx - rX + cornerRadius,
+              cy - rY
+            );
+            targetContext.closePath();
+            break;
+          case "moon":
+            const innerFactor = 0.7;
+            targetContext.arc(cx, cy, r, 0.5 * Math.PI, 1.5 * Math.PI);
+            targetContext.arc(
+              cx + r * (1 - innerFactor) * 0.6,
+              cy,
+              r * innerFactor,
+              1.5 * Math.PI,
+              0.5 * Math.PI,
+              true
+            );
+            targetContext.closePath();
+            break;
+          case "drop":
+            targetContext.moveTo(cx, cy - rY);
+            targetContext.bezierCurveTo(
+              cx + rX * 0.73,
+              cy - rY,
+              cx + rX,
+              cy - rY * 0.27,
+              cx + rX,
+              cy
+            );
+            targetContext.bezierCurveTo(
+              cx + rX,
+              cy + rY * 0.53,
+              cx + rX * 0.53,
+              cy + rY,
+              cx,
+              cy + rY
+            );
+            targetContext.bezierCurveTo(
+              cx - rX * 0.53,
+              cy + rY,
+              cx - rX,
+              cy + rY * 0.53,
+              cx - rX,
+              cy
+            );
+            targetContext.bezierCurveTo(
+              cx - rX,
+              cy - rY * 0.27,
+              cx - rX * 0.73,
+              cy - rY,
+              cx,
+              cy - rY
+            );
+            targetContext.closePath();
+            break;
+        }
+        if (isFilled && name !== "eraser" && name !== "cross") {
+          targetContext.fill();
+        }
+        if (name === "cross" && isFilled) {
+          const tempGCO = targetContext.globalCompositeOperation;
+          targetContext.globalCompositeOperation = "source-over";
+          targetContext.fill();
+          targetContext.globalCompositeOperation = tempGCO;
+        }
+        targetContext.stroke();
+      }
+
+      function polygon(ctxPoly, cx, cy, radius, sides, startAngle = 0) {
+        ctxPoly.moveTo(
+          cx + radius * Math.cos(startAngle),
+          cy + radius * Math.sin(startAngle)
+        );
+        for (let i = 1; i <= sides; i++) {
+          const angle = startAngle + (i * 2 * Math.PI) / sides;
+          ctxPoly.lineTo(
+            cx + radius * Math.cos(angle),
+            cy + radius * Math.sin(angle)
+          );
+        }
+        ctxPoly.closePath();
+      }
+
+      window.addEventListener("keydown", (e) => {
+        if (e.code === PAN_KEY && !isPanKeyDown) {
+          isPanKeyDown = true;
+          if (!isPanning) {
+            lastCursorStyle = canvas.style.cursor || "crosshair";
+            canvas.style.cursor = "grab";
+          }
+        }
+      });
+      window.addEventListener("keyup", (e) => {
+        if (e.code === PAN_KEY) {
+          isPanKeyDown = false;
+          if (!isPanning) {
+            canvas.style.cursor = lastCursorStyle;
+          }
+        }
+      });
+
+      canvas.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const mouseX_canvas = e.clientX - rect.left;
+          const mouseY_canvas = e.clientY - rect.top;
+          const mouseX_world_before = (mouseX_canvas - panX) / scale;
+          const mouseY_world_before = (mouseY_canvas - panY) / scale;
+          const zoomFactor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+          let newScale = scale * zoomFactor;
+          newScale = Math.max(MIN_ZOOM_LEVEL, newScale);
+          newScale = Math.min(MAX_ZOOM_LEVEL, newScale);
+          scale = newScale;
+          panX = mouseX_canvas - mouseX_world_before * scale;
+          panY = mouseY_canvas - mouseY_world_before * scale;
+          redrawVisibleCanvas();
+        },
+        { passive: false }
+      );
+
+      function getShapeCodeExample(
+        shapeType,
+        color,
+        lineWidth,
+        isFilled,
+        canvasWidth,
+        canvasHeight
+      ) {
+        let code = `// Код нижче є спрощеним прикладом.\n// Реальні координати (x1, y1, x2, y2, ...) будуть залежати від руху миші.\n\n`;
+        code += `// Встановлюємо колір та товщину лінії:\nctx.strokeStyle = "${color}";\nctx.lineWidth = ${lineWidth};\n`;
+        if (
+          isFilled &&
+          shapeType !== "line" &&
+          shapeType !== "freehand" &&
+          shapeType !== "eraser" &&
+          shapeType !== "cross"
+        ) {
+          code += `ctx.fillStyle = "${color}"; // Колір заливки\n`;
+        } else if (isFilled && shapeType === "cross") {
+          code += `ctx.fillStyle = "${color}"; // Колір заливки для хреста (заповнить обидва прямокутники)\n`;
+        }
+
+        const baseDim = Math.min(canvasWidth, canvasHeight, 300); // Cap baseDim for example readability
+        const ex = {
+          x1: Math.round(baseDim * 0.15),
+          y1: Math.round(baseDim * 0.2),
+          x2: Math.round(baseDim * 0.45),
+          y2: Math.round(baseDim * 0.5),
+          cx: Math.round(baseDim * 0.3),
+          cy: Math.round(baseDim * 0.35),
+          w: Math.round(baseDim * 0.3),
+          h: Math.round(baseDim * 0.25),
+          radius: Math.round(baseDim * 0.12),
+          boxX: Math.round(baseDim * 0.1),
+          boxY: Math.round(baseDim * 0.15),
+          boxW: Math.round(baseDim * 0.4),
+          boxH: Math.round(baseDim * 0.3),
+        };
+        ex.boxCX = ex.boxX + Math.round(ex.boxW / 2);
+        ex.boxCY = ex.boxY + Math.round(ex.boxH / 2);
+
+        switch (shapeType) {
+          case "freehand":
+            code += `ctx.beginPath();\nctx.moveTo(${ex.x1}, ${ex.y1}); // Початкова точка\nctx.lineTo(${ex.x2}, ${ex.y2}); // Наступна точка\n// ... ctx.lineTo(..., ...) для продовження лінії\nctx.lineCap = "round";\nctx.stroke();`;
+            break;
+          case "eraser":
+            code += `ctx.globalCompositeOperation = "destination-out"; // Режим гумки\nctx.beginPath();\nctx.moveTo(${ex.x1}, ${ex.y1});\nctx.lineTo(${ex.x2}, ${ex.y2});\nctx.lineCap = "round";\nctx.lineWidth = ${lineWidth}; // Розмір гумки\nctx.stroke();\n// Після завершення малювання гумкою, поверніть:\n// ctx.globalCompositeOperation = "source-over";`;
+            break;
+          case "line":
+            code += `ctx.beginPath();\nctx.moveTo(${ex.x1}, ${ex.y1}); // Початок лінії\nctx.lineTo(${ex.x2}, ${ex.y2}); // Кінець лінії`;
+            break;
+          case "rectangle":
+            code += `ctx.beginPath();\nctx.rect(${ex.boxX}, ${ex.boxY}, ${ex.boxW}, ${ex.boxH}); // x, y, ширина, висота`;
+            break;
+          case "circle":
+            code += `ctx.beginPath();\nctx.arc(${ex.cx}, ${ex.cy}, ${ex.radius}, 0, 2 * Math.PI); // cx, cy, радіус, startAngle, endAngle`;
+            break;
+          case "triangle":
+            code += `ctx.beginPath();\nctx.moveTo(${ex.boxX}, ${
+              ex.boxY + ex.boxH
+            }); // Нижня ліва вершина\nctx.lineTo(${ex.boxCX}, ${
+              ex.boxY
+            }); // Верхня центральна вершина\nctx.lineTo(${
+              ex.boxX + ex.boxW
+            }, ${ex.boxY + ex.boxH}); // Нижня права вершина\nctx.closePath();`;
+            break;
+          case "ellipse":
+            code += `ctx.beginPath();\nctx.ellipse(${ex.cx}, ${
+              ex.cy
+            }, ${Math.round(ex.w / 2)}, ${Math.round(
+              ex.h / 2
+            )}, 0, 0, 2 * Math.PI); // cx, cy, radiusX, radiusY, rotation, startAngle, endAngle`;
+            break;
+          case "diamond":
+            code += `ctx.beginPath();\n`;
+            code += `ctx.moveTo(${ex.boxCX}, ${ex.boxY}); // Верхня точка\n`;
+            code += `ctx.lineTo(${ex.boxX + ex.boxW}, ${
+              ex.boxCY
+            }); // Права точка\n`;
+            code += `ctx.lineTo(${ex.boxCX}, ${
+              ex.boxY + ex.boxH
+            }); // Нижня точка\n`;
+            code += `ctx.lineTo(${ex.boxX}, ${ex.boxCY}); // Ліва точка\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "arrow":
+            code += `ctx.beginPath();\n`;
+            const arrowX1 = ex.x1,
+              arrowY = ex.cy,
+              arrowX2 = ex.x2;
+            const headlen = Math.round(ex.radius * 0.6);
+            const headwidth = Math.round(ex.radius * 0.5);
+            code += `ctx.moveTo(${arrowX1}, ${arrowY}); // Початок стрілки\n`;
+            code += `ctx.lineTo(${
+              arrowX2 - headlen
+            }, ${arrowY}); // Кінець тіла / основа наконечника\n`;
+            code += `ctx.lineTo(${arrowX2 - headlen}, ${
+              arrowY - headwidth
+            }); // Верхня точка основи наконечника\n`;
+            code += `ctx.lineTo(${arrowX2}, ${arrowY}); // Вістря стрілки\n`;
+            code += `ctx.lineTo(${arrowX2 - headlen}, ${
+              arrowY + headwidth
+            }); // Нижня точка основи наконечника\n`;
+            code += `ctx.lineTo(${
+              arrowX2 - headlen
+            }, ${arrowY}); // Назад до кінця тіла\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "star":
+            code += `ctx.beginPath();\n`;
+            code += `const numPoints = 5;\n`;
+            code += `const outerR = ${ex.radius};\n`;
+            code += `const innerR = ${Math.round(ex.radius / 2.5)};\n`;
+            code += `const rot = Math.PI / 2 * 3; // Поворот, щоб зірка "стояла" на двох променях\n`;
+            code += `let starX = ${ex.cx};\nlet starY = ${ex.cy};\n`;
+            code += `ctx.moveTo(starX, starY - outerR); // Початкова точка (верхній промінь)\n`;
+            code += `for (let i = 0; i < numPoints; i++) {\n`;
+            code += `  starX = ${ex.cx} + Math.cos(rot + (i * 2 * Math.PI) / numPoints) * outerR;\n`;
+            code += `  starY = ${ex.cy} + Math.sin(rot + (i * 2 * Math.PI) / numPoints) * outerR;\n`;
+            code += `  ctx.lineTo(starX, starY);\n`;
+            code += `  starX = ${ex.cx} + Math.cos(rot + ((i + 0.5) * 2 * Math.PI) / numPoints) * innerR;\n`;
+            code += `  starY = ${ex.cy} + Math.sin(rot + ((i + 0.5) * 2 * Math.PI) / numPoints) * innerR;\n`;
+            code += `  ctx.lineTo(starX, starY);\n`;
+            code += `}\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "heart":
+            code += `ctx.beginPath();\n`;
+            const heartX = ex.cx,
+              heartY = ex.cy + Math.round(ex.radius * 0.2); // Adjust Y for better centering
+            const heartR = ex.radius;
+            code += `ctx.moveTo(${heartX}, ${heartY + heartR * 0.3});\n`;
+            code += `ctx.bezierCurveTo(${heartX + heartR * 0.7}, ${
+              heartY - heartR * 0.4
+            }, ${heartX + heartR * 1.2}, ${heartY + heartR * 0.1}, ${heartX}, ${
+              heartY + heartR
+            });\n`;
+            code += `ctx.bezierCurveTo(${heartX - heartR * 1.2}, ${
+              heartY + heartR * 0.1
+            }, ${heartX - heartR * 0.7}, ${heartY - heartR * 0.4}, ${heartX}, ${
+              heartY + heartR * 0.3
+            });\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "pentagon":
+          case "hexagon":
+            const sides = shapeType === "pentagon" ? 5 : 6;
+            code += `ctx.beginPath();\n`;
+            code += `const numSides = ${sides};\n`;
+            code += `const polyX = ${ex.cx}, polyY = ${ex.cy}, polyR = ${ex.radius};\n`;
+            code += `const angleStep = (2 * Math.PI) / numSides;\n`;
+            code += `const startAngle = -Math.PI / 2; // Вершина вгорі\n`;
+            code += `ctx.moveTo(polyX + polyR * Math.cos(startAngle), polyY + polyR * Math.sin(startAngle));\n`;
+            code += `for (let i = 1; i <= numSides; i++) {\n`;
+            code += `  ctx.lineTo(polyX + polyR * Math.cos(startAngle + i * angleStep), polyY + polyR * Math.sin(startAngle + i * angleStep));\n`;
+            code += `}\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "cross":
+            code += `ctx.beginPath();\n`;
+            const crossX = ex.boxX,
+              crossY = ex.boxY,
+              crossW = ex.boxW,
+              crossH = ex.boxH;
+            const armThicknessRatio = 0.3;
+            const armThickness = Math.max(
+              5,
+              Math.round(Math.min(crossW, crossH) * armThicknessRatio)
+            );
+            code += `// Горизонтальна частина хреста\n`;
+            code += `ctx.rect(${crossX}, ${
+              crossY + Math.round(crossH / 2 - armThickness / 2)
+            }, ${crossW}, ${armThickness});\n`;
+            code += `// Вертикальна частина хреста\n`;
+            code += `ctx.rect(${
+              crossX + Math.round(crossW / 2 - armThickness / 2)
+            }, ${crossY}, ${armThickness}, ${crossH});\n`;
+            break;
+          case "parallelogram":
+            code += `ctx.beginPath();\n`;
+            const pX = ex.boxX,
+              pY = ex.boxY,
+              pW = ex.boxW,
+              pH = ex.boxH;
+            const slant = Math.round(pW * 0.25);
+            code += `ctx.moveTo(${pX + slant}, ${pY}); // Верхня-ліва\n`;
+            code += `ctx.lineTo(${pX + pW + slant}, ${pY}); // Верхня-права\n`;
+            code += `ctx.lineTo(${pX + pW - slant}, ${
+              pY + pH
+            }); // Нижня-права\n`;
+            code += `ctx.lineTo(${pX - slant}, ${pY + pH}); // Нижня-ліва\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "trapezoid":
+            code += `ctx.beginPath();\n`;
+            const tX = ex.boxX,
+              tY = ex.boxY,
+              tW = ex.boxW,
+              tH = ex.boxH;
+            const topFactor = 0.5;
+            code += `ctx.moveTo(${
+              tX + Math.round((tW * (1 - topFactor)) / 2)
+            }, ${tY}); // Верхня-ліва\n`;
+            code += `ctx.lineTo(${
+              tX + tW - Math.round((tW * (1 - topFactor)) / 2)
+            }, ${tY}); // Верхня-права\n`;
+            code += `ctx.lineTo(${tX + tW}, ${tY + tH}); // Нижня-права\n`;
+            code += `ctx.lineTo(${tX}, ${tY + tH}); // Нижня-ліва\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "capsule":
+            code += `ctx.beginPath();\n`;
+            const capX = ex.boxX,
+              capY = ex.boxY,
+              capW = ex.boxW,
+              capH = ex.boxH;
+            if (capW >= capH) {
+              // Горизонтальна капсула
+              const capR = Math.round(capH / 2);
+              code += `// Горизонтальна капсула\n`;
+              code += `ctx.arc(${capX + capR}, ${
+                capY + capR
+              }, ${capR}, Math.PI * 0.5, Math.PI * 1.5); // Лівий півкруг\n`;
+              code += `ctx.lineTo(${
+                capX + capW - capR
+              }, ${capY}); // Верхня лінія\n`;
+              code += `ctx.arc(${capX + capW - capR}, ${
+                capY + capR
+              }, ${capR}, Math.PI * 1.5, Math.PI * 0.5); // Правий півкруг\n`;
+            } else {
+              // Вертикальна капсула
+              const capR = Math.round(capW / 2);
+              code += `// Вертикальна капсула\n`;
+              code += `ctx.arc(${capX + capR}, ${
+                capY + capR
+              }, ${capR}, Math.PI, 0); // Верхній півкруг\n`;
+              code += `ctx.lineTo(${capX + capW}, ${
+                capY + capH - capR
+              }); // Права лінія\n`;
+              code += `ctx.arc(${capX + capR}, ${
+                capY + capH - capR
+              }, ${capR}, 0, Math.PI); // Нижній півкруг\n`;
+            }
+            code += `ctx.closePath();`;
+            break;
+          case "cloud":
+            code += `ctx.beginPath();\n`;
+            const cloudCX = ex.cx,
+              cloudCY = ex.cy;
+            const cloudRX = Math.round(ex.w / 2),
+              cloudRY = Math.round(ex.h / 2);
+            code += `// Приблизна хмарка з декількох дуг\n`;
+            code += `ctx.arc(${cloudCX - cloudRX * 0.4}, ${
+              cloudCY + cloudRY * 0.2
+            }, ${Math.round(cloudRX * 0.35)}, Math.PI*0.7, Math.PI*1.85);\n`;
+            code += `ctx.arc(${cloudCX + cloudRX * 0.05}, ${
+              cloudCY - cloudRY * 0.3
+            }, ${Math.round(cloudRX * 0.5)}, Math.PI*1.15, Math.PI*0.05);\n`;
+            code += `ctx.arc(${cloudCX + cloudRX * 0.6}, ${
+              cloudCY + cloudRY * 0.1
+            }, ${Math.round(cloudRX * 0.3)}, Math.PI*1.6, Math.PI*0.6);\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "speechbubble":
+            code += `ctx.beginPath();\n`;
+            const sbX = ex.boxX,
+              sbY = ex.boxY,
+              sbW = ex.boxW,
+              sbH = ex.boxH;
+            const sbRadius = Math.round(Math.min(sbW, sbH) * 0.1); // Радіус кутів
+            const tailW = Math.round(sbW * 0.15),
+              tailH = Math.round(sbH * 0.2); // Розміри "хвостика"
+            code += `// Бульбашка з заокругленими кутами та хвостиком\n`;
+            code += `ctx.moveTo(${sbX + sbRadius}, ${sbY});\n`; // Початок верхньої лінії
+            code += `ctx.lineTo(${sbX + sbW - sbRadius}, ${sbY});\n`; // Верхня лінія
+            code += `ctx.quadraticCurveTo(${sbX + sbW}, ${sbY}, ${sbX + sbW}, ${
+              sbY + sbRadius
+            });\n`; // Правий верхній кут
+            code += `ctx.lineTo(${sbX + sbW}, ${sbY + sbH - sbRadius});\n`; // Права лінія
+            code += `ctx.quadraticCurveTo(${sbX + sbW}, ${sbY + sbH}, ${
+              sbX + sbW - sbRadius
+            }, ${sbY + sbH});\n`; // Правий нижній кут
+            // Хвостик (спрощений)
+            code += `ctx.lineTo(${sbX + sbW * 0.6 + tailW}, ${sbY + sbH});\n`;
+            code += `ctx.lineTo(${sbX + sbW * 0.5}, ${sbY + sbH + tailH});\n`;
+            code += `ctx.lineTo(${sbX + sbW * 0.4 - tailW}, ${sbY + sbH});\n`;
+
+            code += `ctx.lineTo(${sbX + sbRadius}, ${sbY + sbH});\n`; // Нижня лінія
+            code += `ctx.quadraticCurveTo(${sbX}, ${sbY + sbH}, ${sbX}, ${
+              sbY + sbH - sbRadius
+            });\n`; // Лівий нижній кут
+            code += `ctx.lineTo(${sbX}, ${sbY + sbRadius});\n`; // Ліва лінія
+            code += `ctx.quadraticCurveTo(${sbX}, ${sbY}, ${
+              sbX + sbRadius
+            }, ${sbY});\n`; // Лівий верхній кут
+            code += `ctx.closePath();`;
+            break;
+          case "moon":
+            code += `ctx.beginPath();\n`;
+            const moonCX = ex.cx,
+              moonCY = ex.cy,
+              moonR = ex.radius;
+            const innerFactor = 0.75;
+            code += `ctx.arc(${moonCX}, ${moonCY}, ${moonR}, 0.5 * Math.PI, 1.5 * Math.PI); // Зовнішня дуга\n`;
+            code += `ctx.arc(${
+              moonCX + Math.round(moonR * (1 - innerFactor) * 0.7)
+            }, ${moonCY}, ${Math.round(
+              moonR * innerFactor
+            )}, 1.5 * Math.PI, 0.5 * Math.PI, true); // Внутрішня дуга\n`;
+            code += `ctx.closePath();`;
+            break;
+          case "drop":
+            code += `ctx.beginPath();\n`;
+            const dropCX = ex.cx,
+              dropCY = ex.cy;
+            const dropRX = Math.round(ex.w / 2),
+              dropRY = Math.round(ex.h / 2);
+            code += `ctx.moveTo(${dropCX}, ${
+              dropCY - dropRY
+            }); // Верхня точка\n`;
+            code += `ctx.bezierCurveTo(${dropCX + Math.round(dropRX * 0.73)}, ${
+              dropCY - dropRY
+            }, ${dropCX + dropRX}, ${dropCY - Math.round(dropRY * 0.27)}, ${
+              dropCX + dropRX
+            }, ${dropCY});\n`;
+            code += `ctx.bezierCurveTo(${dropCX + dropRX}, ${
+              dropCY + Math.round(dropRY * 0.53)
+            }, ${dropCX + Math.round(dropRX * 0.53)}, ${
+              dropCY + dropRY
+            }, ${dropCX}, ${dropCY + dropRY});\n`;
+            code += `ctx.bezierCurveTo(${dropCX - Math.round(dropRX * 0.53)}, ${
+              dropCY + dropRY
+            }, ${dropCX - dropRX}, ${dropCY + Math.round(dropRY * 0.53)}, ${
+              dropCX - dropRX
+            }, ${dropCY});\n`;
+            code += `ctx.bezierCurveTo(${dropCX - dropRX}, ${
+              dropCY - Math.round(dropRY * 0.27)
+            }, ${dropCX - Math.round(dropRX * 0.73)}, ${
+              dropCY - dropRY
+            }, ${dropCX}, ${dropCY - dropRY});\n`;
+            code += `ctx.closePath();`;
+            break;
+          default:
+            const shapeLabel =
+              shapesData.find((s) => s.value === shapeType)?.label || shapeType;
+            code += `// Команди малювання для '${shapeLabel}'\nctx.beginPath();\n// ... ваш код для малювання фігури ...\nctx.closePath();`;
+            break;
+        }
+
+        if (
+          isFilled &&
+          shapeType !== "line" &&
+          shapeType !== "freehand" &&
+          shapeType !== "eraser"
+        ) {
+          code += `\nctx.fill();`;
+        }
+        if (shapeType !== "freehand" && shapeType !== "eraser") {
+          // freehand and eraser already call stroke
+          code += `\nctx.stroke();`;
+        }
+        return code;
+      }
+
+      function updateCodeDisplay() {
+        const code = getShapeCodeExample(
+          currentSelectedShape,
+          colorPicker.value,
+          brushSizeInput.value,
+          fillShapeCheckbox.checked,
+          offscreenCanvas.width,
+          offscreenCanvas.height
+        );
+        codeSnippetElement.textContent = code;
+      }
+      updateCodeDisplay(); // Initial call
+    </script>
+  </body>
+</html>

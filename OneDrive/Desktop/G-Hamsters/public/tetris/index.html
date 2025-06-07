@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="back-button-container">
+      <button id="go-back">← Назад</button>
+    </div>
+    <div class="tetris-container">
+      <canvas id="tetris" width="300" height="600"></canvas>
+
+      <div class="score-panel">
+        <p>Рівень: <span id="levelDisplay">1</span></p>
+        <p>Очки: <span id="scoreDisplay">0</span></p>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn" disabled>Старт</button>
+        <button id="pauseBtn" disabled>Пауза</button>
+        <button id="resetBtn">Нова гра</button>
+      </div>
+
+      <div id="gameOver" class="hidden">
+        <p>Гру завершено!</p>
+        <p>Набрано очок: <span id="finalScore">0</span></p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -215,7 +215,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
-    -moz-appearance: textfield; /* Вимикає стрілки в браузерах Firefox */
+    -moz-appearance: textfield; 
 }
 
 #line-block-polynom,
@@ -307,10 +307,12 @@ input[type="number"] {
   color: var(--white-accent);
 }
 
+/*************************/
 
 .side-panel {
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 5px;
   width: 53px;
   max-width: 53px;
@@ -318,6 +320,65 @@ input[type="number"] {
   height: 100vh;
   margin: 0 5px;
 }
+
+#control-button-info {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+#control-button-back {
+  position: absolute;
+  display: flex;
+  bottom: 104px;
+  min-height: 124px;
+  border-radius: 8px;
+  background-color: var(--darkblue-bright);      
+  box-shadow: 0 0 0;;
+
+}
+
+/*--------[ Динамічна ]-------------*/
+#control-button-back-move  {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  left: -48px;         
+  opacity: 0.5;
+  background-color: var(--darkblue-normal);
+  box-shadow: 1px 3px 5px var(--shadow-dark );;
+  border-radius: 8px;
+  transition: 
+    left 0.3s cubic-bezier(.4,0,.2,1),
+    opacity 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+#control-button-back:hover #control-button-back-move {
+  left: 0;      
+  opacity: 1;         
+}
+
+/*--------[ Статична  ]-------------*/
+/* #control-button-back-move  {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--darkblue-normal);
+  box-shadow: 1px 3px 5px var(--shadow-dark );;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+#control-button-back-move:hover {
+  background-color: var(--darkblue-accent);
+} */
+
+/*************************/
 
 .icon-base {
   width: 20px;

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equilateral trapezium</title>
+        <title>G-Hamsters</title>
+
 
     <link rel="stylesheet" href="./css/palette.css" />
     <link rel="stylesheet" href="./css/styles.css"/>
@@ -58,6 +59,19 @@
                     </div>
                 </div>
             </div>
+            <!--**********************************-->
+            <div class="control-button side passive" id="control-button-back">
+                <div id="control-button-back-move">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fhome.png?alt=media&token=6d9df1d6-6a83-44cc-bca3-8a6bf905f64c" alt="open info window" class="icon-button">
+                </div>
+                <span class="tooltip">Повернутися на головну сторінку</span>
+            </div>
+            <script>
+                document.getElementById('control-button-back').addEventListener('click', () => {
+                    window.location.href = "../main.html"; 
+                });
+            </script>
+            <!--**********************************-->
             <div class="control-button side passive" id="control-button-info">
                 <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Finfo.png?alt=media&token=c51ad56e-e6ab-457e-8ed9-1fc10c8695d6" alt="open info window" class="icon-button">
                 <span class="tooltip">Побачити довідкову інофрмацію</span>
@@ -243,7 +257,7 @@
                 </div>
                 <div class="control-body">
                     <div class="line-block start">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase.png?alt=media&token=8a4475d4-6dfb-44e8-a2cd-8d65eb57b7a4" alt="base soft point" class="icon-base">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase.png?alt=media&token=a97e1790-e3dd-4853-8a2d-7b52e284cf2c" alt="base soft point" class="icon-base">
                         <p class="text-item-info"> - опорна (гладка) точка</p>
                     </div>
                     <div class="line-block start">
@@ -251,7 +265,7 @@
                         <p class="text-item-info"> - опорна (кутова) точка</p>
                     </div>
                     <div class="line-block start">
-                        <img src="./img/control.png" alt="base point" class="icon-base">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fcontrol.png?alt=media&token=a801ccbe-95a6-41a8-bfd0-3e899c7b4792" alt="base point" class="icon-base">
                         <p class="text-item-info"> - керуюча точка</p>
                     </div>
 

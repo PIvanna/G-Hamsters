@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Модуль: Криві Безьє</title>
+        <title>G-Hamsters</title>
+
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/module.css" />
     <style>
@@ -544,6 +545,28 @@
         </button>
       </div>
     </div>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+    <df-messenger
+      project-id="singular-tuner-453212-c2"
+      agent-id="fea4b086-5934-4c1d-9883-34dc2a9057cf"
+      language-code="uk"
+      max-query-length="-1"
+    >
+      <df-messenger-chat-bubble chat-title="Hamster"> </df-messenger-chat-bubble>
+    </df-messenger>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
     <script src="./js/components.js"></script>
     <script type="module" src="./js/mainPage.js"></script>
   </body>

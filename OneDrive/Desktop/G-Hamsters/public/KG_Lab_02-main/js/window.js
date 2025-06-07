@@ -235,8 +235,6 @@ function createProjectItem() {
     return project;
 }
 
-
-
 class Project {
     static projectCounter = 0;
     constructor(
@@ -292,7 +290,6 @@ class Project {
             colors: new Colors()
         }
         this.isClear = true;
-
     }
 
     drawThis() {
@@ -511,7 +508,7 @@ if (currentCurve) {
     glueToggle.style.pointerEvents = "none";
     glueSlider.style.cursor = "default";
     glueSlider.classList.add("disabled"); 
-    glueSlider.setAttribute("data-tooltip", "Неможливо обрати режим для уже створеної кривої."); 
+    glueSlider.setAttribute("data-tooltip", "Неможливо обрати режим для вже створеної кривої."); 
 } else {
     glueToggle.disabled = false;
     glueToggle.style.pointerEvents = "auto";

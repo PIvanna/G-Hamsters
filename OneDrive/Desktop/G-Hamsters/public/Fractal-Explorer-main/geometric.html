@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <title>G-Hamsters</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div id="canvas-container">
+        <canvas id="canvas" width="1170" height="690"></canvas>
+        <div id="canvas-spinner"></div>
+      </div>
+
+      <div class="controls">
+        <div id="fractal-params" class="tab active">
+          <h2>Вид фракталу</h2>
+          <div class="field-row">
+            <label for="fractal-type">Тип:</label>
+            <select id="fractal-type">
+              <option value="dragon-curve">Дракон Хартера-Хейтуея</option>
+              <option value="sierpinski-triangle">
+                Трикутник Серпінського
+              </option>
+              <option value="koch-snowflake">Сніжинка Коха</option>
+              <option value="barnsley-fern">Папороть Барнслі</option>
+              <option value="pythagoras-tree">Дерево Піфагора</option>
+              <option value="brownian-motion">Броунівський рух</option>
+              <option value="koch-curve">Крива Коха</option>
+              <option value="hilbert-curve">Крива Гільберта-Пеано</option>
+              <option value="inverse-koch">Сніжинка Коха "навпаки"</option>
+            </select>
+            <label for="animate">Анімувати:</label>
+            <input type="checkbox" id="animate" />
+          </div>
+
+          <h2>Параметри</h2>
+          <div class="field-row">
+            <label for="iterations">К-ть. ітерацій:</label>
+            <input type="number" min="1" value="6" id="iterations" />
+          </div>
+          <div class="field-row">
+            <label for="line-len">Довжина лінії:</label>
+            <input type="number" min="0" value="5" id="line-len" />
+          </div>
+          <div class="field-row">
+            <label for="line-width">Ширина лінії:</label>
+            <input type="number" min="0" value="1" id="line-width" />
+          </div>
+
+          <div class="field-row">
+            <label for="mainColor">Основний колір:</label>
+            <input type="color" id="mainColor" value="#000000" />
+          </div>
+
+          <div class="field-row">
+            <label for="bgColor">Колір фону:</label>
+            <input type="color" id="bgColor" value="#FFFFFF" />
+          </div>
+          <div class="field-row">
+            <button id="btn-draw">Намалювати</button>
+            <button id="btn-save">Зберегти</button>
+          </div>
+        </div>
+      </div>
+
+      <button id="main-page-btn" title="Перейти до головної сторінки">
+        Головна сторінка
+      </button>
+      <button
+        id="algebraic-fractals-btn"
+        title="Перейти до алгебраїчних фракталів"
+      >
+        Алгебраїчні фрактали
+      </button>
+    </main>
+
+    <script src="geometric.js"></script>
+    <script>
+      document
+        .getElementById("algebraic-fractals-btn")
+        .addEventListener("click", () => {
+          window.location.href = "algebraic.html";
+        });
+      document.getElementById("main-page-btn").addEventListener("click", () => {
+        window.location.href = "../main.html";
+      });
+    </script>
+  </body>
+</html>

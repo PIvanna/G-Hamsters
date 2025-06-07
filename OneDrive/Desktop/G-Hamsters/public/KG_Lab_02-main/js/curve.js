@@ -1,6 +1,3 @@
-
-
-
 class Pair {
   constructor(x, y) {
       this.x = x;
@@ -119,11 +116,11 @@ class Point {
     const img = document.createElement("img");
     if (this.isBase)
         if (this.isSoft)
-            img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase.png?alt=media&token=8a4475d4-6dfb-44e8-a2cd-8d65eb57b7a4";
+            img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase.png?alt=media&token=03c851c9-1689-4439-8489-2041700457f0";
         else 
-            img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase_hard.png?alt=media&token=a97e1790-e3dd-4853-8a2d-7b52e284cf2c";
+            img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fbase_hard.png?alt=media&token=b05f7068-f3fc-4090-8757-5010c091372f";
     else 
-        img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fcontrol.png?alt=media&token=a801ccbe-95a6-41a8-bfd0-3e899c7b4792";
+        img.src = "https://firebasestorage.googleapis.com/v0/b/noa2-8fefc.appspot.com/o/Dima%2Fcontrol.png?alt=media&token=089dbd3f-9134-416d-96b3-9a5521e72f9c";
 
     img.alt = "base point";
     img.classList.add("icon-base");
